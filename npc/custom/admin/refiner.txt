@@ -1,0 +1,30 @@
+// ===========================================================
+// Refiner
+// ===========================================================
+turbo_room,123,98,4	script	SurpremusRO Refiner	869,{
+	callfunc "refinemain","SupremusRO Refiner",0;
+	end;
+}
+
+// ===========================================================
+// Notice Board
+// ===========================================================
+turbo_room,113,94,4	script	Refiner Zone#1	837,{
+end;
+OnInit:
+waitingroom "Refiner's Zone",0;
+end;
+}
+
+// ===========================================================
+// Socket Enchants Duplicate
+// ===========================================================
+turbo_room,127,98,4,	duplicate(SocketEnchant)	Seiyablem#turbo	84
+turbo_room,131,98,4,	duplicate(SocketEnchant2)	Leablem#turbo	84
+
+// ===========================================================
+// Miscellaneous Duplicate
+// ===========================================================
+turbo_room,136,95,4	duplicate(Vurewell)	Vurewell#turbo	4_M_04
+turbo_room,136,91,4	duplicate(Dietrich)	Dietrich#turbo	4_M_02
+turbo_room,136,87,4	duplicate(Repairman#alb)	Repairman#turbo	4_M_04

@@ -38,4 +38,4 @@ alberta,248,89,4	duplicate(Turtle_Scholar_alberta)	Turtle Island Scholar	2_M_MOL
 
 // quests/skills/merchant_skills.txt
 //============================================================
-alberta,232,106,6	duplicate(Gershaun_alberta)	Gershaun	1_M_LIBRARYMASTER
+//alberta,232,106,6	duplicate(Gershaun_alberta)	Gershaun	1_M_LIBRARYMASTER
