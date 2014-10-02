@@ -569,8 +569,8 @@ CREATE TABLE IF NOT EXISTS `login` (
 -- inserted into the table called login which is above
 
 INSERT INTO `login` (`account_id`, `userid`, `user_pass`, `sex`, `email`) VALUES ('1', 'qwerty1234', 'SRIsHDI2Qy', 'S','athena@athena.com');
-INSERT INTO `login` (`account_id`, `userid`, `user_pass`, `sex`, `email`) VALUES ('2000001', '2000001', 'abcd1234', 'M','johnsamuel_santos3@yahoo.com',99);
-INSERT INTO `login` (`account_id`, `userid`, `user_pass`, `sex`, `email`) VALUES ('2000002', '2000002', 'abcd1234', 'M','julscanoy@gmail.com',99);
+INSERT INTO `login` (`account_id`, `userid`, `user_pass`, `sex`, `email`, `group_id`) VALUES ('2000001', '2000001', 'abcd1234', 'M','johnsamuel_santos3@yahoo.com',99);
+INSERT INTO `login` (`account_id`, `userid`, `user_pass`, `sex`, `email`, `group_id`) VALUES ('2000002', '2000002', 'abcd1234', 'M','julscanoy@gmail.com',99);
 
 --
 -- Table structure for table `mapreg`
