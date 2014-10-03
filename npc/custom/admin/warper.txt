@@ -537,7 +537,7 @@ end;
 // --------------------------------------------------
 //	Duplicates:
 // --------------------------------------------------
-prontera,152,192,4	duplicate(Warper)	Warper#1	811
+prontera,152,192,4	duplicate(Warper)	Warper#1	812
 rachel,135,116,4	duplicate(Warper)	Warper#2	811
 alberta,28,240,4	duplicate(Warper)	Warper#3	811
 aldebaran,145,118,4	duplicate(Warper)	Warper#4	811
