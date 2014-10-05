@@ -563,7 +563,7 @@ CREATE TABLE IF NOT EXISTS `login` (
   `pincode_change` INT(11) UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (`account_id`),
   KEY `name` (`userid`)
-) ENGINE=MyISAM AUTO_INCREMENT=2000000; 
+) ENGINE=MyISAM AUTO_INCREMENT=2000100; 
 
 -- added standard accounts for servers, VERY INSECURE!!!
 -- inserted into the table called login which is above
