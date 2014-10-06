@@ -1,0 +1,54 @@
+new_1-1,57,117,4	script	Supremus Freebie	718,{
+
+if( pamigayto == 0 ){
+set pamigayto,1;
+mes "Welcome to SupremusRO";
+mes "Please claim your gift";
+getitem 14533,10;
+getitem 601,20; //Wing_Of_Fly
+getitem 602,10; //Butterfly Wing
+getitem 1243,1; //Novice_Knife
+getitem 2112,1; //Novice_Guard
+getitem 611,5; //Spectacles
+getitem 569,300; //Novice_Potion
+getitem 2305,1; //Adventure_Suit
+getitem 1704,1; //Composite_Bow
+getitem 1207,1; //Main_Gauche
+close;
+
+}else{
+mes "You have claim the Reward already.";
+}
+close;
+
+
+}
+
+new_1-1,60,117,4	script	Newbie Warper	859,{
+mes "[^FF0000Supremus Warper^000000]";
+mes "Greetings wanderer!";
+next;
+mes "[^FF0000Supremus Warper^000000]";
+mes "Would you want to go to Prontera?";
+next;
+mes "[^FF0000Supremus Warper^000000]";
+menu "I would love to go.",yes,"Nah. I will just stay here",no;
+close;
+
+yes:
+mes "Alright then. Prepare for your new journey.";
+next;
+mes "[^FF0000Supremus Warper^000000]";
+mes "Good luck.";
+warp "prontera",156,191;
+save "prontera",156,191;
+announce "Please welcome "+strcharinfo(0)+"  to our server!",bc_all,0x0099FF;
+close;
+
+no:
+mes "[^FF0000Supremus Warper^000000]";
+mes "Just come back when you need me.";
+close;
+}
+
+//new_1-1,60,117,4	duplicate(Warper)	Warper#48	859
