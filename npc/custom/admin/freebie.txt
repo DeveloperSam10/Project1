@@ -1,0 +1,27 @@
+new_1-1,57,117,4	script	Supremus Freebie	718,{
+
+if( pamigayto == 0 ){
+set pamigayto,1;
+mes "Welcome to SupremusRO";
+mes "Please claim your gift";
+getitem 14533,10;
+getitem 601,20; //Wing_Of_Fly
+getitem 602,10; //Butterfly Wing
+getitem 1243,1; //Novice_Knife
+getitem 2112,1; //Novice_Guard
+getitem 611,5; //Spectacles
+getitem 569,300; //Novice_Potion
+getitem 2305,1; //Adventure_Suit
+getitem 1704,1; //Composite_Bow
+getitem 1207,1; //Main_Gauche
+close;
+
+}else{
+mes "You have claim the Reward already.";
+}
+close;
+
+
+}
+
+new_1-1,60,117,4	duplicate(Warper)	Warper#48	859
