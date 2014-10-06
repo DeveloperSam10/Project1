@@ -24,4 +24,30 @@ close;
 
 }
 
-new_1-1,60,117,4	duplicate(Warper)	Warper#48	859
+new_1-1,60,117,4	script	Newbie Warper	859,{
+mes "[^FF0000Supremus Warper^000000]";
+mes "Greetings wanderer!";
+next;
+mes "[^FF0000Supremus Warper^000000]";
+mes "Would you want to go to Prontera?";
+next;
+mes "[^FF0000Supremus Warper^000000]";
+menu "I would love to go.",yes,"Nah. I will just stay here",no;
+close;
+
+yes:
+mes "Alright then. Prepare for your new journey.";
+next;
+mes "[^FF0000Supremus Warper^000000]";
+mes "Good luck.";
+warp "prontera",156,191;
+save "prontera",156,191;
+close;
+
+no:
+mes "[^FF0000Supremus Warper^000000]";
+mes "Just come back when you need me.";
+close;
+}
+
+//new_1-1,60,117,4	duplicate(Warper)	Warper#48	859
