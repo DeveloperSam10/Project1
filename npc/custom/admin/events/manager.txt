@@ -404,6 +404,6 @@ OnInit:
 	set .zombieinvasion,2;	// Original Prize Amount for Zombie Invasion Event
 	set .MVPinvasion,2;	// Original Prize Amount for MVP Invasion Event
 
-	set .AddPrize,1;	//Additional Prize (1:Enabled | 0:Disabled)
+	set .AddPrize,0;	//Additional Prize (1:Enabled | 0:Disabled)
 	set .monthsary,0;	// Monthsary Event Prize System (1:Enabled | 0:Disabled)
 }
