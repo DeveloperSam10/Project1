@@ -388,7 +388,7 @@ OnEnd:
 	end;
 
 OnInit:
-	set .eventprize,7711;	// Item Id for Event Token
+	set .eventprize,29000;	// Item Id for SupremusRO Event Box
 
 	/* Prize Settings */
 	set .poringcatcher,10;	// Original Prize Amount for Poring Catcher
