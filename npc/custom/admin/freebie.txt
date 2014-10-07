@@ -20,9 +20,10 @@ else {
 	mes "[SupremusRO Receptionist]";
 	mes "You have claim the Reward already.";
 }
-	set nov_1st_cos,1;
-	set nov_1st_cos,3;
-	getexp 9,0;
+	if (nov_1st_cos < 3) {
+		set nov_1st_cos,3;
+		getexp 9,0;
+	}
 	next;
 	mes "[SupremusRO Receptionist]";
 	mes "Welcome!";
