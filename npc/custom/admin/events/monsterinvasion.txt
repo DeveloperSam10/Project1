@@ -1,0 +1,87 @@
+-	script	MVP Invasion	-1,{
+function Event;
+On5S:
+	set .5_mobNum[1], .5_mobNum[1]-1;
+	/* Item Prize*/
+	if (getvariableofnpc(.monthsary,"Event Manager")) {
+		set #CASHPOINTS, #CASHPOINTS + getvariableofnpc(.MVPinvasion,"Event Manager");
+		dispbottom "You have obtained "+getvariableofnpc(.MVPinvasion,"Event Manager")+" Cash points.";
+		dispbottom "Total Cashpoints: "+#CASHPOINTS+"";
+	}
+	else {
+		getitem getvariableofnpc(.eventprize,"Event Manager"),getvariableofnpc(.MVPinvasion,"Event Manager");
+		if (getvariableofnpc(.AddPrize,"Event Manager") == 1) {
+			getexp rand(1000,10000),rand(100,1000);
+			set .@AddZeny,rand(1000,50000);
+			set Zeny, Zeny + .@AddZeny;
+			dispbottom "You have gained "+.@AddZeny+"z.";
+		}
+	}
+	set .@str$, ((.5_mobNum[1])?" "+.5_mobNum[1]+" remain.":"");
+	mapannounce .5_map$,strcharinfo(0)+" has killed a special MVP!"+.@str$,16;
+	if (!.5_mobNum[1]) Event(5,0,0);
+	end;
+
+OnMinute00:
+OnStart:
+	if (!.Active) {
+		Event(5,1,0);
+	}
+	else {
+		Event(5,0,0);
+	}
+	end;
+
+OnTimer600000:	//After 10 Minutes
+	announce "10 minutes had already passed since MVPs invaded the town of "+.5_map$+"!",0;
+	sleep 2000;
+	announce "Reinforcements are needed... Last 20 minutes...",0;
+	end;
+
+OnTimer1200000:	//After 20 Minutes
+	announce "20 minutes had already passed since MVPs invaded the town of "+.5_map$+"!",0;
+	sleep 2000;
+	announce "Reinforcements are needed... Last 10 minutes...",0;
+	end;
+	
+OnTimer1800000:	//After 30 Minutes
+	Event(5,0,0);
+
+OnInit:
+	set .5_points,1;	// Points per 'special' MVP kill.
+	set .5_map$,"poring_w01";	// Event map (should be large).
+	bindatcmd "mvp",strnpcinfo(3)+"::OnAtcommand";
+	end;
+
+function Event {
+	if (getarg(1)) {
+		set .Active,1;
+		query_sql("SELECT ID FROM `mob_db` WHERE left(Sprite, 4) != 'meta' AND left(Sprite, 2) != 'E_' AND MEXP > 1 ORDER BY rand() LIMIT 10", .mvp);
+		for(set .@k,0; .@k < getarraysize(.mvp); set .@k,.@k+1)
+		monster .5_map$,0,0,getmonsterinfo(.mvp[.@k],0),.mvp[.@k],rand(1,10),strnpcinfo(0)+"::On5S";
+		announce "The MVP Invasion event has begun in "+.5_map$+"!",0;
+		sleep 2000;
+		announce "The MVP Invasion event will only last for 30 minutes",0;
+		initnpctimer;
+	}
+	else {
+		killmonster .5_map$,"All";
+		maprespawnguildid .5_map$,0,3;
+		setarray .5_mobNum[1],0,0;
+		stopnpctimer;
+	}
+	if (!getarg(1)) {
+		announce "The MVP Invasion event is now over!",0;
+		set .Active,0;
+	}
+	set .Active, ((getarg(1))?getarg(0):0);
+	return;
+}
+
+OnAtcommand:
+	dispbottom "There are now "+mobcount(.5_map$,strnpcinfo(0)+"::On5S")+" MVPs left in "+.5_map$+".";
+	end;
+}
+
+poring_w01	mapflag	zone	Maze
+poring_w01	mapflag	noskill	off

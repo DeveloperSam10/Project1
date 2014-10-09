@@ -1,0 +1,61 @@
+//===== eAthena Script =======================================
+//= Quest Maker v3.0 Script
+//===== By: ==================================================
+//= GM Zeus [QM]
+//===== Current Version: =====================================
+//= 1.0
+//===== Compatible With: =====================================
+//= eA SVN 5000+
+//===== Additional Comments: =================================
+//= v1.0 thanks to QM
+//============================================================
+
+turbo_room,119,128,4	script	Mao Zedong	588,{
+	mes "[^000000Mao Zedong^000000]";
+	mes "Hi !";
+	mes "You're here for the I Love China [0], aren't you ?";
+	mes "It's an amazing hat !";
+	next;
+	menu "Item needed ?",L_required,"I have your items !",L_check,"Leave",L_partir;
+
+	L_required:
+		mes "[^000000Mao Zedong^000000]";
+		mes "^FF00001^000000 Symbol of Peace"; //7817
+		mes "^FF00001^000000 Symbol of Richness"; //7810
+		mes "^FF0000100^000000 Flame Heart"; //994
+		mes "^FF00001^000000 Angel Wing [0]"; //2254
+		mes "^0000FF500000^000000 zeny";
+		close;
+
+	L_check:
+		if(countitem(7817) < 1) goto L_manque;
+		if(countitem(7810) < 1) goto L_manque;
+		if(countitem(994) < 100) goto L_manque;
+		if(countitem(2254) < 1) goto L_manque;
+		if(Zeny < 500000) goto L_manque;
+		mes "[^000000Mao Zedong^000000]";
+		mes "Oh, so you did it !";
+		mes "Here, take your I Love China [0]!";
+		delitem 7817,1;
+		delitem 7810,1;
+		delitem 994,100;
+		delitem 2254,1;
+		set Zeny, Zeny - 500000;
+		getitem 5423,1;
+		close;
+
+	L_manque:
+		mes "[^000000Mao Zedong^000000]";
+		mes "You miss...";
+		if(countitem(7817) < 1) mes "^FF0000"+(1 - countitem(7817)) +"^000000 Symbol of Peace";
+		if(countitem(7810) < 1) mes "^FF0000"+(1 - countitem(7810)) +"^000000 Symbol of Richness";
+		if(countitem(994) < 100) mes "^FF0000"+(500 - countitem(994)) +"^000000 Flame Heart";
+		if(countitem(2254) < 1) mes "^FF0000"+(1 - countitem(2254)) +"^000000 Angel Wing [0]";
+		if(Zeny < 500000) mes "^0000FF"+(500000 - Zeny)+"^000000 Zeny";
+		close;
+
+	L_partir:
+		mes "[^000000Mao Zedong^000000]";
+		mes "Have a nice day.";
+		close;
+}

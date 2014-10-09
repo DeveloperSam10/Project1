@@ -1,0 +1,23 @@
+-	script	News	-1,{
+OnInit:
+set .Time,15;		// Announce every x Minute.
+
+setarray .News$[0],	// Random Message to be Announced
+			"Hello Players! Play in SupremusRO! Get you friends here and double the fun!! Hurry!",
+			"SupremusRO 50x/50x/25x. Enjoy playing! For more info, check our website and forums.",
+			"SupremusRO gives you the chance to enjoy and have fun! Visit our website and forums for more information.",
+			"SupremusRO Like and Share event. See forums for more details.",
+			"GMs will not ask for your passwords. Please beware.",
+			"Any suggestions or feedbacks? Don't hesitate to contact us.",
+			"The Main channel must be used in English only. You can write any languages in other chats though but main stays English.",
+			"A careful reminder from GM Team, 'Be respectful to everyone.'",
+			"A careful reminder from GM Team, 'Do not Beg, Do not Bot/Macro, No AFK Leveling/hunting.'",
+			"Please report bugs. Bugs should be fix and not be abused.",
+			"Report all bug abusers or players who disobeyed rules.",
+			"Do not advertise any other server/website/game. Mentioning another server can be considered advertising.";
+while( 1 ){
+	announce .News$[ rand( getarraysize( .News$ ) ) ],0;
+	sleep ( .Time * 60000 );
+	}
+end;
+}

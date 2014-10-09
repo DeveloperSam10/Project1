@@ -1,0 +1,53 @@
+//===== eAthena Script =======================================
+//= Quest Maker v3.0 Script
+//===== By: ==================================================
+//= GM Zeus [QM]
+//===== Current Version: =====================================
+//= 1.0
+//===== Compatible With: =====================================
+//= eA SVN 5000+
+//===== Additional Comments: =================================
+//= v1.0 thanks to QM
+//============================================================
+
+turbo_room,107,129,6	script	Iruka	548,{
+	mes "[^000000Iruka^000000]";
+	mes "Hi !";
+	mes "You're here for the Ramen Hat [0], aren't you ?";
+	mes "It's an amazing hat !";
+	next;
+	menu "Item needed ?",L_required,"I have your items !",L_check,"Leave",L_partir;
+
+	L_required:
+		mes "[^000000Iruka^000000]";
+		mes "^FF000050^000000 Gold"; //969
+		mes "^FF00001^000000 Symbol of Richness"; //7810
+		mes "^FF0000200^000000 Ancient Lips"; //1054
+		close;
+
+	L_check:
+		if(countitem(969) < 50) goto L_manque;
+		if(countitem(7810) < 1) goto L_manque;
+		if(countitem(1054) < 200) goto L_manque;
+		mes "[^000000Iruka^000000]";
+		mes "Oh, so you did it !";
+		mes "Here, take your Ramen Hat [0]!";
+		delitem 969,50;
+		delitem 7810,1;
+		delitem 1054,200;
+		getitem 5293,1;
+		close;
+
+	L_manque:
+		mes "[^000000Iruka^000000]";
+		mes "You miss...";
+		if(countitem(969) < 50) mes "^FF0000"+(50 - countitem(969)) +"^000000 Gold";
+		if(countitem(7810) < 1) mes "^FF0000"+(1 - countitem(7810)) +"^000000 Symbol or Richness";
+		if(countitem(1054) < 200) mes "^FF0000"+(200 - countitem(1054)) +"^000000 Ancient Lips";
+		close;
+
+	L_partir:
+		mes "[^000000Iruka^000000]";
+		mes "Have a nice day.";
+		close;
+}

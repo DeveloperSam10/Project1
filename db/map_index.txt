@@ -1003,3 +1003,17 @@ c_tower3_
 //
 //mymap	1250
 //mymap-2
+
+emp_test
+db_room01
+db_room02
+db_room03
+db_room04
+db_room05
+db_room06
+db_room07
+db_room08
+pvp_room01
+pvp_room02
+pvp_room03
+pvp_room04

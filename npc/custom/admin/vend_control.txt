@@ -1,0 +1,263 @@
+//===== eAthena Script =====================================
+//= Vendor Control
+//===== By: ================================================
+//= Original by Emistry
+//= Rewrite by AnnieRuru
+//===== Current Version: ===================================
+//= 1.0
+//===== Compatible With: ===================================
+//= Hercules 2014-02-18
+//===== Description: =======================================
+//= Vendors only vend on certain coordinate, looks tidy :P
+//===== Topic ==============================================
+//= http://hercules.ws/board/topic/4509-
+//===== Additional Comments: ===============================
+//= Emistry would love his script rewritten by his master ?
+//==========================================================
+
+-	script	vend_slot	-1,{
+	mes "[Vending Slot]";
+	getmapxy .@map$, .@x, .@y, 1;
+	if ( !getskilllv( "MC_VENDING" ) ) {
+		mes "You dont have ^0055FFVending Skill^000000.";
+		close;
+	}
+	else if ( getareausers( .@map$, .@x, .@y, .@x, .@y ) ) {
+		mes "Someone already using this slot";
+		close;
+	}
+	mes "Spot : ^777777Available^000000";
+	mes "^0055FF[ Vending Area Rules ]^000000";
+	mes "^FF0000 ~ Use proper Shop Name.^000000";
+	mes "^777777Player who failed to follow these rules will be punished.^000000";
+	unitwalk getcharid(3), .@x, .@y;
+	hideonnpc strnpcinfo(0);
+	donpcevent strnpcinfo(0)+"::OnCheckAvailable";
+	close;
+OnCheckAvailable:
+	sleep 10000;
+	getmapxy .@map$, .@x, .@y, 1;
+	while ( getareausers( .@map$, .@x, .@y, .@x, .@y ) ) sleep 10000;
+	hideoffnpc strnpcinfo(0);
+	end;
+}
+
+// Add more if needed.
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot0	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot1	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot2	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot3	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot4	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot5	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot6	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot7	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot8	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot9	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot10	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot11	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot12	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot13	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot14	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot15	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot16	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot17	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot18	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot19	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot20	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot21	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot22	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot23	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot24	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot25	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot26	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot27	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot28	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot29	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot30	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot31	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot32	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot33	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot34	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot35	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot36	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot37	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot38	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot39	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot40	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot41	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot42	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot43	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot44	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot45	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot46	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot47	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot48	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot49	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot50	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot51	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot52	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot53	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot54	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot55	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot56	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot57	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot58	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot59	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot60	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot61	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot62	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot63	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot64	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot65	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot66	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot67	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot68	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot69	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot70	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot71	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot72	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot73	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot74	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot75	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot76	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot77	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot78	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot79	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot80	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot81	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot82	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot83	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot84	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot85	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot86	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot87	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot88	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot89	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot90	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot91	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot92	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot93	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot94	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot95	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot96	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot97	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot98	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot99	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot100	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot101	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot102	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot103	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot104	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot105	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot106	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot107	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot108	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot109	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot110	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot111	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot112	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot113	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot114	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot115	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot116	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot117	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot118	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot119	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot120	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot121	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot122	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot123	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot124	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot125	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot126	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot127	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot128	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot129	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot130	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot131	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot132	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot133	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot134	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot135	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot136	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot137	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot138	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot139	858
+prontera,0,0,4	duplicate(vend_slot)	#vend_slot140	858
+
+/* Configuration */
+prontera,147,166,5	script	Vending Helper	757,{
+	mes "["+ strnpcinfo(1) +"]";
+	if ( !getskilllv( "MC_VENDING" ) ) {
+		mes "You dont have ^0055FFVending Skill^000000.";
+		close;
+	}
+	mes "Select a slot and start vending.";
+	while ( true ) {
+		.@menu$ = .@currentpage ? "Previous Page:" : ":";
+		.@pageindex = .@currentpage * .slotperpage;
+		for ( .@i = 0; .@i < .slotperpage && .@pageindex + .@i < .Count; .@i++ ) {
+			if ( !getmapxy( .@map$, .@x, .@y, 1, "#vend_slot"+( .@pageindex + .@i ) ) && getareausers( .map$, .@x, .@y, .@x, .@y ) )
+				.@menu$ = .@menu$ +"Slot No."+( .@pageindex + .@i +1 )+" - ^FF0000[UnAvailable]^000000:";
+			else {
+				.@menu$ = .@menu$ +"Slot No."+( .@pageindex + .@i +1 )+" - ^00CC00[Available]^000000:";
+				.@available++;
+			}
+		}
+		if ( .@currentpage != .maxpage )
+			.@menu$ = .@menu$ + "Next Page";
+		.@pick = select( .@menu$ ) -1;
+		if ( !.@pick )
+			.@currentpage--;
+		else if ( .@pick == .slotperpage +1 )
+			.@currentpage++;
+		else
+			break;
+	}
+	.@s =  .@currentpage * .slotperpage + .@pick -1 ;
+	if ( !getmapxy( .@map$, .@x, .@y, 1, "#vend_slot"+ .@s ) && getareausers( .map$, .@x, .@y, .@x, .@y ) ) {
+		mes " ";
+		mes "This slot is ^FF0000[UnAvailable]^000000.";
+		close;
+	}
+	warp .@map$, .@x, .@y;
+	hideonnpc "#vend_slot"+ .@s;
+	donpcevent "#vend_slot"+ .@s +"::OnCheckAvailable";
+	end;
+OnInit:
+//	======================= Configuration HERE =============================
+	.map$ = "prontera"; // map
+	//setarray .@x, 145,142,139,115,118,121; // x coordinates
+	setarray .@x, 145,143,141,139,137,135,133,131,129,166,168,170,172,174,176,178,180; // x coordinates halloween
+	setarray .@y, 174,172,170,168,166,164,162,160,158,156,154,152,150,148,146,144,142,140,138;// y coordinates halloween
+	//setarray .@y, 174,172,170,168,166,164,162,160,152,150,142,140,108,106,104,102,100,98,96,94,92,90,88,86,84,82,80;// y coordinates
+	.slotperpage = 20; // display how many slots per page (prevent making the menu too long)
+
+//	too many people said this script causes vendor cannot vend at all on the map, ( coordinates has set too near )
+//	because there is a setting in 'conf\battle\player.conf' to disallow player to vend too near other npcs
+	setbattleflag "min_npc_vendchat_distance", 0; // comment this line to make the default value back to 3
+
+	freeloop 1;
+	setcell .map$, 0,0, 500,500, cell_novending, 1;
+	.@x_size = getarraysize( .@x );
+	.@y_size = getarraysize( .@y );
+	.@i = 0;
+	while ( .@i < .@y_size ) {
+		.@j = 0;
+		while ( .@j < .@x_size ) {
+			if ( checkcell( .map$, .@x[.@j], .@y[.@i], cell_chkpass ) ) {
+				movenpc "#vend_slot"+ .Count, .@x[.@j], .@y[.@i];
+				setcell .map$, .@x[.@j], .@y[.@i], .@x[.@j], .@y[.@i], cell_novending, 0;
+				if ( getareausers( .map$, .@x[.@j], .@y[.@i], .@x[.@j], .@y[.@i] ) ) {
+					hideonnpc "#vend_slot"+ .Count;
+					donpcevent "#vend_slot"+ .Count +"::OnCheckAvailable";
+				}
+				.Count++;
+			}
+			.@j++;
+		}
+		.@i++;
+	}
+	.maxpage = .Count / .slotperpage + ( .Count % .slotperpage > 0 ) -1;
+	end;
+}

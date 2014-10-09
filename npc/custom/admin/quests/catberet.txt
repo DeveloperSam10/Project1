@@ -1,0 +1,60 @@
+turbo_room,125,135,4	script	Cat Ear Beret Quest	725,{
+
+	mes "[ ^3355FFCat Lover^000000 ]";
+	mes "I really love cats!! HAHA!";
+	next;
+	menu "Oh really?",-,"I love dogs.",L_QUIT;
+	mes "[ ^3355FFCat Lover^000000 ]";
+	mes "Yes!! In fact, I created a hat based on cats!";
+	next;
+	mes "[ ^3355FFCat Lover^000000 ]";
+	mes "Anyways, if you could gather this";
+	mes "items maybe i could make you one.";
+	mes "10 ^3355FFLeaf Cat Cards^000000";
+	mes "10 ^3355FFWild Rose Cards^000000";
+	mes "1 ^3355FFFeather Beret^000000";
+	next;
+	mes "[ ^3355FFCat Lover^000000 ]";
+	mes "So are you up for the challenge?";
+	next;
+	menu "Yes, let's do it",-,"No, I'm not interested",L_QUIT2;
+	mes "[ ^3355FFCat Lover^000000 ]";
+	mes "So, what are you waiting for?";
+	mes "Are you going or not?";
+	next;
+	menu "Yes",-,"No",L_QUIT2;
+
+	if(countitem(4195) < 10 || countitem(4257) < 10 || countitem(5170) < 1 ) goto L_NOTENOUGH;
+
+	delitem 4195,10;
+	delitem 4257,10;
+	delitem 5170,1;
+	getitem 18600,1;
+
+	mes "[ ^3355FFCat Lover^000000 ]";
+	mes "Here is your ^3355FFCat Ear Beret^000000";
+	mes "Take care of this..";
+	close;
+
+L_NOTENOUGH:
+	mes "[ ^3355FFCat Lover^000000 ]";
+	mes "Hey! You are lacking some of the items!";
+	mes "Please complete it before you go back to me. Specially my Flavored Alcohol!";
+	close;
+
+L_QUIT:
+	mes "[ ^3355FFCat Lover^000000 ]";	
+	mes "Is that so??";
+	next;
+	mes "If you need water, then go home!";
+	mes "My house isn't a water drinking station you know!";
+	close;
+L_QUIT2:
+	mes "[ ^3355FFCat Lover^000000 ]";	
+	mes "Yeah right!!";
+	next;
+	mes "Get out of my sight!";
+	mes "You little Rascal!";
+	close;
+
+}

@@ -1,0 +1,2 @@
+pvp_room01	mapflag	pvp
+pvp_room01	mapflag	zone	CustomPVP

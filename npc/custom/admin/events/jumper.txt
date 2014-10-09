@@ -1,0 +1,162 @@
+//==========================================================//
+//========= Script by RyCHIRO =========//
+//========= http://ro-crew.rpgboard.net/ =========//
+//========= http://ro-crew.rpgboard.net/ =========//
+//==========================================================//
+
+prontera,0,0,3	script	jumpevent	95,{
+
+OnWhisperGlobal:
+if ( getgmlevel() < 80 ) end;
+
+L_JumpAdmin:
+	mes "[Manager]";
+	mes "^FF0000~Hi GM " + strcharinfo(0) + "!~^000000";
+	mes "^FF0000The Current Prize is:^000000";
+	mes "^008000"+getvariableofnpc(.jumper,"Event Manager")+" "+getitemname(getvariableofnpc(.eventprize,"Event Manager"))+"^000000";
+	switch(select("Start Jump Event?:Not today Fellas!")){
+
+	case 1:
+	next;
+	if( $@JumpStart == 1 ){
+	mes "[Manager]";
+	mes "I Can't Start The Event!!";
+	mes "The Event is still ON!!";
+	next;
+	goto L_JumpAdmin;
+	}
+	next;
+	mes "[Manager]";
+	mes "^FF0000~Sure thing!~^000000";
+	close2;
+	goto L_StartJmp;
+
+	case 2:
+	next;
+	mes "[Manager]";
+	mes "Bye!!";
+	close;
+
+}// End Admin Manager...
+
+OnWed0100:
+OnWed0400:
+OnWed0700:
+OnWed1000:
+OnWed1300:
+OnWed1600:
+OnWed1900:
+OnWed2200:
+OnAdminStart:
+L_StartJmp:
+announce "Jumper Event : will begin in 20 seconds",bc_blue;
+sleep 5000;
+announce "Jumper Event : I'm Going to JUMP somewhere..!!",bc_blue;
+sleep 5000;
+announce "Jumper Event : By the way I'm going to disguise into a random monster.!!",bc_blue;
+sleep 10000;
+announce "Jumper Event : Last 10 seconds",bc_blue;
+sleep 10000;
+set $@ran, rand(1,5);
+if ($@ran == 5) set $@jmpmap$,"izlude";
+if ($@ran == 4) set $@jmpmap$,"payon";
+if ($@ran == 3) set $@jmpmap$,"geffen";
+if ($@ran == 2) set $@jmpmap$,"morocc";
+if ($@ran == 1) set $@jmpmap$,"prontera";
+announce "Jumper Event : Go Find me!! I'm here in "+$@jmpmap$+"!!!",bc_blue;
+set $@JmpRnd,10;
+goto OnStart;
+
+OnStart:
+if ($@JmpRnd == 0){
+stopnpctimer;
+set $@JumpStart,0;
+sleep 3000;
+announce "Jumper Event : is now OVER!!",bc_blue;
+sleep 15000;
+movenpc "Jumper"+$@ran+"",1,1; //move the NPC
+setnpcdisplay "Jumper"+$@ran+"",1002;
+end;
+}
+if ($@JmpRnd == 10){
+goto OnStart2;
+}
+stopnpctimer;
+sleep 3000;
+announce "Jumper Event : Next Round will begin in 15 seconds...",bc_blue;
+sleep 15000;
+setnpcdisplay "Jumper"+$@ran+"",1002;
+movenpc "Jumper"+$@ran+"",1,1; //move the NPC
+set $@ran, rand(1,5);
+if ($@ran == 5) set $@jmpmap$,"izlude";
+if ($@ran == 4) set $@jmpmap$,"payon";
+if ($@ran == 3) set $@jmpmap$,"geffen";
+if ($@ran == 2) set $@jmpmap$,"morocc";
+if ($@ran == 1) set $@jmpmap$,"prontera";
+announce "Jumper Event : Go Find me!! I'm here in "+$@jmpmap$+"!!!",bc_blue;
+goto OnStart2;
+
+OnStart2:
+set $monster, rand(1001,1995);
+if($monster == 1003 || $monster == 1218 || $monster == 1006 || $monster == 1017 || $monster == 1021 || $monster == 1022 || $monster == 1027 || $monster == 1043 || $monster == 1006 || $monster == 1136 || $monster == 1137 || $monster == 1168 || $monster == 1171 || $monster == 1172 || $monster == 1173 || $monster == 1181 || $monster == 1210 || $monster == 1223 || $monster == 1284 || ($monster >= 1324 && $monster <= 1363) || $monster == 1006 || $monster == 1407 || $monster == 1411 || $monster == 1414 || $monster == 1496 || $monster == 1501 || $monster == 1900){ goto OnStart2; end; }
+while(1) { //Initiate an infinite loop
+set $@jx,rand(0,300); //Set a randon X coordinate
+set $@jy,rand(0,300); //Set a random Y coordinate
+if(checkcell(""+$@jmpmap$+"",$@jx,$@jy,cell_chkpass)) break; //If cell is walkable break out of the loop
+}
+initnpctimer;
+set $@JumpStart,1;
+movenpc "Jumper"+$@ran+"",$@jx,$@jy; //move the NPC
+setnpcdisplay "Jumper"+$@ran+"",$monster;
+set $@JmpRnd,$@JmpRnd-1;
+end;
+
+OnTimer120000:
+set $@JumpStart,0;
+announce "Jumper Event : WOW no One Found ME!! I'm here in "+$@jmpmap$+" "+$@jx+" "+$@jy+"!!",bc_blue;
+sleep 3000;
+donpcevent "jumpevent::OnStart";
+end;
+
+}//End Script
+
+-	script	Jumper	-1,{
+if( $@JumpStart == 0 ){
+mes "[Jumper]";
+mes "I'm sorry, Someone Found me..";
+close;
+}
+set $@JumpStart,0;
+
+/* Item Prize*/
+	if (getvariableofnpc(.monthsary,"Event Manager")) {
+		set #CASHPOINTS, #CASHPOINTS + getvariableofnpc(.jumper,"Event Manager");
+		dispbottom "You have obtained "+getvariableofnpc(.jumper,"Event Manager")+" Cash points.";
+		dispbottom "Total Cashpoints: "+#CASHPOINTS+"";
+	}
+	else {
+		getitem getvariableofnpc(.eventprize,"Event Manager"),getvariableofnpc(.jumper,"Event Manager");
+		if (getvariableofnpc(.AddPrize,"Event Manager") == 1) {
+			getexp rand(1000,10000),rand(100,1000);
+			set .@AddZeny,rand(1000,50000);
+			set Zeny, Zeny + .@AddZeny;
+			dispbottom "You have gained "+.@AddZeny+"z.";
+		}
+	}
+
+announce "Jumper Event : "+strcharinfo(0)+" is the WINNER!! I'm here in "+$@jmpmap$+" "+$@jx+" "+$@jy+"!!",bc_blue;
+donpcevent "jumpevent::OnStart";
+mes "[Jumper]";
+mes "WOW you found me!!";
+mes "Take this as a REWARD!!";
+mes "You got ^008000"+ getvariableofnpc(.jumper,"Event Manager") +" "+ getitemname(getvariableofnpc(.eventprize,"Event Manager")) +"^000000";
+close;
+end;
+}
+//End Script
+
+prontera,1,1,1	duplicate(Jumper)	Jumper1	1002
+morocc,1,1,1	duplicate(Jumper)	Jumper2	1002
+geffen,1,1,1	duplicate(Jumper)	Jumper3	1002
+payon,1,1,1	duplicate(Jumper)	Jumper4	1002
+izlude,1,1,1	duplicate(Jumper)	Jumper5	1002

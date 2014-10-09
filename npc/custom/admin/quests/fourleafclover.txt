@@ -1,0 +1,57 @@
+//===== eAthena Script =======================================
+//= Quest Maker v3.0 Script
+//===== By: ==================================================
+//= GM Zeus [QM]
+//===== Current Version: =====================================
+//= 1.0
+//===== Compatible With: =====================================
+//= eA SVN 5000+
+//===== Additional Comments: =================================
+//= v1.0 thanks to QM
+//============================================================
+
+turbo_room,109,138,6	script	Four Leaf Clover Quest	445,{
+	mes "[^000000Clover Fairy^000000]";
+	mes "Hi !";
+	mes "You're here for the Four Leaf Clover, aren't you ?";
+	mes "It's an amazing hat !";
+	next;
+	menu "Item needed ?",L_required,"I have your items !",L_check,"Leave",L_partir;
+
+	L_required:
+		mes "[^000000Clover Fairy^000000]";
+		mes "^FF000020^000000 Leaf Clover"; //706
+		mes "^FF0000100^000000 Yggdrasil Leaf"; //610
+		mes "^FF0000100^000000 Witched Starsand"; //1061
+		mes "^0000FF10000^000000 zeny";
+		close;
+
+	L_check:
+		if(countitem(706) < 20) goto L_manque;
+		if(countitem(610) < 100) goto L_manque;
+		if(countitem(1061) < 100) goto L_manque;
+		if(Zeny < 10000) goto L_manque;
+		mes "[^000000Clover Fairy^000000]";
+		mes "Oh, so you did it !";
+		mes "Here, take your Four Leaf Clover!";
+		delitem 706,20;
+		delitem 610,100;
+		delitem 1061,100;
+		set Zeny, Zeny - 10000;
+		getitem 5596,1;
+		close;
+
+	L_manque:
+		mes "[^000000Clover Fairy^000000]";
+		mes "You miss...";
+		if(countitem(706) < 20) mes "^FF0000"+(20 - countitem(706)) +"^000000 Leaf Clover";
+		if(countitem(610) < 100) mes "^FF0000"+(100 - countitem(610)) +"^000000 Yggdrasil Leaf";
+		if(countitem(1061) < 100) mes "^FF0000"+(100 - countitem(1061)) +"^000000 Witched Starsand";
+		if(Zeny < 10000) mes "^0000FF"+(10000 - Zeny)+"^000000 Zeny";
+		close;
+
+	L_partir:
+		mes "[^000000Clover Fairy^000000]";
+		mes "Have a nice day.";
+		close;
+}
