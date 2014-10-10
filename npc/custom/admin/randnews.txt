@@ -1,0 +1,14 @@
+-	script	News	-1,{
+OnInit:
+set .Time,15;		// Announce every x Minute.
+
+setarray .News$[0],	// Random Message to be Announced
+			"Hello Players! Play in SupremusRO! Get you friends here and double the fun!! Hurry!",
+			"Happy leveling :) For more info, check our website and forums",
+			"SupremusRO gives you the chance to enjoy and have fun! Visit our website and forums for more information.";
+while( 1 ){
+	announce .News$[ rand( getarraysize( .News$ ) ) ],0;
+	sleep ( .Time * 60000 );
+	}
+end;
+}
