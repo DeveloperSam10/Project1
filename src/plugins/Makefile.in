@@ -18,7 +18,7 @@
 #                                                                    #
 # Note: DO NOT include the .c extension!!!                           #
 
-MYPLUGINS = db2sql maintenance setbgid dispbottomcolor whosell
+MYPLUGINS = db2sql maintenance setbgid dispbottomcolor whosell dummycommands
 
 #                                                                    #
 #########  DO NOT EDIT ANYTHING BELOW THIS LINE!!!  ##################

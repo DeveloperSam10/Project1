@@ -49,7 +49,7 @@ OnPCLoginEvent:
 		if (gettimestr("%Y %m %d",21) >= @expirationDate$) // If current date is higher than expiration date...
 		{
 			//	terminateVip function on line 430, removes player VIP entry from database table "vip_platinum"
-			callsub terminateVip,"vip_platinum",getcharid(3),getcharid(0); goto L_displayInfo;
+			callsub terminateVip,"vip_platinum",getcharid(3),getcharid(0); goto OnDisplayInfo;
 		}
 		//	If expiration date has not arrived yet, ACTIVEte VIP benefits.
 		else
@@ -57,7 +57,7 @@ OnPCLoginEvent:
 			sc_end SC_CASH_PLUSEXP;
 			sc_end SC_CASH_RECEIVEITEM;
 			sc_start SC_CASH_PLUSEXP,1000*60*60*24,.VIPs_PlatinumExpRate;
-			sc_start SC_CASH_RECEIVEITEM,1000*60*60*24,.VIPs_PlatinumItemRate; goto L_displayInfo;
+			sc_start SC_CASH_RECEIVEITEM,1000*60*60*24,.VIPs_PlatinumItemRate; goto OnDisplayInfo;
 		}
 		
 	}
@@ -68,7 +68,7 @@ OnPCLoginEvent:
 		if (gettimestr("%Y %m %d",21) >= @expirationDate$) // Si la fecha de HOY es mayor que la fecha de expiración...
 		{
 			//	terminateVip function on line 430, removes player VIP entry from database table "vip_gold"
-			callsub terminateVip,"vip_gold",getcharid(3),getcharid(0); goto L_displayInfo;
+			callsub terminateVip,"vip_gold",getcharid(3),getcharid(0); goto OnDisplayInfo;
 		}
 		//	If expiration date has not arrived yet, ACTIVEte VIP benefits.
 		else
@@ -76,7 +76,7 @@ OnPCLoginEvent:
 			sc_end SC_CASH_PLUSEXP;
 			sc_end SC_CASH_RECEIVEITEM;
 			sc_start SC_CASH_PLUSEXP,1000*60*60*24,.VIPs_GoldExpRate;
-			sc_start SC_CASH_RECEIVEITEM,1000*60*60*24,.VIPs_GoldItemRate; goto L_displayInfo;
+			sc_start SC_CASH_RECEIVEITEM,1000*60*60*24,.VIPs_GoldItemRate; goto OnDisplayInfo;
 		}
 		
 	}
@@ -87,7 +87,7 @@ OnPCLoginEvent:
 		if (gettimestr("%Y %m %d",21) >= @expirationDate$) // Si la fecha de HOY es mayor que la fecha de expiración...
 		{
 			//	terminateVip function on line 430, removes player VIP entry from database table "vip_silver"
-			callsub terminateVip,"vip_silver",getcharid(3),getcharid(0); goto L_displayInfo;
+			callsub terminateVip,"vip_silver",getcharid(3),getcharid(0); goto OnDisplayInfo;
 		}
 		//	If expiration date has not arrived yet, ACTIVEte VIP benefits.
 		else
@@ -95,7 +95,7 @@ OnPCLoginEvent:
 			sc_end SC_CASH_PLUSEXP;
 			sc_end SC_CASH_RECEIVEITEM;
 			sc_start SC_CASH_PLUSEXP,1000*60*60*24,.VIPs_SilverExpRate;
-			sc_start SC_CASH_RECEIVEITEM,1000*60*60*24,.VIPs_SilverItemRate; goto L_displayInfo;
+			sc_start SC_CASH_RECEIVEITEM,1000*60*60*24,.VIPs_SilverItemRate; goto OnDisplayInfo;
 		}
 
 	}
@@ -106,12 +106,12 @@ OnPCLoginEvent:
 		if (getstatus((SC_CASH_RECEIVEITEM),5) > 3600000) { sc_end SC_CASH_RECEIVEITEM; }
 		set .@getVipStatus,query_sql("SELECT `status` FROM `vip_silver` WHERE `account_id` = "+getcharid(3)+";",@vipStatus$); // Obtener el estado de la cuenta
 		set .@getExpirationDate$,query_sql("SELECT DATE_FORMAT(`end_date`, '%Y %M %d') FROM vip_silver WHERE `account_id` = "+getcharid(3)+";",@expirationDate$);	// Obtener Fecha de expiración
-		goto L_displayInfo;
+		goto OnDisplayInfo;
 	}
 
 // Displays account type status on login on chat window.
 OnAtcommand:
-L_displayInfo:
+OnDisplayInfo:
 	dispbottomcolor "----------------------------------------------------------------------", 0x00FF00;
 	dispbottomcolor "Account type:         "+@accountType$, 0x00FF00;
 	dispbottomcolor "Status:                     "+@vipStatus$, 0x00FF00;
@@ -503,7 +503,7 @@ terminateVip:	// This function removes any VIP status from the specified account
 	query_sql("DELETE FROM `sc_data` WHERE account_id = '"+.@accountId+"' && type = '"+259+"';"); // Delete Status for VIP
 	query_sql("ALTER TABLE "+.@dbTableName$+" AUTO_INCREMENT = 1;"); // Tries to reset id count
 	query_sql("UPDATE `login` SET `account_type` = 'NORMAL' WHERE `account_id` = "+.@accountId+";"); // Set account type to "NORMAL" in 'login' table
-	goto L_displayInfo;
+	goto OnDisplayInfo;
 
 //**************** VIP SYSTEM CONFIGURATION	*************************
 OnInit:
@@ -520,9 +520,6 @@ set .VIPs_AdminGmLevel,99;		// Define GM Level enabled to add, list and			*
 								// remove VIP entries. Any GM with access le-		*
 								// vel equal or higher than this will be able		*
 								// to manage VIP Accounts.							*
-
-/* additional @command to display vip status */
-bindatcmd "vip",strnpcinfo(3)+"::OnAtcommand",0;
 //	********************************************************************
 }
 

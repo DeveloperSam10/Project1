@@ -378,24 +378,24 @@ C6: setarray @c[2],293,100,288,252,97,196,137,90,71,315;
 // --------------------------------------------------
 	PvP:
 // --------------------------------------------------
-menu	"^0000FFNon-Donor PvP Arena 1 [" + getmapusers("pvpmap.gat") + " / 20]^000000",NPvP1,	// Non Donor with Usable items
-		//"^0000FFNon-Donor PvP Arena 2 [" + getmapusers("pvpmap2.gat") + " / 20]^000000",L2,	// Non Donor without Usable items
-		"^0000FFDonor PvP Arena 1 [" + getmapusers("pvpmap3.gat") + " / 20]^000000",DPvP1,	// Donor with Usable items
-		//"^0000FFDonor PvP Arena 2 [" + getmapusers("pvpmap4.gat") + " / 20]^000000",LD2,	// Donor without Usable items
+menu	"^0000FFNon-Donor PvP Arena 1 [" + getmapusers("pvp_room01.gat") + " / 20]^000000",NPvP1,	// Non Donor with Usable items
+		//"^0000FFNon-Donor PvP Arena 2 [" + getmapusers("pvp_room02.gat") + " / 20]^000000",L2,	// Non Donor without Usable items
+		"^0000FFDonor PvP Arena 1 [" + getmapusers("pvp_room03.gat") + " / 20]^000000",DPvP1,	// Donor with Usable items
+		//"^0000FFDonor PvP Arena 2 [" + getmapusers("pvp_room04.gat") + " / 20]^000000",LD2,	// Donor without Usable items
 		"^FF0000GvG Arena 1 [" + getmapusers("guild_vs1.gat") + " / 20]^000000",GvG;	// GVG Room
 		//"^FF0000GvG Arena 2 [" + getmapusers("prt_are01.gat") + " / 20]^000000",L4,
 		//"Baby PvP Arena  [" + getmapusers("guild_vs2.gat") + " / 20]",L5,
 		//"Novice Event Arena  [" + getmapusers("nov_nov01.gat") + " / 20]",L6;
 
 NPvP1: 
-	if (getmapusers("pvpmap.gat") > 19) goto Lsorry;
+	if (getmapusers("pvp_room01.gat") > 19) goto Lsorry;
 	else if ( Upper == 2 || Upper == 6 ) goto L_yesbaby;
 	callsub DetectDonate;
 	announce "[ "+strcharinfo(0)+" ] is warped into Non Donor PVP Arena 1.",0;
 	Go("pvpmap",0,0);
 
 DPvP1:
-	if (getmapusers("pvpmap3.gat") > 19) goto Lsorry;
+	if (getmapusers("pvp_room03.gat") > 19) goto Lsorry;
 	else if ( Upper == 2 || Upper == 6 ) goto L_yesbaby;
 	announce "[ "+strcharinfo(0)+" ] is warped into Donor PVP Arena 1.",0;
 	Go("pvpmap3",0,0);

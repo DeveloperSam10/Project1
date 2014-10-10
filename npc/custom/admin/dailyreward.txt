@@ -173,7 +173,7 @@ OnInit:
 
 	//To Enable @ Command '@LoginReward' unslash next lines
 	// * Needs extra commands for typos
-	bindatcmd("loginreward"	,"LOGIN::OnLoginCmnd",0,99);
+	//bindatcmd("loginreward"	,"LOGIN::OnLoginCmnd",0,99);
 
 	//Data Wipe Whisper Command
 	set .Wipe$,"wipe";

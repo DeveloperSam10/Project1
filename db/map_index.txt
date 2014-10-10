@@ -1013,3 +1013,7 @@ db_room05
 db_room06
 db_room07
 db_room08
+pvp_room01
+pvp_room02
+pvp_room03
+pvp_room04
