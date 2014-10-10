@@ -109,3 +109,17 @@ Thumbs.db
 /vcproj-*/map-server
 /vcproj-*/mapcache
 /vcproj-*/plugin-*/
+/plugins/dispbottomcolor.lib
+/plugins/dispbottomcolor.pdb
+/plugins/HPMHooking.dll
+/plugins/HPMHooking.pdb
+/plugins/dbghelpplug.dll
+/plugins/dbghelpplug.exp
+/plugins/dbghelpplug.ilk
+/plugins/dbghelpplug.lib
+/plugins/dbghelpplug.pdb
+/plugins/dispbottomcolor.dll
+/plugins/dispbottomcolor.exp
+/plugins/dispbottomcolor.ilk
+/dbghelpplug
+/dispbottomcolor
