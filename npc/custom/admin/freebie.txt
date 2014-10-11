@@ -60,6 +60,7 @@ else {
 			mes "to the Training Grounds.";
 			close2;
 			warp "new_1-2",100,70;
+			save "new_1-2",100,70;
 			end;
 		case 2:
 			mes "[SupremusRO Receptionist]";
