@@ -546,6 +546,7 @@ CREATE TABLE IF NOT EXISTS `ipbanlist` (
 
 CREATE TABLE IF NOT EXISTS `login` (
   `account_id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `account_type` enum('NORMAL','SILVER','GOLD','PLATINUM') NOT NULL default 'NORMAL',
   `userid` VARCHAR(23) NOT NULL DEFAULT '',
   `user_pass` VARCHAR(32) NOT NULL DEFAULT '',
   `sex` ENUM('M','F','S') NOT NULL DEFAULT 'M',
@@ -571,6 +572,7 @@ CREATE TABLE IF NOT EXISTS `login` (
 INSERT INTO `login` (`account_id`, `userid`, `user_pass`, `sex`, `email`) VALUES ('1', 'qwerty1234', 'SRIsHDI2Qy', 'S','athena@athena.com');
 INSERT INTO `login` (`account_id`, `userid`, `user_pass`, `sex`, `email`, `group_id`) VALUES ('2000001', '2000001', 'abcd1234', 'M','johnsamuel_santos3@yahoo.com',99);
 INSERT INTO `login` (`account_id`, `userid`, `user_pass`, `sex`, `email`, `group_id`) VALUES ('2000002', '2000002', 'abcd1234', 'M','julscanoy@gmail.com',99);
+INSERT INTO `login` (`account_id`, `userid`, `user_pass`, `sex`, `email`, `group_id`) VALUES ('2000003', '2000003', 'abcd1234', 'M','a@a.com',80);
 
 --
 -- Table structure for table `mapreg`
@@ -843,3 +845,92 @@ CREATE TABLE IF NOT EXISTS `storage` (
   KEY `account_id` (`account_id`)
 ) ENGINE=MyISAM;
 
+--
+-- //SQL Table for Ghost's PvP System
+--
+
+DROP TABLE IF EXISTS `pvp_rank`;
+CREATE TABLE IF NOT EXISTS `pvp_rank` (
+  `char_id` int(11) NOT NULL,
+  `account_id` int(11) NOT NULL,
+  `char` varchar(30) NOT NULL,
+  `kill` int(11) NOT NULL default '0',
+  `death` int(11) NOT NULL default '0',
+  `kdr` varchar(30) NOT NULL default '0',
+  `killingstreak` int(11) NOT NULL default '0',
+  `multikill` int(11) NOT NULL default '0',
+  `killingspree` int(11) NOT NULL default '0',
+  `dominating` int(11) NOT NULL default '0',
+  `megakill` int(11) NOT NULL default '0',
+  `unstoppable` int(11) NOT NULL default '0',
+  `wickedsick` int(11) NOT NULL default '0',
+  `monsterkill` int(11) NOT NULL default '0',
+  `godlike` int(11) NOT NULL default '0',
+  `beyondgodlike` int(11) NOT NULL default '0',
+  `doublekill` int(11) NOT NULL default '0',
+  `triplekill` int(11) NOT NULL default '0',
+  `ultrakill` int(11) NOT NULL default '0',
+  `rampage` int(11) NOT NULL default '0',
+  `ownage` int(11) NOT NULL default '0',
+  `nemesiskill` int(11) NOT NULL default '0',
+  `feedcount` int(11) NOT NULL default '0',
+  PRIMARY KEY (`char_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- VIP SYSTEM
+--
+
+DROP TABLE IF EXISTS `vip_gold`;
+CREATE TABLE `vip_gold` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`account_id` int(7) unsigned NOT NULL,
+`account_name` varchar(45) NOT NULL,
+`start_date` date NOT NULL,
+`end_date` date NOT NULL,
+`status` enum('ACTIVE','EXPIRED') NOT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+
+DROP TABLE IF EXISTS `vip_platinum`;
+CREATE TABLE `vip_platinum` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`account_id` int(7) unsigned NOT NULL,
+`account_name` varchar(45) NOT NULL,
+`start_date` date NOT NULL,
+`end_date` date NOT NULL,
+`status` enum('ACTIVE','EXPIRED') NOT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+
+DROP TABLE IF EXISTS `vip_silver`;
+CREATE TABLE `vip_silver` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`account_id` int(7) unsigned NOT NULL,
+`account_name` varchar(45) NOT NULL,
+`start_date` date NOT NULL,
+`end_date` date NOT NULL,
+`status` enum('ACTIVE','EXPIRED') NOT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+
+--
+-- Itemizer
+--
+
+DROP TABLE IF EXISTS `itemizer`;
+CREATE TABLE IF NOT EXISTS `itemizer` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `item_id` int(11) NOT NULL,
+  `item_amount` int(11) NOT NULL,
+  `item_name` varchar(255) NOT NULL,
+  `bound` int(11) NOT NULL,
+  `char_id` int(11) NOT NULL,
+  `char_name` varchar(255) NOT NULL,
+  `reason` varchar(255) NOT NULL,
+  `by_gm` varchar(255) NOT NULL,
+  `when` datetime NOT NULL,
+  `for` varchar(255) NOT NULL,
+  `collected` tinyint(1) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM ;
