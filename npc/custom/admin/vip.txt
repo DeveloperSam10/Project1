@@ -663,7 +663,7 @@ function	script	VIP_PLATINUM	{
 		query_sql("UPDATE vip_platinum SET end_date = DATE_ADD(start_date, INTERVAL "+.@platinumDays+" DAY) WHERE account_id = "+.@accountId+";");
 		query_sql("UPDATE `login` SET `group_id` = "+.@VIPs_PlatinumAccLevel+" WHERE `account_id` = "+.@accountId+";");
 		query_sql("UPDATE login SET `account_type` = 'PLATINUM' WHERE account_id = "+.@accountId+";");
-		mes "Your account has been updated to ^FF0000"+.AccountType$+"^000000 with ^0000FF"+.@goldDays+"^000000days.";
+		mes "Your account has been updated to ^FF0000"+.AccountType$+"^000000 with ^0000FF"+.@platinumDays+"^000000days.";
 		mes "Please relog to see the changes in your account.";
 		close;
 	}

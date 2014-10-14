@@ -79,9 +79,14 @@ OnInit:
 	end;
 
 OnStart:
-OnClock0600:
-OnClock1500:
-OnClock2300:
+OnThu0100:
+OnThu0400:
+OnThu0700:
+OnThu1000:
+OnThu1300:
+OnThu1600:
+OnThu1900:
+OnThu2200:
 
         announce "Maze: A maze event will begin in 2 minutes in Prontera 155 91.",0,0x99FFCC;
         sleep 90000;

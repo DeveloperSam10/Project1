@@ -60,7 +60,7 @@ new_1-1,144,107,2	script	Guard#nv2	8W_SOLDIER,{
 }
 
 // Receptionist
-new_1-2,100,29,4	script	Receptionist#nv1	4_M_04,{
+/*new_1-2,100,29,4	script	Receptionist#nv1	4_M_04,{
 	mes "[Training Grounds Receptionist]";
 	mes "Hello, you look to be new here.";
 	mes "What is your name?";
@@ -176,6 +176,7 @@ new_1-2,100,29,4	script	Receptionist#nv1	4_M_04,{
 		}
 	}
 }
+*/
 
 /*new_1-1,53,114,4	script	Shion#nv1	4_F_JOB_HUNTER,{
 	if (nov_get_item04 > 9 || nov_get_item05 > 9) {
@@ -3347,8 +3348,8 @@ new_1-4,100,29,1	script	Hanson#nv	1_ETC_01,{
 					set nov_3_magician,0;
 					set nov_3_acolyte,0;
 					set nov_3_merchant,0;
-					savepoint "izlude",93,104;
-					warp "izlude_in",74,167;
+					warp "prontera",156,191;
+					save "prontera",156,191;
 					end;
 				case 2:
 					callsub S_UserJobchoice,"Swordsman";
@@ -3420,8 +3421,8 @@ new_1-4,100,29,1	script	Hanson#nv	1_ETC_01,{
 					set nov_3_magician,0;
 					set nov_3_acolyte,0;
 					set nov_3_merchant,0;
-					savepoint "geffen",119,37;
-					warp "geffen_in",163,98;
+					warp "prontera",156,191;
+					save "prontera",156,191;
 					end;
 				case 2:
 					callsub S_UserJobchoice,"Mage";
@@ -3491,8 +3492,8 @@ new_1-4,100,29,1	script	Hanson#nv	1_ETC_01,{
 					set nov_3_magician,0;
 					set nov_3_acolyte,0;
 					set nov_3_merchant,0;
-					savepoint "alberta",30,232;
-					warp "alberta_in",62,44;
+					warp "prontera",156,191;
+					save "prontera",156,191;
 					end;
 				case 2:
 					callsub S_UserJobchoice,"Merchant";
@@ -3559,8 +3560,8 @@ new_1-4,100,29,1	script	Hanson#nv	1_ETC_01,{
 					mes "^A62A2A" + strcharinfo(0) + "^000000";
 					mes "and farewell.";
 					close2;
-					savepoint "morocc",150,99;
-					warp "moc_ruins",155,44;
+					warp "prontera",156,191;
+					save "prontera",156,191;
 					end;
 				case 2:
 					callsub S_UserJobchoice,"Thief";
@@ -3628,8 +3629,8 @@ new_1-4,100,29,1	script	Hanson#nv	1_ETC_01,{
 					set nov_3_magician,0;
 					set nov_3_acolyte,0;
 					set nov_3_merchant,0;
-					savepoint "payon",70,100;
-					warp "payon_in02",64,65;
+					warp "prontera",156,191;
+					save "prontera",156,191;
 					end;
 				case 2:
 					callsub S_UserJobchoice,"Archer";
@@ -3700,8 +3701,8 @@ new_1-4,100,29,1	script	Hanson#nv	1_ETC_01,{
 					set nov_3_magician,0;
 					set nov_3_acolyte,0;
 					set nov_3_merchant,0;
-					savepoint "prontera",117,72;
-					warp "prt_church",172,19;
+					warp "prontera",156,191;
+					save "prontera",156,191;
 					end;
 				case 2:
 					callsub S_UserJobchoice,"Acolyte";
@@ -3737,28 +3738,28 @@ new_1-4,100,29,1	script	Hanson#nv	1_ETC_01,{
 			set nov_3_merchant,0;
 			set .@startmap,rand(1,6);
 			if ((.@startmap > 0) && (.@startmap < 2)) {
-				savepoint "prontera",117,72;
-				warp "prt_fild08",170,371;
+				warp "prontera",156,191;
+				save "prontera",156,191;
 			}
 			else if ((.@startmap > 1) && (.@startmap < 3)) {
-				savepoint "geffen",119,37;
-				warp "gef_fild07",327,188;
+				warp "prontera",156,191;
+				save "prontera",156,191;
 			}
 			else if ((.@startmap > 2) && (.@startmap < 4)) {
-				savepoint "alberta",30,232;
-				warp "pay_fild03",388,70;
+				warp "prontera",156,191;
+				save "prontera",156,191;
 			}
 			else if ((.@startmap > 3) && (.@startmap < 5)) {
-				savepoint "morocc",150,99;
-				warp "moc_fild07",198,39;
+				warp "prontera",156,191;
+				save "prontera",156,191;
 			}
 			else if ((.@startmap > 4) && (.@startmap < 6)) {
-				savepoint "payon",256,242;
-				warp "pay_fild01",334,354;
+				warp "prontera",156,191;
+				save "prontera",156,191;
 			}
 			else if ((.@startmap > 5) && (.@startmap < 7)) {
-				savepoint "izlude",93,104;
-				warp "prt_fild08",357,212;
+				warp "prontera",156,191;
+				save "prontera",156,191;
 			}
 			end;
 		}
@@ -3788,28 +3789,28 @@ new_1-4,100,29,1	script	Hanson#nv	1_ETC_01,{
 		set nov_3_merchant,0;
 		set .@startmap,rand(1,6);
 		if ((.@startmap > 0) && (.@startmap < 2)) {
-			savepoint "prontera",117,72;
-			warp "prt_fild08",170,371;
+			warp "prontera",156,191;
+			save "prontera",156,191;
 		}
 		else if ((.@startmap > 1) && (.@startmap < 3)) {
-			savepoint "geffen",119,37;
-			warp "gef_fild07",327,188;
+			warp "prontera",156,191;
+			save "prontera",156,191;
 		}
 		else if ((.@startmap > 2) && (.@startmap < 4)) {
-			savepoint "alberta",30,232;
-			warp "pay_fild03",388,70;
+			warp "prontera",156,191;
+			save "prontera",156,191;
 		}
 		else if ((.@startmap > 3) && (.@startmap < 5)) {
-			savepoint "morocc",150,99;
-			warp "moc_fild07",198,39;
+			warp "prontera",156,191;
+			save "prontera",156,191;
 		}
 		else if ((.@startmap > 4) && (.@startmap < 6)) {
-			savepoint "payon",70,100;
-			warp "pay_fild01",334,354;
+			warp "prontera",156,191;
+			save "prontera",156,191;
 		}
 		else if ((.@startmap > 5) && (.@startmap < 7)) {
-			savepoint "izlude",93,104;
-			warp "prt_fild08",357,212;
+			warp "prontera",156,191;
+			save "prontera",156,191;
 		}
 		end;
 	}
@@ -3935,28 +3936,28 @@ S_UserJobchoice:
 	set nov_3_acolyte,0;
 	set nov_3_merchant,0;
 	if(@menu == 1) {
-		savepoint "izlude",93,104;
-		warp "izlude_in",74,167;
+		warp "prontera",156,191;
+		save "prontera",156,191;
 	}
 	else if (@menu == 2) {
-		savepoint "geffen",119,37;
-		warp "geffen_in",163,98;
+		warp "prontera",156,191;
+		save "prontera",156,191;
 	}
 	else if (@menu == 3) {
-		savepoint "alberta",30,232;
-		warp "alberta_in",62,44;
+		warp "prontera",156,191;
+		save "prontera",156,191;
 	}
 	else if (@menu == 4) {
-		savepoint "morocc",150,99;
-		warp "moc_ruins",155,44;
+		warp "prontera",156,191;
+		save "prontera",156,191;
 	}
 	else if (@menu == 5) {
-		savepoint "payon",70,100;
-		warp "payon_in02",64,65;
+		warp "prontera",156,191;
+		save "prontera",156,191;
 	}
 	else {
-		savepoint "prontera",117,72;
-		warp "prt_church",172,19;
+		warp "prontera",156,191;
+		save "prontera",156,191;
 	}
 	return;
 }

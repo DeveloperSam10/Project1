@@ -1,5 +1,4 @@
 -	script	custom_feats	-1,{
-	end;
 
 OnPCLoginEvent:
 	if ( getusers(1) > $peakonline ) {
@@ -18,4 +17,38 @@ OnAgitEnd:
 OnAgitEnd2:
 	set $woeStatus, 0;
 	end;
+}
+
+-	script	gmnamecheck	-1,{
+
+OnPCLoginEvent:
+if(getgmlevel() > 20 ) {
+		atcommand "@speed 0";
+		atcommand "@uptime";
+		dispbottom "Welcome GM! Please make sure to check players!";
+		dispbottom "Current Server Time : " + gettimestr("%A %B %d %Y - %I:%M %p",40);
+    }
+if (getgroupid() <= 3) end;
+if (gmlvlnamecheck == 1) end;
+if (getgmlevel() == 99) set @gmlvlname$,"[Admin]";
+if (getgmlevel() == 98) set @gmlvlname$,"[Co-Admin]";
+if (getgmlevel() == 80) set @gmlvlname$,"[GM Chief]";
+if (getgmlevel() == 30) set @gmlvlname$,"[Event GM]";
+if (getgmlevel() == 60) set @gmlvlname$,"[GM Police]";
+if (getgmlevel() == 20) set @gmlvlname$,"[Support GM]";
+//if (getgroupid() == 4) set @gmlvlname$,"[GM]";
+callfunc "gmloginchangename";
+	end;
+}
+
+function	script	gmloginchangename	{
+set @nametemp$,"+strcharinfo(0)+";
+query_sql "UPDATE `char` SET `name` = '"+@gmlvlname$+" "+strcharinfo(0)+"'  WHERE `name`='"+strcharinfo(0)+"'";
+set gmlvlnamecheck,1;
+mes "As this is the first time you have loged in on this GM character, the administrator has changed your name from "+strcharinfo(0)+" to "+@gmlvlname$+" "+strcharinfo(0)+" and has added you into the GM guild";
+next;
+mes "you will be loged off in 5 seconds to reset your name";
+sleep2 5000;
+atcommand "@kick "+strcharinfo(0)+"";
+end;
 }

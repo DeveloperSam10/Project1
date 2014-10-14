@@ -200,19 +200,19 @@ OnInit:
 
 	//Type of Points/Zeny earned 
 	//   eg: CASHPOINTS, Zeny, LoginPoints
-	set .PointType$,"Zeny";
+	set .PointType$,"LoginPoints";
 
 	//Toggle 
 	//   1: Item | 2: "Points" from Multi | 4: Exp from Multi 
 	//   8: "Points" from Days with ItemID of 0 |16: Exp from Days with ItemID of 0
 	//   32: Gain Buffs Every X Consecutive Days logged in
 	// (a bit value, e.g. 3 = Items & Points from Multi)
-	set .Mode,1+2+4+8+16;
+	set .Mode,2;
 
 	//Consecutive Day Points Multiplier
 	// * If players login longer than the last set
 	//   day, they will keep getting a larger Multiplier
-	set .ZMulti,1000;
+	set .ZMulti,1;
 
 	//Consecutive Day Exp Multiplier
 	//  [0]: Base

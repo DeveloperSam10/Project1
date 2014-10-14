@@ -4,8 +4,13 @@ set .Time,15;		// Announce every x Minute.
 
 setarray .News$[0],	// Random Message to be Announced
 			"Hello Players! Play in SupremusRO! Get you friends here and double the fun!! Hurry!",
-			"Happy leveling :) For more info, check our website and forums",
-			"SupremusRO gives you the chance to enjoy and have fun! Visit our website and forums for more information.";
+			"SupremusRO 50x/50x/25x. Enjoy playing! For more info, check our website and forums.",
+			"SupremusRO gives you the chance to enjoy and have fun! Visit our website and forums for more information.",
+			"SupremusRO Like and Share event. See forums for more details.",
+			"GMs will not ask for your passwords. Please beware.",
+			"Any suggestions or feedbacks? Don't hesitate to contact us.",
+			"SupremusRO Beta Test will last until Oct. 15, 2014. For more info, check our website and forums.",
+			"Mark your calendars. Oct. 18, 2014 OFFICIAL SERVER LAUNCH!";
 while( 1 ){
 	announce .News$[ rand( getarraysize( .News$ ) ) ],0;
 	sleep ( .Time * 60000 );

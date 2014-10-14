@@ -16,9 +16,14 @@
 
 prontera,0,0,0	script	PraceAnnouncer	-1,{
 
-OnClock0300:
-OnClock1200:
-OnClock2000:
+OnSat0100:
+OnSat0400:
+OnSat0700:
+OnSat1000:
+OnSat1300:
+OnSat1600:
+OnSat1900:
+OnSat2200:
 	initnpctimer "Race Manager#prace0";
 	announce "The Poringrace is now open! Go to Prontera 155 176...",0;
 	donpcevent "PoringRace#control::OnReturnRace";

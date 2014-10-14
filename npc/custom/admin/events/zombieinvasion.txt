@@ -25,9 +25,14 @@ On5S:
 	if (!.5_mobNum[1]) Event(5,0,0);
 	end;
 
-OnClock0400:
-OnClock1300:
-OnClock2100:
+OnFri0100:
+OnFri0400:
+OnFri0700:
+OnFri1000:
+OnFri1300:
+OnFri1600:
+OnFri1900:
+OnFri2200:
 OnStart:
 	if (!.Active) {
 		Event(5,1,0);

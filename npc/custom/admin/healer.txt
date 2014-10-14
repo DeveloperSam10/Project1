@@ -3,11 +3,13 @@
 //===== By: ==================================================
 //= Euphy
 //===== Current Version: =====================================
-//= 1.0
+//= 1.2
 //===== Compatible With: =====================================
 //= Hercules
 //===== Description: =========================================
 //= Basic healer script.
+//= 1.1 Added Repair and Identify [ Samuel ]
+//= 1.2 Added VIP Options [ Samuel ]
 //============================================================
 
 -	script	Healer	-1,{
@@ -15,6 +17,8 @@
 	set .@Price,0;	// Zeny required for heal
 	set .@Buffs,1;	// Also buff players? (1: yes / 0: no)
 	set .@Delay,0;	// Heal delay, in seconds
+	set .@Repair,0;	// Repair broken Items
+	set .@Identify,0;	//Identify unidentified items
 
 	callfunc "F_ClearGarbage",0;
 	if (@HD > gettimetick(2)) end;
@@ -25,17 +29,34 @@
 		set Zeny, Zeny-.@Price;
 	}
 	/*Repair*/
-	while (getbrokenid(1)) {
-	repair(1);
-	set .@i, .@i +1;
-    }
-    if (.@i) dispbottom .@i + " items repaired.";
+	if (.@Repair) {
+		while (getbrokenid(1)) {
+			repair(1);
+			set .@i, .@i +1;
+		}
+			if (.@i) dispbottom .@i + " items repaired.";
+	}
 	/*Heal*/
 	specialeffect2 313; percentheal 100,100;
 	if (.@Buffs) {
-		skilleffect 34,0; sc_start SC_INC_AGI,240000,10;
-		skilleffect 29,0; sc_start SC_BLESSING,240000,10;
+		if (@accountType$ == "PLATINUM") {
+			skilleffect 34,0; sc_start SC_INC_AGI,240000,10;
+			skilleffect 29,0; sc_start SC_BLESSING,240000,10;
+		}
+		if (@accountType$ == "GOLD") {
+			skilleffect 34,0; sc_start SC_INC_AGI,240000,9;
+			skilleffect 29,0; sc_start SC_BLESSING,240000,9;
+		}
+		if (@accountType$ == "SILVER") {
+			skilleffect 34,0; sc_start SC_INC_AGI,240000,7;
+			skilleffect 29,0; sc_start SC_BLESSING,240000,7;
+		}
+		if (@accountType$ == "NORMAL") {
+			skilleffect 34,0; sc_start SC_INC_AGI,240000,5;
+			skilleffect 29,0; sc_start SC_BLESSING,240000,5;
+		}
 	}
+	if (.@Identify) {
 	/*Identify*/
 	getinventorylist;
     for(set @i, 0; @i < @inventorylist_count; set @i, @i + 1) {
@@ -43,6 +64,7 @@
         delitem2 @inventorylist_id[@i],1,0,0,0,0,0,0,0;
         getitem @inventorylist_id[@i],1;
 		}
+	}
 	if (.@Delay) set @HD, gettimetick(2)+.@Delay;
 	end;
 }

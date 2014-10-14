@@ -6,9 +6,13 @@ OnInit:
 	end;
 
 OnClock0200:
-OnClock0700:
+OnClock0500:
+OnClock0800:
 OnClock1100:
-OnClock1900:
+OnClock1400:
+OnClock1700:
+OnClock2000:
+OnClock2300:
 OnStart:
 	announce "Poring Catcher : It's time to play some Poring Catcher!",0;
 	killmonster "poring_w01","All";
