@@ -511,8 +511,8 @@ set .VIPs_SilverAccLevel,1;		// Group ID assigned for VIP Silver					*
 set .VIPs_GoldAccLevel,2;		// Group ID assigned for VIP Gold					*
 set .VIPs_PlatinumAccLevel,3;	// Group ID assigned for VIP Platinum				*
 set .VIPs_SilverExpRate,100;		// VIP Silver Exp Boost in % ( 1 = 1% )			*
-set .VIPs_GoldExpRate,150;		// VIP Gold Exp Boost in % ( 1 = 1% )				*
-set .VIPs_PlatinumExpRate,200;	// VIP Platinum Exp Boost in % ( 1 = 1% )			*
+set .VIPs_GoldExpRate,200;		// VIP Gold Exp Boost in % ( 1 = 1% )				*
+set .VIPs_PlatinumExpRate,300;	// VIP Platinum Exp Boost in % ( 1 = 1% )			*
 set .VIPs_SilverItemRate,100;		// VIP Silver Item Drop Boost in % ( 1 = 1% )	*
 set .VIPs_GoldItemRate,150;		// VIP Gold Item Drop Boost in % ( 1 = 1% )			*
 set .VIPs_PlatinumItemRate,200;	// VIP Platinum Item Drop Boost in % ( 1 = 1%)		*
