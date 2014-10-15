@@ -1,0 +1,62 @@
+turbo_room,115,138,5	script	Robo Eye Quest	705,{
+
+	mes "[ ^3355FFMechanic Tosh^000000 ]";
+	mes "I'm creating an imitation of a Robot Eye";
+	next;
+	menu "Can you make me a Robot Eye?",-,"Haha! NERD!",L_QUIT;
+	mes "[ ^3355FFMechanic Tosh^000000 ]";
+	mes "Verywell.. I need some items in order to make one.";
+	next;
+	mes "[ ^3355FFMechanic Tosh^000000 ]";
+	mes "Anyways, if you could gather this";
+	mes "items maybe i could make you one.";
+	mes "50 ^3355FFCogWheels^000000";
+	mes "10 ^3355FFMuscovite^000000";
+	mes "200 ^3355FFStrange Metal Pieces^000000";
+	mes "1 ^3355FFSymbol of Bravery^000000";
+	next;
+	mes "[ ^3355FFMechanic Tosh^000000 ]";
+	mes "So are you up for the challenge?";
+	next;
+	menu "Yes, let's do it",-,"No, I'm not interested",L_QUIT2;
+	mes "[ ^3355FFMechanic Tosh^000000 ]";
+	mes "So, what are you waiting for?";
+	mes "Are you going or not?";
+	next;
+	menu "Yes",-,"No",L_QUIT2;
+
+	if(countitem(7093) < 50 || countitem(7292) < 10 || countitem(7167) < 200 || countitem(7812) < 1 ) goto L_NOTENOUGH;
+
+	delitem 7093,50;
+	delitem 7292,10;
+	delitem 7167,200;
+	delitem 7812,1;
+	getitem 5325,1;
+
+	mes "[ ^3355FFMechanic Tosh^000000 ]";
+	mes "Here is your ^3355FFRobotic Eye^000000,";
+	mes "Take care of this..";
+	close;
+
+L_NOTENOUGH:
+	mes "[ ^3355FFMechanic Tosh^000000 ]";
+	mes "Hey! You are lacking some of the items!";
+	mes "Please complete it before you go back to me.";
+	close;
+
+L_QUIT:
+	mes "[ ^3355FFMechanic Tosh^000000 ]";	
+	mes "Is that so??";
+	next;
+	mes "If you need water, then go home!";
+	mes "My house isn't a water drinking station you know!";
+	close;
+L_QUIT2:
+	mes "[ ^3355FFMechanic Tosh^000000 ]";	
+	mes "Yeah right!!";
+	next;
+	mes "Get out of my sight!";
+	mes "You little Rascal!";
+	close;
+
+}

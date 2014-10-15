@@ -1,0 +1,212 @@
+prontera,172,179,4	script	Healer Scientist	932,{
+
+if (#healq == 1)
+{
+	cutin "ra_gman",2;
+	mes "[Dr. Skabum]";
+	mes "Go, the Mass is almost over";
+	mes "You better talk to him!";
+	mes "GO!";
+	cutin "",255;
+	close2;
+
+}
+
+
+if (#healq == 2)
+{
+	cutin "ra_gman",2;
+	mes "[Dr. Skabum]";
+	mes "I thing you have an";
+	mes "unfinished business with Zeno";
+	mes "Go back to him!";
+	cutin "",255;
+	close2;
+
+}
+
+if (#healq == 3)
+{
+	cutin "ra_gman",2;
+	mes "[Dr. Skabum]";
+	mes "Oh, Congratulations!";
+	mes "What Zeno did is to create";
+	mes "Valkyrie's Gift..";
+	next;
+	mes "[Dr. Skabum]";
+	mes "It has a power to give you";
+	mes "an extra power boost";
+	mes "after a Heal from Valkyries!";
+	getitem 7840,1;
+	set #healq,4;
+	cutin "",255;
+	close2;
+
+}
+
+if (#healq == 4)
+{
+	cutin "ra_gman",2;
+	mes "[Dr. Skabum]";
+	mes "Congratulations!";
+	mes "You are now a member";
+	mes "of selected individuals!";
+	cutin "",255;
+	close2;
+
+}
+
+if (#healq == 0)
+{
+
+	cutin "ra_gman",2;
+	mes "[Dr. Skabum]";
+	mes "Half of my life";
+	mes "is studying about the Healer Valkyries..";
+	mes "Those are awesome creature!";
+	next;
+	mes "[Dr. Skabum]";
+	mes "Based on my research";
+	mes "Valkyries will grant you";
+	mes "temporary boost to your";
+	mes "abilities..";
+	next;
+	mes "[Dr. Skabum]";
+	mes "But in order to do that,";
+	mes "They must see something in you..";
+	mes "Do you want to be my..";
+	next;
+	mes "[Dr. Skabum]";
+	mes "Do you want to be my Subject,";
+	mes "In my research?";
+	menu "Yes",go,"No",nogo;    
+go:        
+	next;              
+	mes "[Dr. Skabum]";       
+	mes "You must meet my old friend, Zeno Zoldic";
+	next;	
+	mes "[Dr. Skabum]";
+	mes "Go! He loves to go to church everyday,";
+	mes "You might see him there!";
+	cutin "",255;
+	set #healq,1;
+	close2;
+
+
+nogo:        
+	next;        
+	mes "[Dr. Skabum]"; 
+	mes "Okay, It is your loss.."; 
+	cutin "",255;    
+	close2;    
+}
+
+
+}
+
+
+prt_church,96,90,5	script	Zeno	412,{
+
+if (#healq == 0)
+{
+	mes "[Zeno Zoldic]";
+	mes "I was a great monk before";
+	mes "I killed dozens of Bosses";
+	mes "I invented the skill, Extremety Fist.";
+	close2;
+
+}
+
+if (#healq == 1)
+{
+	cutin "ins_cata_pri_n",2;
+	mes "[Zeno Zoldic]";
+	mes "Oh, Skabum sent you here?";
+	mes "I bet this is about the";
+	mes "Valkyries healing abilities!";
+	next;
+	mes "[Zeno Zoldic]";
+	mes "The Heal of Valkyries are";
+	mes "very extraordinary, because";
+	mes "It can heal any sickness!";
+	mes "And temporarily, boost your power..";
+	next;
+	mes "[Zeno Zoldic]";
+	mes "If you want to experience that..";
+	mes "Skabum and I created a method";
+	mes "on which every Valkyrie heal you..";
+	mes "You will experience more power,";
+	mes "well of course.. temporarily.";
+	next;
+	mes "[Zeno Zoldic]";
+	mes "You need:";
+	mes "50 Holy Waters";
+	mes "1 Angel Wing";
+	mes "100 Ilussion Flowers";
+	mes "20 Golds;
+	set #healq,2;
+	cutin "",255;
+	close2;
+
+}
+
+if (#healq == 2)
+{
+	cutin "ins_cata_pri_n",2;
+	mes "[Zeno Zoldic]";
+	mes "Let me check..";
+	next;
+	menu "Yes",-,"No",L_QUIT;
+
+	if(countitem(523) < 50 || countitem(2254) < 1 || countitem(710) < 100 || countitem(969) < 20 ) goto L_NOTENOUGH;
+
+	delitem 523,50;
+	delitem 2254,1;
+	delitem 710,100;
+	delitem 969,20;
+	set #healq,3;
+
+	mes "[Zeno Zoldic]";
+	mes "Okay.. Take This!";
+	mes "Give it to Skabum..";
+	cutin "",255;
+	close;
+
+L_NOTENOUGH:
+	mes "[Zeno Zoldic]";
+	mes "I maybe old, but my memory is still very sharp.";
+	mes "Geez! Youth nowadays.. You go back to me when you have all the items.";
+	cutin "",255;
+	close;
+
+L_QUIT:
+	mes "[Zeno Zoldic]";
+	mes "Okay..";
+	cutin "",255;
+	close;
+
+}
+
+if (#healq == 3)
+{
+	cutin "ra_gman",2;
+	mes "[Zeno Zoldic]";
+	mes "Take that item to Skabum!";
+	mes "Faster!";
+	cutin "",255;
+	close2;
+
+}
+
+if (#healq == 4)
+{
+	cutin "ra_gman",2;
+	mes "[Zeno Zoldic]";
+	mes "Congratulations!";
+	mes "May the Gods guide you!";
+	cutin "",255;
+	close2;
+
+}
+
+}

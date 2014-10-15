@@ -1,0 +1,53 @@
+//===== eAthena Script =======================================
+//= Quest Maker v3.0 Script
+//===== By: ==================================================
+//= GM Zeus [QM]
+//===== Current Version: =====================================
+//= 1.0
+//===== Compatible With: =====================================
+//= eA SVN 5000+
+//===== Additional Comments: =================================
+//= v1.0 thanks to QM
+//============================================================
+
+turbo_room,123,127,4	script	Randgris	1751,{
+	mes "[^000000Randgris^000000]";
+	mes "Hi !";
+	mes "You're here for the Dark Randgris Helm [1], aren't you ?";
+	mes "It's an amazing hat !";
+	next;
+	menu "Item needed ?",L_required,"I have your items !",L_check,"Leave",L_partir;
+
+	L_required:
+		mes "[^000000Randgris^000000]";
+		mes "^FF00001^000000 Symbol of Faith"; //7816
+		mes "^FF00005^000000 Bloody Edge "; //7024
+		mes "^FF000050^000000 Crystal of Darkness"; //7799
+		close;
+
+	L_check:
+		if(countitem(7816) < 1) goto L_manque;
+		if(countitem(7024) < 5) goto L_manque;
+		if(countitem(7799) < 50) goto L_manque;
+		mes "[^000000Randgris^000000]";
+		mes "Oh, so you did it !";
+		mes "Here, take your Dark Randgris Helm [1]!";
+		delitem 7816,1;
+		delitem 7024,5;
+		delitem 7799,50;
+		getitem 5373,1;
+		close;
+
+	L_manque:
+		mes "[^000000Randgris^000000]";
+		mes "You miss...";
+		if(countitem(7816) < 1) mes "^FF0000"+(1 - countitem(7816)) +"^000000 Symbol of Faith";
+		if(countitem(7024) < 5) mes "^FF0000"+(5 - countitem(7024)) +"^000000 Bloody Edge ";
+		if(countitem(7799) < 50) mes "^FF0000"+(50 - countitem(7799)) +"^000000 Crystal of Darkness";
+		close;
+
+	L_partir:
+		mes "[^000000Randgris^000000]";
+		mes "Have a nice day.";
+		close;
+}

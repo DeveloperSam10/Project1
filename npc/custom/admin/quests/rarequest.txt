@@ -1,0 +1,20 @@
+prontera,139,151,0	script	Warp#2a	45,1,1,{
+
+OnTouch:
+	mes "[???]";
+	next;
+if(!countitem(512)) {
+		mes "*creaaakk*";
+		mes "What the...?";
+		mes "the door is locked!";
+		close;	
+	}
+	else {
+		mes "^3355FF*Creeeeak*";
+		mes "The door slowly opens.^000000";
+		delitem 512,countitem(512);
+		close2;
+		warp "que_ba",185,51;
+	}
+
+}

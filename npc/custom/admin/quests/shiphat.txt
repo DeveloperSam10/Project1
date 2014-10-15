@@ -1,0 +1,49 @@
+turbo_room,129,132,4	script	Ship Captain Hat Quest	873,{
+
+	mes "[ ^3355FFShip Captain^000000 ]";
+	mes "I really need some help right now..";
+	next;
+	menu "I'll help you.",-,"Where is Santa?",L_QUIT;
+	mes "[ ^3355FFShip Captain^000000 ]";
+	mes "Thanks, My ship need some body works..";
+	mes "I need some parts to get it going..";
+	next;
+	mes "[ ^3355FFShip Captain^000000 ]";
+	mes "Here is the list of the parts I needed";
+	mes "Gather this and i'll give you my hat.";
+	mes "150 ^3355FFElder Pixie's Moustaches^000000";
+	mes "200 ^3355FFSharp Leaves^000000";
+	mes "100 ^3355FFRusty Screws^000000";
+	next;
+	mes "[ ^3355FFShip Captain^000000 ]";
+	mes "So are you up for the challenge?";
+	next;
+	menu "Yes, let's do it",-,"No, I'm not interested",L_QUIT;
+
+	if(countitem(1040) < 150 || countitem(7100) < 200 || countitem(7317) < 100 ) goto L_NOTENOUGH;
+
+	delitem 1040,150;
+	delitem 7100,200;
+	delitem 7317,100;
+	getitem 5359,1;
+
+	mes "[ ^3355FFShip Captain^000000 ]";
+	mes "Here is my ^3355FFShip Captain's Hat^000000";
+	mes "Take care of this.. /sob";
+	close;
+
+L_NOTENOUGH:
+	mes "[ ^3355FFShip Captain^000000 ]";
+	mes "Hey! You don't have enough material!";
+	mes "Please complete it before you go back to me.!";
+	close;
+
+L_QUIT:
+	mes "[ ^3355FFShip Captain^000000 ]";	
+	mes "Okay..";
+	next;
+	mes "I'll just ask someone..";
+	mes "Thanks anyways!";
+	close;
+
+}

@@ -1,0 +1,49 @@
+//===== eAthena Script =======================================
+//= Quest Maker v3.0 Script
+//===== By: ==================================================
+//= GM Zeus [QM]
+//===== Current Version: =====================================
+//= 1.0
+//===== Compatible With: =====================================
+//= eA SVN 5000+
+//===== Additional Comments: =================================
+//= v1.0 thanks to QM
+//============================================================
+
+turbo_room,118,132,6	script	Talking Plant	1080,{
+	mes "[^000000Talking Plant^000000]";
+	mes "Hi !";
+	mes "You're here for the Leaves Of Grass [0], aren't you ?";
+	mes "It's an amazing hat !";
+	next;
+	menu "Item needed ?",L_required,"I have your items !",L_check,"Leave",L_partir;
+
+	L_required:
+		mes "[^000000Talking Plant^000000]";
+		mes "^FF00001000^000000 Sharp Leaf"; //7100
+		mes "^FF0000100^000000 Soft Blade of Grass"; //7194
+		close;
+
+	L_check:
+		if(countitem(7100) < 1000) goto L_manque;
+		if(countitem(7194) < 100) goto L_manque;
+		mes "[^000000Talking Plant^000000]";
+		mes "Oh, so you did it !";
+		mes "Here, take your Leaves Of Grass [0]!";
+		delitem 7100,1000;
+		delitem 7194,100;
+		getitem 5419,1;
+		close;
+
+	L_manque:
+		mes "[^000000Talking Plant^000000]";
+		mes "You miss...";
+		if(countitem(7100) < 1000) mes "^FF0000"+(1000 - countitem(7100)) +"^000000 Sharp Leaf";
+		if(countitem(7194) < 100) mes "^FF0000"+(100 - countitem(7194)) +"^000000 Soft Blade of Grass";
+		close;
+
+	L_partir:
+		mes "[^000000Talking Plant^000000]";
+		mes "Have a nice day.";
+		close;
+}
