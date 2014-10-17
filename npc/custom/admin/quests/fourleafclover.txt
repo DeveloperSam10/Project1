@@ -10,7 +10,7 @@
 //= v1.0 thanks to QM
 //============================================================
 
-turbo_room,109,138,4	script	Clover Fairy	445,{
+turbo_room,109,138,6	script	Four Leaf Clover Quest	445,{
 	mes "[^000000Clover Fairy^000000]";
 	mes "Hi !";
 	mes "You're here for the Four Leaf Clover, aren't you ?";

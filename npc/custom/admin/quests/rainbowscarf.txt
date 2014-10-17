@@ -10,7 +10,7 @@
 //= v1.0 thanks to QM
 //============================================================
 
-turbo_room,106,138,4	script	Chrome	503,{
+turbo_room,106,138,6	script	Rainbow Scarf Quest	503,{
 	mes "[^000000Chrome^000000]";
 	mes "Hi !";
 	mes "You're here for the Rainbow Scarf [0], aren't you ?";
