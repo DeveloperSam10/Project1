@@ -1,0 +1,48 @@
+//===== eAthena Script =======================================
+//= Quest Maker v3.0 Script
+//===== By: ==================================================
+//= GM Zeus [QM]
+//===== Current Version: =====================================
+//= 1.0
+//===== Compatible With: =====================================
+//= rAmod
+//===== Additional Comments: =================================
+//= Have Fun!
+//============================================================
+
+turbo_room,130,130,4	script	Kabuto	637,{
+	mes "[^000000Kabuto^000000]";
+	mes "Hi !";
+	mes "You're here for the Ninja Scroll[0], aren't you ?";
+	next;
+	menu "Item needed ?",L_required,"I have your items !",L_check,"Leave",L_partir;
+
+	L_required:
+		mes "[^000000Kabuto^000000]";
+		mes "^FF000020^000000 Ninja Suit"; //2337
+		mes "^FF0000300^000000 Worn Out Scroll"; //618
+		close;
+
+	L_check:
+		if(countitem(2337) < 20) goto L_manque;
+		if(countitem(618) < 300) goto L_manque;
+		mes "[^000000Kabuto^000000]";
+		mes "Oh, so you did it !";
+		mes "Here, take your Ninja Scroll[0]!";
+		delitem 2337,20;
+		delitem 618,300;
+		getitem 5362,1;
+		close;
+
+	L_manque:
+		mes "[^000000Kabuto^000000]";
+		mes "You miss...";
+		if(countitem(2337) < 20) mes "^FF0000"+(20 - countitem(2337)) +"^000000 Ninja Suit";
+		if(countitem(618) < 300) mes "^FF0000"+(300 - countitem(618)) +"^000000 Worn Out Scroll";
+		close;
+
+	L_partir:
+		mes "[^000000Kabuto^000000]";
+		mes "Have a nice day.";
+		close;
+}

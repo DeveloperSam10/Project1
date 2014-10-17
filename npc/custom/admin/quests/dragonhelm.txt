@@ -1,0 +1,61 @@
+turbo_room,112,138,5	script	Coper DragonHelm Quest	900,{
+
+	mes "[ ^3355FFOld Traveller Simon^000000 ]";
+	mes "I'm leaving soon, what do you want from me?";
+	next;
+	menu "Can you make me a Bronze Dragon Helm?",-,"I need a glass of water",L_QUIT;
+	mes "[ ^3355FFOld Traveller Simon^000000 ]";
+	mes "Is that so? Too bad as i've said earlier, i'm leaving soon.";
+	next;
+	mes "[ ^3355FFOld Traveller Simon^000000 ]";
+	mes "Anyways, if you could gather this";
+	mes "items maybe i could make you one.";
+	mes "Don't Forget my Alcohol okay?";
+	mes "10 ^3355FFFire Dragon Scales^000000";
+	mes "3 ^3355FFMother's Nightmares^000000";
+	mes "100 ^3355FFDragon Scales^000000";
+	next;
+	mes "[ ^3355FFOld Traveller Simon^000000 ]";
+	mes "So are you up for the challenge?";
+	next;
+	menu "Yes, let's do it",-,"No, I'm not interested",L_QUIT2;
+	mes "[ ^3355FFOld Traveller Simon^000000 ]";
+	mes "So, what are you waiting for?";
+	mes "Are you going or not?";
+	next;
+	menu "Yes",-,"No",L_QUIT2;
+
+	if(countitem(7451) < 10 || countitem(7020) < 3 || countitem(1036) < 100 ) goto L_NOTENOUGH;
+
+	delitem 7451,10;
+	delitem 7020,3;
+	delitem 1036,100;
+	getitem 5453,1;
+
+	mes "[ ^3355FFOld Traveller Simon^000000 ]";
+	mes "Here is your ^3355FFBronze Dragon Helm^000000";
+	mes "Take care of this..";
+	close;
+
+L_NOTENOUGH:
+	mes "[ ^3355FFOld Traveller Simon^000000 ]";
+	mes "Hey! You are lacking some of the items!";
+	mes "Please complete it before you go back to me. Specially my Flavored Alcohol!";
+	close;
+
+L_QUIT:
+	mes "[ ^3355FFOld Traveller Simon^000000 ]";	
+	mes "Is that so??";
+	next;
+	mes "If you need water, then go home!";
+	mes "My house isn't a water drinking station you know!";
+	close;
+L_QUIT2:
+	mes "[ ^3355FFOld Traveller Simon^000000 ]";	
+	mes "Yeah right!!";
+	next;
+	mes "Get out of my sight!";
+	mes "You little Rascal!";
+	close;
+
+}

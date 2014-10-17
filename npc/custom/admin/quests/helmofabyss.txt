@@ -1,0 +1,53 @@
+//===== eAthena Script =======================================
+//= Quest Maker v3.0 Script
+//===== By: ==================================================
+//= GM Zeus [QM]
+//===== Current Version: =====================================
+//= 1.0
+//===== Compatible With: =====================================
+//= eA SVN 5000+
+//===== Additional Comments: =================================
+//= v1.0 thanks to QM
+//============================================================
+
+turbo_room,126,130,4	script	Abyss Knight	468,{
+	mes "[^000000Abyss Knight^000000]";
+	mes "Hi !";
+	mes "You're here for the Helm Of Abyss [1], aren't you ?";
+	mes "It's an amazing hat !";
+	next;
+	menu "Item needed ?",L_required,"I have your items !",L_check,"Leave",L_partir;
+
+	L_required:
+		mes "[^000000Abyss Knight^000000]";
+		mes "^FF00001^000000 Helm [1]"; //2229
+		mes "^FF000050^000000 Black Dyestuffs"; //983
+		mes "^FF000020^000000 Blade Lost in Darkness"; //7023
+		close;
+
+	L_check:
+		if(countitem(2229) < 1) goto L_manque;
+		if(countitem(983) < 50) goto L_manque;
+		if(countitem(7023) < 20) goto L_manque;
+		mes "[^000000Abyss Knight^000000]";
+		mes "Oh, so you did it !";
+		mes "Here, take your Helm Of Abyss [1]!";
+		delitem 2229,1;
+		delitem 983,50;
+		delitem 7023,20;
+		getitem 5363,1;
+		close;
+
+	L_manque:
+		mes "[^000000Abyss Knight^000000]";
+		mes "You miss...";
+		if(countitem(2229) < 1) mes "^FF0000"+(1 - countitem(2229)) +"^000000 Helm [1]";
+		if(countitem(983) < 50) mes "^FF0000"+(50 - countitem(983)) +"^000000 Black Dyestuffs";
+		if(countitem(7023) < 20) mes "^FF0000"+(20 - countitem(7023)) +"^000000 Blade Lost in Darkness";
+		close;
+
+	L_partir:
+		mes "[^000000Abyss Knight^000000]";
+		mes "Have a nice day.";
+		close;
+}

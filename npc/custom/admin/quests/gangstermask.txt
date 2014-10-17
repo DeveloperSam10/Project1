@@ -1,0 +1,48 @@
+//===== eAthena Script =======================================
+//= Quest Maker v3.0 Script
+//===== By: ==================================================
+//= GM Zeus [QM]
+//===== Current Version: =====================================
+//= 1.0
+//===== Compatible With: =====================================
+//= eA SVN 5000+
+//===== Additional Comments: =================================
+//= v1.0 thanks to QM
+//============================================================
+
+turbo_room,130,127,2	script	Gangster	1313,{
+	mes "[^000000Gangster^000000]";
+	mes "Hi !";
+	mes "You're here for the Gangster Scarf[0], aren't you ?";
+	next;
+	menu "Item needed ?",L_required,"I have your items !",L_check,"Leave",L_partir;
+
+	L_required:
+		mes "[^000000Gangster^000000]";
+		mes "^FF00001^000000 Gangster Mask[0]"; //2265
+		mes "^FF000010^000000 Scarlet Dyestuffs"; //975
+		close;
+
+	L_check:
+		if(countitem(2265) < 1) goto L_manque;
+		if(countitem(975) < 10) goto L_manque;
+		mes "[^000000Gangster^000000]";
+		mes "Oh, so you did it !";
+		mes "Here, take your Gangster Scarf[0]!";
+		delitem 2265,1;
+		delitem 975,10;
+		getitem 5361,1;
+		close;
+
+	L_manque:
+		mes "[^000000Gangster^000000]";
+		mes "You miss...";
+		if(countitem(2265) < 1) mes "^FF0000"+(1 - countitem(2265)) +"^000000 Gangster Mask[0]";
+		if(countitem(975) < 10) mes "^FF0000"+(10 - countitem(975)) +"^000000 Scarlet Dyestuffs";
+		close;
+
+	L_partir:
+		mes "[^000000Gangster^000000]";
+		mes "Have a nice day.";
+		close;
+}

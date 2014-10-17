@@ -1,0 +1,65 @@
+//===== eAthena Script =======================================
+//= Quest Maker v3.0 Script
+//===== By: ==================================================
+//= Your Nick [QM]
+//===== Current Version: =====================================
+//= 1.0
+//===== Compatible With: =====================================
+//= eA SVN 5000+
+//===== Additional Comments: =================================
+//= v1.0 thanks to QM
+//============================================================
+
+turbo_room,118,125,6	script	Betrayed Baphomet	736,{
+	mes "[^000000Betrayed Baphomet^000000]";
+	mes "Hi !";
+	mes "You're here for the Gigantic Majestic Goat [0], aren't you ?";
+	mes "It's an amazing hat !";
+	next;
+	menu "Item needed ?",L_required,"I have your items !",L_check,"Leave",L_partir;
+
+	L_required:
+		mes "[^000000Betrayed Baphomet^000000]";
+		mes "^FF00005^000000 Symbol of Faith"; //7816
+		mes "^FF00005^000000 Symbol of Bravery"; //7812
+		mes "^FF00005^000000 Union of Tribe"; //658
+		mes "^FF00005^000000 Majestic Goat [0]"; //2256
+		mes "^FF0000500^000000 Evil Horn"; //923
+		mes "^0000FF5000000^000000 zeny";
+		close;
+
+	L_check:
+		if(countitem(7816) < 5) goto L_manque;
+		if(countitem(7812) < 5) goto L_manque;
+		if(countitem(658) < 5) goto L_manque;
+		if(countitem(2256) < 5) goto L_manque;
+		if(countitem(923) < 500) goto L_manque;
+		if(Zeny < 5000000) goto L_manque;
+		mes "[^000000Betrayed Baphomet^000000]";
+		mes "Oh, so you did it !";
+		mes "Here, take your Gigantic Majestic Goat [0]!";
+		delitem 7816,5;
+		delitem 7812,5;
+		delitem 658,5;
+		delitem 2256,5;
+		delitem 923,500;
+		set Zeny, Zeny - 5000000;
+		getitem 5374,1;
+		close;
+
+	L_manque:
+		mes "[^000000Betrayed Baphomet^000000]";
+		mes "You miss...";
+		if(countitem(7816) < 5) mes "^FF0000"+(5 - countitem(7816)) +"^000000 Symbol of Faith";
+		if(countitem(7812) < 5) mes "^FF0000"+(5 - countitem(7812)) +"^000000 Symbol of Bravery";
+		if(countitem(658) < 5) mes "^FF0000"+(5 - countitem(658)) +"^000000 Union of Tribe";
+		if(countitem(2256) < 5) mes "^FF0000"+(5 - countitem(2256)) +"^000000 Majestic Goat [0]";
+		if(countitem(923) < 500) mes "^FF0000"+(500 - countitem(923)) +"^000000 Evil Horn";
+		if(Zeny < 5000000) mes "^0000FF"+(5000000 - Zeny)+"^000000 Zeny";
+		close;
+
+	L_partir:
+		mes "[^000000Betrayed Baphomet^000000]";
+		mes "Have a nice day.";
+		close;
+}

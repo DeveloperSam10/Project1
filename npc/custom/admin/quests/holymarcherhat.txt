@@ -1,0 +1,53 @@
+//===== eAthena Script =======================================
+//= Quest Maker v3.0 Script
+//===== By: ==================================================
+//= GM Zeus [QM]
+//===== Current Version: =====================================
+//= 1.0
+//===== Compatible With: =====================================
+//= eA SVN 5000+
+//===== Additional Comments: =================================
+//= v1.0 thanks to QM
+//============================================================
+
+turbo_room,121,130,4	script	Marcher	573,{
+	mes "[^000000Marcher^000000]";
+	mes "Hi !";
+	mes "You're here for the Holy Marcher Hat[1], aren't you ?";
+	mes "It's an amazing hat !";
+	next;
+	menu "Item needed ?",L_required,"I have your items !",L_check,"Leave",L_partir;
+
+	L_required:
+		mes "[^000000Marcher^000000]";
+		mes "^FF00005^000000 Silver Coin"; //675
+		mes "^FF0000150^000000 Feather"; //949
+		mes "^FF00001^000000 Boy's Cap[0]"; //5016
+		close;
+
+	L_check:
+		if(countitem(675) < 5) goto L_manque;
+		if(countitem(949) < 150) goto L_manque;
+		if(countitem(5016) < 1) goto L_manque;
+		mes "[^000000Marcher^000000]";
+		mes "Oh, so you did it !";
+		mes "Here, take your Holy Marcher Hat[1]!";
+		delitem 675,5;
+		delitem 949,150;
+		delitem 5016,1;
+		getitem 5225,1;
+		close;
+
+	L_manque:
+		mes "[^000000Marcher^000000]";
+		mes "You miss...";
+		if(countitem(675) < 5) mes "^FF0000"+(5 - countitem(675)) +"^000000 Silver Coin";
+		if(countitem(949) < 150) mes "^FF0000"+(150 - countitem(949)) +"^000000 Feather";
+		if(countitem(5016) < 1) mes "^FF0000"+(1 - countitem(5016)) +"^000000 Boy's Cap";
+		close;
+
+	L_partir:
+		mes "[^000000Marcher^000000]";
+		mes "Have a nice day.";
+		close;
+}

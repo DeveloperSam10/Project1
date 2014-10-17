@@ -1,0 +1,53 @@
+//===== eAthena Script =======================================
+//= Quest Maker v3.0 Script
+//===== By: ==================================================
+//= GM Zeus [QM]
+//===== Current Version: =====================================
+//= 1.0
+//===== Compatible With: =====================================
+//= eA SVN 5000+
+//===== Additional Comments: =================================
+//= v1.0 thanks to QM
+//============================================================
+
+turbo_room,113,129,6	script	Miss Alice	1275,{
+	mes "[^000000Miss Alice^000000]";
+	mes "Hi !";
+	mes "You're here for the Alice Doll [1], aren't you ?";
+	mes "It's an amazing hat !";
+	next;
+	menu "Item needed ?",L_required,"I have your items !",L_check,"Leave",L_partir;
+
+	L_required:
+		mes "[^000000Miss Alice^000000]";
+		mes "^FF0000500^000000 Alice's Apron"; //7047
+		mes "^FF00001^000000 Symbol of Peace"; //7817
+		mes "^FF0000500^000000 Blue Hair"; //1034
+		close;
+
+	L_check:
+		if(countitem(7047) < 500) goto L_manque;
+		if(countitem(7817) < 1) goto L_manque;
+		if(countitem(1034) < 500) goto L_manque;
+		mes "[^000000Miss Alice^000000]";
+		mes "Oh, so you did it !";
+		mes "Here, take your Alice Doll [1]!";
+		delitem 7047,500;
+		delitem 7817,1;
+		delitem 1034,500;
+		getitem 5137,1;
+		close;
+
+	L_manque:
+		mes "[^000000Miss Alice^000000]";
+		mes "You miss...";
+		if(countitem(7047) < 500) mes "^FF0000"+(500 - countitem(7047)) +"^000000 Alice's Apron";
+		if(countitem(7817) < 1) mes "^FF0000"+(1 - countitem(7817)) +"^000000 Symbol of Peace";
+		if(countitem(1034) < 500) mes "^FF0000"+(500 - countitem(1034)) +"^000000 Blue Hair";
+		close;
+
+	L_partir:
+		mes "[^000000Miss Alice^000000]";
+		mes "Have a nice day.";
+		close;
+}

@@ -1,0 +1,60 @@
+turbo_room,123,137,4	script	Elven Ears[1] Quest	843,{
+
+	mes "[ ^3355FFLegolis^000000 ]";
+	mes "I'm Legolis, I'm an elf!";
+	next;
+	menu "Oh really?",-,"I like dwarves!",L_QUIT;
+	mes "[ ^3355FFLegolis^000000 ]";
+	mes "Yes!! I'm here to promote elven customs!";
+	next;
+	mes "[ ^3355FFLegolis^000000 ]";
+	mes "I can make an ordinary elven to a slotted one!";
+	mes "of course there are items needed";
+	mes "5 ^3355FFElven Ears^000000";
+	mes "20 ^3355FFElunium^000000";
+	mes " ^3355FF2,000,000z^000000";
+	next;
+	mes "[ ^3355FFLegolis^000000 ]";
+	mes "So are you up for the challenge?";
+	next;
+	menu "Yes, let's do it",-,"No, I'm not interested",L_QUIT2;
+	mes "[ ^3355FFLegolis^000000 ]";
+	mes "So, what are you waiting for?";
+	mes "Are you going or not?";
+	next;
+	menu "Yes",-,"No",L_QUIT2;
+
+	if(countitem(2286) < 5 || countitem(985) < 20 || Zeny<2000000 ) goto L_NOTENOUGH;
+
+	delitem 2286,5;
+	delitem 985,20;
+	set Zeny,Zeny-2000000;
+	getitem 18507,1;
+
+	mes "[ ^3355FFLegolis^000000 ]";
+	mes "Here is your ^3355FFElven Ears[1]^000000";
+	mes "Take care of this..";
+	close;
+
+L_NOTENOUGH:
+	mes "[ ^3355FFLegolis^000000 ]";
+	mes "Hey! You are lacking some of the items!";
+	mes "Please complete it before you go back to me. Specially my Flavored Alcohol!";
+	close;
+
+L_QUIT:
+	mes "[ ^3355FFLegolis^000000 ]";	
+	mes "Is that so??";
+	next;
+	mes "If you need water, then go home!";
+	mes "My house isn't a water drinking station you know!";
+	close;
+L_QUIT2:
+	mes "[ ^3355FFLegolis^000000 ]";	
+	mes "Yeah right!!";
+	next;
+	mes "Get out of my sight!";
+	mes "You little Rascal!";
+	close;
+
+}

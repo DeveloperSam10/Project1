@@ -1,0 +1,55 @@
+turbo_room,127,133,4	script	Flying Evil Wing Quest	998,{
+
+	mes "[ ^3355FFEvil Sidious^000000 ]";
+	mes "HIHIHIHI! I sense the Dark Side in you.";
+	next;
+	mes "[ ^3355FFEvil Sidious^000000 ]";
+	mes "Come, Join me, and I will give you,";
+	mes "The Power that you can't possibly imagine!";
+	next;
+	menu "Yes, My Master!",-,"You evil FREAK! NO!",L_QUIT;
+	mes "[ ^3355FFEvil Sidious^000000 ]";
+	mes "Rise, my young Apprentice..";
+	mes "I will give you, a special item";
+	mes "that will give you POWER!!";
+	next;
+	mes "[ ^3355FFEvil Sidious^000000 ]";
+	mes "But, in order to do this, you must";
+	mes "collect the following:";
+	mes "10 ^3355FFBlade Lost in Darkness^000000";
+	mes "100 ^3355FFLittle Evil Wings^000000";
+	mes "1 ^3355FFEvil Wing Ears^000000";
+	next;
+	mes "[ ^3355FFEvil Sidious^000000 ]";
+	mes "Go, and fulfill your destiny!!";
+	next;
+	menu "As you wish my master..",-,"No, I'm a Jedi.",L_QUIT;
+
+
+	if(countitem(7023) < 10 || countitem(1039) < 100 || countitem(5068) < 1 ) goto L_NOTENOUGH;
+
+	delitem 7023,10;
+	delitem 1039,100;
+	delitem 5068,1;
+	getitem 5376,1;
+
+	mes "[ ^3355FFEvil Sidious^000000 ]";
+	mes "Here is your ^3355FFCat Ear Beret^000000";
+	mes "Take care of this..";
+	close;
+
+L_NOTENOUGH:
+	mes "[ ^3355FFEvil Sidious^000000 ]";
+	mes "You lied to me, You do not have all the items.";
+	mes "Comeback to me when you're finished. My young Apprentice.";
+	close;
+
+L_QUIT:
+	mes "[ ^3355FFEvil Sidious^000000 ]";	
+	mes "The, I will destroy you!!";
+	next;
+	mes "Feel the DARK SIDE OF THE FORCE!";
+	mes "DIEEEE!!!!!!";
+	close;
+
+}

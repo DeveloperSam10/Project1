@@ -1,0 +1,57 @@
+//===== eAthena Script =======================================
+//= Quest Maker v3.0 Script
+//===== By: ==================================================
+//= Your Nick [QM]
+//===== Current Version: =====================================
+//= 1.0
+//===== Compatible With: =====================================
+//= eA SVN 5000+
+//===== Additional Comments: =================================
+//= v1.0 thanks to QM
+//============================================================
+
+turbo_room,106,126,6	script	Kevzkie	732,{
+	mes "[^000000Kevzkie^000000]";
+	mes "Hi !";
+	mes "You're here for the Hawk Eyes [0], aren't you ?";
+	mes "It's an amazing hat !";
+	next;
+	menu "Item needed ?",L_required,"I have your items !",L_check,"Leave",L_partir;
+
+	L_required:
+		mes "[^000000Kevzkie^000000]";
+		mes "^FF00001^000000 Angled Glasses [0] "; //2276
+		mes "^FF0000250^000000 Decomposed Rope"; //7218
+		mes "^FF00001^000000 Symbol of Richness"; //7810
+		mes "^0000FF500000^000000 zeny";
+		close;
+
+	L_check:
+		if(countitem(2276) < 1) goto L_manque;
+		if(countitem(7218) < 250) goto L_manque;
+		if(countitem(7810) < 1) goto L_manque;
+		if(Zeny < 500000) goto L_manque;
+		mes "[^000000Kevzkie^000000]";
+		mes "Oh, so you did it !";
+		mes "Here, take your Hawk Eyes [0] !";
+		delitem 2276,1;
+		delitem 7218,250;
+		delitem 7810,1;
+		set Zeny, Zeny - 500000;
+		getitem 5516,1;
+		close;
+
+	L_manque:
+		mes "[^000000Kevzkie^000000]";
+		mes "You miss...";
+		if(countitem(2276) < 1) mes "^FF0000"+(1 - countitem(2276)) +"^000000 Angled Glasses [0] ";
+		if(countitem(7218) < 250) mes "^FF0000"+(250 - countitem(7218)) +"^000000 Decomposed Rope";
+		if(countitem(7810) < 1) mes "^FF0000"+(1 - countitem(7810)) +"^000000 Symbol of Richness";
+		if(Zeny < 500000) mes "^0000FF"+(500000 - Zeny)+"^000000 Zeny";
+		close;
+
+	L_partir:
+		mes "[^000000Kevzkie^000000]";
+		mes "Have a nice day.";
+		close;
+}
