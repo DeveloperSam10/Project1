@@ -78,6 +78,9 @@ function Disp {
 function Pick {
 	if(getarg(0)=="") {
 		set .@i, select(@menu$);
+		for (set @a,0; @a < getarraysize(.Blacklistedmaps$); set @a,@a+1) {
+			if ((getarg(0)+((.@i<10)?"0":"")+.@i) == .Blacklistedmaps$[@a]) { mes "Sorry, but you're not allowed to warp in this map."; close;}
+			}
 		if (Zeny < .WarpFee) {
 			next;
 			mes "Sorry, but you don't have enough zeny.";
@@ -89,6 +92,9 @@ function Pick {
 		}
 	} else {
 		set .@i, select(@menu$)-getarg(1,0);
+		for (set @a,0; @a < getarraysize(.Blacklistedmaps$); set @a,@a+1) {
+			if ((getarg(0)+((.@i<10)?"0":"")+.@i) == .Blacklistedmaps$[@a]) { mes "Sorry, but you're not allowed to warp in this map."; close;}
+			}
 		if (Zeny < .WarpFee) {
 			next;
 			mes "Sorry, but you don't have enough zeny.";
@@ -378,9 +384,9 @@ C6: setarray @c[2],293,100,288,252,97,196,137,90,71,315;
 // --------------------------------------------------
 	PvP:
 // --------------------------------------------------
-menu	"^0000FFNon-Donor PvP Arena 1 [" + getmapusers("pvp_room01.gat") + " / 20]^000000",NPvP1,	// Non Donor with Usable items
+menu	"^0000FFPvP Arena 1 [" + getmapusers("pvp_room01.gat") + " / 20]^000000",NPvP1,	// Non Donor with Usable items
 		//"^0000FFNon-Donor PvP Arena 2 [" + getmapusers("pvp_room02.gat") + " / 20]^000000",L2,	// Non Donor without Usable items
-		"^0000FFDonor PvP Arena 1 [" + getmapusers("pvp_room03.gat") + " / 20]^000000",DPvP1,	// Donor with Usable items
+		//"^0000FFDonor PvP Arena 1 [" + getmapusers("pvp_room03.gat") + " / 20]^000000",DPvP1,	// Donor with Usable items
 		//"^0000FFDonor PvP Arena 2 [" + getmapusers("pvp_room04.gat") + " / 20]^000000",LD2,	// Donor without Usable items
 		"^FF0000GvG Arena 1 [" + getmapusers("guild_vs1.gat") + " / 20]^000000",GvG;	// GVG Room
 		//"^FF0000GvG Arena 2 [" + getmapusers("prt_are01.gat") + " / 20]^000000",L4,
@@ -521,6 +527,7 @@ DetectDonate:
 OnInit:
 set .WarpFee,0;
 set .GDFee,500000;
+setarray .Blacklistedmaps$,"pay_fild11","xmas_fild01","ra_fild03","ra_fild04","moc_fild17","ve_fild01","ve_fild02","mjolnir_04","gef_fild14","gef_fild02","moc_fild22","spl_fild03","man_fild03";
 //setarray .DonorUpper[0],5467,5805,5518,5374,5495,5379,5013,5801,5137,5226,5375,5257,5451,5535,5312,5372,5492,5567,5564,5481,5340,5341,5342,5343,5344,5345,5269;
 //setarray .DonorMiddle[0],18503,5800,5421,5389,5135,5326,5471,5325,5592,5664;
 //setarray .DonorLower[0],5462,5596,5597,5532,5536,5463,5361,5377;

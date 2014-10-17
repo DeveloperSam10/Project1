@@ -1,6 +1,6 @@
 -	shop	Event_Shop	-1,512:100
 
-prontera,164,167,4	script	Event Manager	109,{
+prontera,164,166,4	script	Event Manager	109,{
 OnWhisperGlobal:
 	if (getgmlevel() >= 80) || (getgroupid() == 4) {
 	mes "Hi "+strcharinfo(0)+"!";
@@ -193,7 +193,9 @@ OnWhisperGlobal:
 						close;
 					}
 		case 3:
-		goto ShopOpen;
+		mes "Sorry, disabled for now..";
+		close;
+		//goto ShopOpen;
 		default:
 			close;
 		}

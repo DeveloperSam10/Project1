@@ -1,3 +1,4 @@
+/*
 prontera,158,192,4	script	SupremusRO Master	108,{
 	mes "[^0000FFSupremusRO Master^000000]";
 	mes "Hello ^FF0000"+strcharinfo(0)+"^000000! What can I do for you?";
@@ -762,7 +763,7 @@ OnInit:
 	set .Platinum,1;		// Get platinum skills automatically? (1: yes / 0: no)
 	set .Item3rd,0;		// Get thirdjob headgears automatically? (1: yes / 0: no)
 
-	/* Coin Exchanger */
+	// Coin Exchanger 
 	set	.Bronzecoin,100000;
 	set .Silvercoin,1000000;
 	set .Goldcoin,10000000;
@@ -776,4 +777,540 @@ OnInit:
 
 waitingroom "SupremusRO Master",0;
 end;
+}
+*/
+
+/* Kafra NPC */
+prontera,159,192,4	script	Kafra Employee::kaf_prontera6	4_F_KAFRA6,{
+	mes "[Kafra Employee]";
+	mes "Welcome to the";
+	mes "Kafra Corporation.";
+	mes "The Kafra services";
+	mes "are always on your side.";
+	mes "How may I assist you?";
+	next;
+	switch(select("Save:Use Storage:Cancel")) {
+		case 1:
+			save "prontera",155,183;
+			mes "[Kafra Employee]";
+			mes "You're save point was now changed to prontera..";
+			close;
+			end;
+		case 2:
+			mes "[Kafra Employee]";
+			mes "Here, let me open";
+			mes "your Storage for you.";
+			mes "Thank you for using";
+			mes "the Kafra Service.";
+			close2;
+			openstorage;
+			end;
+		default:
+			close;
+	}
+}
+
+/* Job Changer */
+prontera,150,189,6	script	Job Changer#custom	459,{
+function Job_Menu; function A_An;
+
+	mes "[Job Master]";
+	if (Class > 4049) {
+		mes "No more jobs are available.";
+		close;
+	}
+	if (checkfalcon() || checkcart() || checkriding() || ismounting()) {
+		mes "Please remove your "+((checkfalcon())?"falcon":"")+((checkcart())?"cart":"")+((checkriding())?"Peco":"")+((ismounting())?"mount":"")+" before proceeding.";
+		close;
+	}
+	if (.SkillPointCheck && SkillPoint) {
+		mes "Please use all your skill points before proceeding.";
+		close;
+	}
+
+	set .@eac, eaclass();
+	set .@i, ((.ThirdClass)?roclass(.@eac&EAJ_UPPERMASK):Class);
+	if (.@i > 6 && .@i < 22) {
+		if (BaseLevel < .Rebirth[0] || JobLevel < .Rebirth[1]) {
+			set .@blvl, .Rebirth[0]-BaseLevel; set .@jlvl, .Rebirth[1]-JobLevel;
+			mes "You need "+((.@blvl>0)?.@blvl+" more base levels "+((.@jlvl>0)?"/ ":""):"")+((.@jlvl>0)?.@jlvl+" more job levels ":"")+"to continue.";
+			close;
+		}
+		if (Class > 21) {
+			mes "Switch to third class?";
+			next;
+			Job_Menu(roclass(.@eac|EAJL_THIRD));
+			close;
+		}
+		while(1) {
+			mes "Select an option.";
+			next;
+			set .@i, select(" ~ ^0055FFRebirth^000000:"+((.ThirdClass)?" ~ ^FF0000Third Class^000000":"")+": ~ ^777777Cancel^000000");
+			if (.@i==3) close;
+			mes "[Job Master]";
+			mes "Are you sure?";
+			next;
+			Job_Menu(((.@i==1)?4001:roclass(.@eac|EAJL_THIRD)));
+			mes "[Job Master]";
+		}
+	}
+	set .@j1, roclass(.@eac|EAJL_2_1); set .@j2,roclass(.@eac|EAJL_2_2);
+	if ((.@eac&EAJ_UPPERMASK) == EAJ_SUPER_NOVICE) setarray .@exp[0],roclass(.@eac|EAJL_THIRD),99;
+	if (Class == Job_Ninja) setarray .@exp[0],.@j1,70;
+	if (.@exp[0] && .ThirdClass) {
+		if (BaseLevel < .Rebirth[0] || JobLevel < .@exp[1]) {
+			set .@blvl, .Rebirth[0]-BaseLevel; set .@jlvl, .@exp[1]-JobLevel;
+			mes "You need "+((.@blvl>0)?.@blvl+" more base levels "+((.@jlvl>0)?"/ ":""):"")+((.@jlvl>0)?.@jlvl+" more job levels ":"")+"to continue.";
+			close;
+		}
+		mes "Switch to "+jobname(.@exp[0])+"?";
+		next;
+		Job_Menu(.@exp[0]);
+		close;
+	}
+	if (.@eac&EAJL_2)
+		if (.@eac&(EAJL_UPPER|EAJL_BABY) || roclass(.@eac|EAJL_UPPER) == -1) {
+			mes "No more jobs are available.";
+			close;
+		}
+	if ((.@eac&EAJ_BASEMASK) == EAJ_NOVICE) {
+		if (JobLevel < .JobReq[0])
+			mes "A job level of "+.JobReq[0]+" is required to change into the 1st Class.";
+		else if (Class == 4001 && .LastJob && lastJob) {
+			mes "Switch classes now?";
+			next;
+			Job_Menu(roclass((eaclass(lastJob)&EAJ_BASEMASK)|EAJL_UPPER));
+		} else switch(Class) {
+			case 0: Job_Menu(1,2,3,4,5,6,23,4046,24,25,4023);
+			case 4001: Job_Menu(4002,4003,4004,4005,4006,4007);
+			case 4023: Job_Menu(4024,4025,4026,4027,4028,4029,4045);
+			default: mes "An error has occurred."; break;
+		}
+		close;
+	}
+	if (roclass(.@eac|EAJL_2_1) == -1 || roclass(.@eac|EAJL_2_2) == -1)
+		mes "No more jobs are available.";
+	else if (!(.@eac&EAJL_2) && JobLevel < .JobReq[1])
+		mes "A job level of "+.JobReq[1]+" is required to change into the 2nd Class.";
+	else if (.LastJob && lastJob && (.@eac&EAJL_UPPER)) {
+		mes "Switch classes now?";
+		next;
+		Job_Menu(lastJob+4001);
+	} else
+		Job_Menu(.@j1,.@j2);
+	close;
+
+function Job_Menu {
+	while(1) {
+		if (getargcount() > 1) {
+			mes "Select a job.";
+			set .@menu$,"";
+			for(set .@i,0; .@i<getargcount(); set .@i,.@i+1)
+				set .@menu$, .@menu$+" ~ "+jobname(getarg(.@i))+":";
+			set .@menu$, .@menu$+" ~ ^777777Cancel^000000";
+			next;
+			set .@i, getarg(select(.@menu$)-1,0);
+			if (!.@i) close;
+			if ((.@i == 23 || .@i == 4045) && BaseLevel < .SNovice) {
+				mes "[Job Master]";
+				mes "A base level of "+.SNovice+" is required to turn into a "+jobname(.@i)+".";
+				close;
+			}
+			mes "[Job Master]";
+			mes "Are you sure?";
+			next;
+		} else
+			set .@i, getarg(0);
+		if (select(" ~ Change into ^0055FF"+jobname(.@i)+"^000000 class: ~ ^777777"+((getargcount() > 1)?"Go back":"Cancel")+"^000000") == 1) {
+			mes "[Job Master]";
+			mes "You are now "+A_An(jobname(.@i))+"!";
+			if (.@i==4001 && .LastJob) set lastJob, Class;
+			jobchange .@i;
+			if (.@i==4001 || .@i==4023) resetlvl(1);
+			specialeffect2 338; specialeffect2 432;
+			if (.Platinum) callsub Get_Platinum;
+			if (.@i >= 4054 && .Item3rd) callsub Get_3rditem;
+			close;
+		}
+		if (getargcount() == 1) return;
+		mes "[Job Master]";
+	}
+	end;
+}
+
+function A_An {
+	setarray .@A$[0],"a","e","i","o","u";
+	set .@B$, "_"+getarg(0);
+	for(set .@i,0; .@i<5; set .@i,.@i+1)
+		if (compare(.@B$,"_"+.@A$[.@i])) return "an "+getarg(0);
+	return "a "+getarg(0);
+}
+
+Get_Platinum:
+	skill 142,1,0;
+	switch(BaseClass) {
+		case 0: if (Class !=23) skill 143,1,0; break;
+		case 1: skill 144,1,0; skill 145,1,0; skill 146,1,0; break;
+		case 2: skill 157,1,0; break;
+		case 3: skill 147,1,0; skill 148,1,0; break;
+		case 4: skill 156,1,0; break;
+		case 5: skill 153,1,0; skill 154,1,0; skill 155,1,0; break;
+		case 6: skill 149,1,0; skill 150,1,0; skill 151,1,0; skill 152,1,0; break;
+		default: break;
+	}
+	switch(BaseJob) {
+		case 7: skill 1001,1,0; break;
+		case 8: skill 1014,1,0; break;
+		case 9: skill 1006,1,0; break;
+		case 10: skill 1012,1,0; skill 1013,1,0; break;
+		case 11: skill 1009,1,0; break;
+		case 12: skill 1003,1,0; skill 1004,1,0; break;
+		case 14: skill 1002,1,0; break;
+		case 15: skill 1015,1,0; skill 1016,1,0; break;
+		case 16: skill 1007,1,0; skill 1008,1,0; skill 1017,1,0; skill 1018,1,0; skill 1019,1,0; break;
+		case 17: skill 1005,1,0; break;
+		case 18: skill 238,1,0; break;
+		case 19: skill 1010,1,0; break;
+		case 20: skill 1011,1,0; break;
+		default: break;
+	}
+	return;
+
+Get_3rditem:
+	getitem 2795,1;		//Green Apple Ring
+	switch(BaseJob) {
+		case 7: getitem 5746,1; break;	// Rune Knight
+		case 8: getitem 5747,1; break;	// Arch Bishop
+		case 9: getitem 5753,1; break;	// Warlock
+		case 10: getitem 5749,1; break;	// Mechanic
+		case 11: getitem 5748,1; break;	// Sniper
+		case 12: getitem 5755,1; break;	// Guillotine Cross
+		case 14: getitem 5757,1; break; // Royal Guard
+		case 15: getitem 5754,1; break;	// Sura
+		case 16: getitem 5756,1; break;	// Sorcerer
+		case 17: getitem 5750,1; break;	// Shadow Chaser
+		case 18: getitem 5752,1; break;	// Genetic
+		case 19: getitem 5751,1; break;	// Ministrel
+		case 20: getitem 5758,1; break;	// Wanderer
+		default: break;
+	}
+	return;
+}
+
+/* Reset NPC */
+prontera,148,186,5	script	Reset Girl#custom	4_F_TELEPORTER,{
+	set .@ResetStat,(5000*BaseLevel)/2;	// Zeny for stat reset
+	set .@ResetSkill,(7000*JobLevel)/2;	// Zeny for skill reset
+	set .@ResetBoth,(9000*BaseLevel)/2;	// Zeny for resetting both together
+
+	mes "[Reset Girl]";
+	mes "I am the Reset Girl.";
+	mes "Reset Stats: "+ .@ResetStat +"z";
+	mes "Reset Skills: "+ .@ResetSkill +"z";
+	mes "Reset Both: "+ .@ResetBoth +"z";
+	mes "Please select the service you want:";
+	next;
+	switch(select("^FF3355Reset Skills:Reset Stats:Reset Both^000000:Cancel")) {
+	case 1:
+		mes "[Reset Girl]";
+		if (Zeny < .@ResetSkill) {
+			mes "Sorry, you don't have enough Zeny.";
+			close; }
+		set Zeny, Zeny-.@ResetSkill;
+		sc_end SC_ALL;
+		resetskill;
+		mes "There you go!";
+		close;
+	case 2:
+		mes "[Reset Girl]";
+		if (Zeny < .@ResetStat) {
+			mes "Sorry, you don't have enough Zeny.";
+			close; }
+		set Zeny, Zeny-.@ResetStat;
+		resetstatus;
+		mes "There you go!";
+		close;
+	case 3:
+		mes "[Reset Girl]";
+		if (Zeny < .@ResetBoth) {
+			mes "Sorry, you don't have enough Zeny.";
+			close; }
+		set Zeny, Zeny-.@ResetBoth;
+		sc_end SC_ALL;
+		resetskill;
+		resetstatus;
+		mes "There you go!";
+		close;
+	case 4:
+		close;
+	}
+}
+
+/* Platinum Skills */
+prontera,143,179,8	script	Platinum Skill NPC	4_F_MAID,{
+	mes "[Platinum Skill NPC]";
+	mes "I can give you the special skills available to your job.";
+	mes "Would you like these skills now?";
+	next;
+	if (select("Yes Please:No") == 2) {
+		mes "[Platinum Skill NPC]";
+		mes "Have a nice day... >.>";
+		close; }
+
+	skill 142,1,0;
+	switch(BaseClass) {
+		case 0: if (Class !=23) skill 143,1,0; break;
+		case 1: skill 144,1,0; skill 145,1,0; skill 146,1,0; break;
+		case 2: skill 157,1,0; break;
+		case 3: skill 147,1,0; skill 148,1,0; break;
+		case 4: skill 156,1,0; break;
+		case 5: skill 153,1,0; skill 154,1,0; skill 155,1,0; break;
+		case 6: skill 149,1,0; skill 150,1,0; skill 151,1,0; skill 152,1,0; break;
+		default: break; }
+	switch(roclass(eaclass()&EAJ_UPPERMASK)) {
+		case 7: skill 1001,1,0; break;
+		case 8: skill 1014,1,0; break;
+		case 9: skill 1006,1,0; break;
+		case 10: skill 1012,1,0; skill 1013,1,0; break;
+		case 11: skill 1009,1,0; break;
+		case 12: skill 1003,1,0; skill 1004,1,0; break;
+		case 14: skill 1002,1,0; break;
+		case 15: skill 1015,1,0; skill 1016,1,0; break;
+		case 16: skill 1007,1,0; skill 1008,1,0; skill 1017,1,0; skill 1018,1,0; skill 1019,1,0; break;
+		case 17: skill 1005,1,0; break;
+		case 18: skill 238,1,0; break;
+		case 19: skill 1010,1,0; break;
+		case 20: skill 1011,1,0; break;
+		default: break; }
+
+	mes "[Platinum Skill NPC]";
+	mes "There you go!";
+	close;
+}
+
+/* Stylist */
+prontera,168,179,6	script	Stylist#custom_stylist	2_M_DYEINGER,{
+	setarray .@Styles[1],getbattleflag("max_cloth_color"),getbattleflag("max_hair_style"),getbattleflag("max_hair_color");
+	setarray .@Look[1],7,1,6;
+	set .@s, select(" ~ Cloth color: ~ Hairstyle: ~ Hair color");
+	set .@Revert, getlook(.@Look[.@s]);
+	set .@Style,1;
+	while(1) {
+		setlook .@Look[.@s], .@Style;
+		message strcharinfo(0),"This is style #"+.@Style+".";
+		set .@menu$, " ~ Next (^0055FF"+((.@Style!=.@Styles[.@s])?.@Style+1:1)+"^000000): ~ Previous (^0055FF"+((.@Style!=1)?.@Style-1:.@Styles[.@s])+"^000000): ~ Jump to...: ~ Revert to original (^0055FF"+.@Revert+"^000000)";
+		switch(select(.@menu$)) {
+			case 1: set .@Style, ((.@Style!=.@Styles[.@s])?.@Style+1:1); break;
+			case 2: set .@Style, ((.@Style!=1)?.@Style-1:.@Styles[.@s]); break;
+			case 3: message strcharinfo(0),"Choose a style between 1 - "+.@Styles[.@s]+".";
+				input .@Style,0,.@Styles[.@s];
+				if (!.@Style) set .@Style, rand(1,.@Styles[.@s]);
+				break;
+			case 4: set .@Style, .@Revert; setlook .@Look[.@s], .@Revert; break;
+		}
+	}
+	end;
+}
+
+/* Card Remover */
+prontera,171,182,1	script	Card Remover#eAcustom	1_F_ORIENT_04,{
+	set .@cost,25000;
+	mes "Good day, young one. I have the power to remove cards that you have compounded onto your equipment. Does this idea please you?";
+	next;
+	switch(select("Yes, it does.:What do you charge?:No thanks.")) {
+		case 1:
+		mes "[Wise Old Woman]";
+		mes "Very well. Which item shall I examine for you?";
+		next;
+
+		setarray .@position$[1], "Head","Body","Left hand","Right hand","Robe","Shoes","Accessory 1","Accessory 2","Head 2","Head 3","Cos. Head 1","Cos. Head 2","Cos. Head 3";
+		set .@menu$,"";
+		for( set .@i,1; .@i <= 13; set .@i,.@i+1 )
+		{
+			if( getequipisequiped(.@i) )
+				set .@menu$, .@menu$ + .@position$[.@i] + "-" + "[" + getequipname(.@i) + "]";
+
+			set .@menu$, .@menu$ + ":";
+		}
+		set .@part,select(.@menu$);
+		if(!getequipisequiped(.@part)) {
+			mes "[Wise Old Woman]";
+			mes "Young one... Your not wearing anything there that I can remove cards from.";
+			close;
+		}
+		if(getequipcardcnt(.@part) == 0) {
+			mes "[Wise Old Woman]";
+			mes "Young one... There are no cards compounded on this item. I can do nothing with it, I'm afraid.";
+			close;
+		}
+		set .@cardcount,getequipcardcnt(.@part);
+		
+		if (!checkweight(1202,(.@cardcount+1))) { 
+			mes "^3355FFJust a minute!";
+			mes "I can't offer any of my";
+			mes "services to you because";
+			mes "you're carrying too much";
+			mes "stuff. Put your extra items in";
+			mes "Kafra Storage and come again~";
+			close;
+		}
+		if( getiteminfo ((getequipid(.@part)),5) >= 1024 ) {
+		set .@cost,1000000;
+		}
+		mes "This item has " + .@cardcount + " cards compounded on it. To perform my magic, I will need " + (200000+(.@cardcount * .@cost)) + " zeny.";
+		if( getiteminfo ((getequipid(.@part)),5) >= 1024 ) {
+		mes "You also need 5 ^FF0000"+getitemname (7619)+"^000000.";
+		}
+		next;
+		if(select("Very well. Do it.:Nevermind.") == 2) {
+			mes "Very well. Return at once if you seek my services.";
+			close;
+		}
+		if((Zeny < (200000+(.@cardcount * .@cost)))) {
+			mes "You do not have enough zeny my child. Come again when you do.";
+			close;
+		}
+		if( getiteminfo ((getequipid(.@part)),5) >= 1024 ) {
+			if (countitem(7619) < 5) {
+			mes "You do not have enough enriched elunium my child. Come again when you do.";
+			close;
+			}
+		}
+		mes "Before I begin, I must warn you--I may fail. If I do, I may destroy the cards, the item, or both. I do not give refunds. That being said, which is more important to you: The cards, or the item?";
+		next;
+		switch(select("I changed my mind about this.:The item.:The cards.")) {
+			case 1:
+				mes "Very well. Return at once if you seek my services.";
+				close;
+			case 2:
+				set .@failtype,1;
+				break;
+			case 3:
+				set .@failtype,2;
+		}
+		mes "Very well. I shall begin.";
+		set Zeny,Zeny - (200000+(.@cardcount * .@cost));
+		if( getiteminfo ((getequipid(.@part)),5) >= 1024 ) {
+		delitem 7619,5;
+		}
+					
+		// Replace the constants in the next 3 lines with failure chance values defined in refine_db.txt
+		// First value = Total failure chance (item and cards destroyed)
+		// Second value = Partial failure chance (one or the other is destroyed, player decides which one is safe)
+		// Third value = Harmless failure chance (all that's lost is your investment)
+
+		set .@failchance,rand(100);
+		if(.@failchance < 10) {
+			next;
+			failedremovecards .@part,3;
+			mes "I have failed to remove the cards. Luckily, however, both the item and the cards are still okay.";
+			close;	
+		}
+		next;
+		successremovecards .@part;
+		mes "The process was a success. Here are your cards and your item. Farewell.";
+		close;
+	case 2:
+		mes "I charge a flat fee of 200000 zeny, plus 25000 zeny for each card I remove from the item. In addition, I need a star crumb and a yellow gemstone to work my magic.";
+		close;
+	case 3:
+		mes "Very well. Return at once if you seek my services.";
+		close;
+	}
+}
+
+/* Build Manager */
+prontera,163,186,4	script	Buid Manager#custom	88,{
+	function Get_Menu; function Save_Build; function Load_Build;
+
+	set .@BuildCount,4;	// Number of builds to use
+	set .@Save,5000;	// Zeny required to save a build
+	set .@Load,10000;	// Zeny required to load a build
+	set .@Rename,1000;	// Zeny required to rename a build
+	set .@MaxLevel,99;	// Maximum base level (to prevent stat overflow)
+
+	if (BaseLevel < .@MaxLevel) { message strcharinfo(0),"You must be level "+.@MaxLevel+" to use this."; close; end; }
+	switch(select("Save Build...:Load Build...:Rename Build...:Close")) {
+		case 1:
+			if (.@Save) message strcharinfo(0),"It costs "+.@Save+" Zeny to save a build.";
+			set .@Build, Get_Menu(.@BuildCount);
+			if (Zeny<.@Save) { message strcharinfo(0),"Not enough Zeny."; close; }
+			if (getd("Build_"+.@Build+"$")!="") {
+				message strcharinfo(0),"Overwrite previous build #"+.@Build+"?";
+				if(select("Save new build:Cancel")==2) close; }
+			Save_Build(.@Build);
+			message strcharinfo(0),"Type a name for your build.";
+			input getd("Build_"+.@Build+"n$");
+			message strcharinfo(0),"Build #"+.@Build+" ("+getd("Build_"+.@Build+"n$")+") saved.";
+			set Zeny, Zeny-.@Save;
+			close;
+		case 2:
+			if (.@Load) message strcharinfo(0),"It costs "+.@Load+" Zeny to load a build.";
+			set .@Build, Get_Menu(.@BuildCount);
+			if (getd("Build_"+.@Build+"$")=="") {
+				message strcharinfo(0),"No build info found."; close; }
+			if (Zeny<.@Load) { message strcharinfo(0),"Not enough Zeny."; close; }
+			Load_Build(getd("Build_"+.@Build+"$"));
+			message strcharinfo(0),"Build #"+.@Build+" loaded.";
+			set Zeny, Zeny-.@Load;
+			close;
+		case 3:
+			if (.@Rename) message strcharinfo(0),"It costs "+.@Rename+" Zeny to rename a build.";
+			set .@Build, Get_Menu(.@BuildCount);
+			if (getd("Build_"+.@Build+"$")=="") {
+				message strcharinfo(0),"No build info found."; close; }
+			if (Zeny<.@Rename) { message strcharinfo(0),"Not enough Zeny."; close; }
+			message strcharinfo(0),"Type a new name for Build #"+.@Build+" ("+getd("Build_"+.@Build+"n$")+").";
+			input getd("Build_"+.@Build+"n$");
+			message strcharinfo(0),"Build #"+.@Build+" renamed.";
+			set Zeny, Zeny-.@Rename;
+			close;
+		case 4:
+			close; }
+	function Get_Menu {
+		set .@menu$,"";
+		for(set .@i,1; .@i<=getarg(0); set .@i,.@i+1)
+			set .@menu$, .@menu$+"Slot "+.@i+" ("+((getd("Build_"+.@i+"n$")=="")?"^777777empty":"^0055FF"+getd("Build_"+.@i+"n$"))+"^000000):";
+		return select(.@menu$); }
+	function Save_Build {
+		set .@s$,"";
+		for(set .@i,13; .@i<19; set .@i,.@i+1)
+			set .@s$,.@s$+readparam(.@i)+"|";
+		setd "Build_"+getarg(0)+"$", .@s$+StatusPoint;
+		return; }
+	function Load_Build {
+		resetstatus;
+		explode(.@s$,getarg(0),"|");
+		for(set .@i,0; .@i<6; set .@i,.@i+1)
+			statusup2 (.@i+13), atoi(.@s$[.@i])-1;
+		set StatusPoint, atoi(.@s$[6]);
+		return; }
+}
+
+/* Rental NPC */
+prontera,140,182,8	script	Universal Rental NPC	4_F_JOB_BLACKSMITH,{
+	if (ismounting()) {
+		message strcharinfo(0),"You must first remove your mount.";
+		close; }
+		else if ((eaclass()&EAJ_THIRDMASK==EAJ_RANGER) && !countitem(6124)) {
+			if (!checkfalcon() && getskilllv("HT_FALCON") && !checkwug()) {
+				if(select(" ~ Falcon: ~ Warg")==1) setfalcon;
+				else getitem 6124,1; }
+			else getitem 6124,1; }
+		else if ((eaclass()&EAJ_THIRDMASK==EAJ_MECHANIC) && !checkcart() && getskilllv("MC_PUSHCART")) {
+			if (!checkmadogear() && getskilllv("NC_MADOLICENCE")) {
+				if(select(" ~ Cart: ~ Mado")==1) setcart;
+				else setmadogear; }
+			else setcart; }
+		else if (!checkcart() && getskilllv("MC_PUSHCART")) setcart;
+		else if (!checkfalcon() && getskilllv("HT_FALCON") && !checkwug()) setfalcon;
+		else if (!checkriding() && getskilllv("KN_RIDING")) {
+			if (eaclass()&EAJ_THIRDMASK==EAJ_RUNE_KNIGHT) setdragon;
+			else setriding; }
+		else if (!checkmadogear() && getskilllv("NC_MADOLICENCE")) setmadogear;
+		else {
+			message strcharinfo(0),"You do not meet requirements to rent.";
+			close; }
+		specialeffect2 276;
+		close;
 }

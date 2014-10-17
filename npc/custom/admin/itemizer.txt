@@ -35,7 +35,7 @@
 //
 // Script Interface For Event Prize NPC
 //
-prontera,150,150,4	script	Events Reward Giver	906,{
+prontera,164,162,4	script	Events Reward Giver	906,{
 	mes .npc$;
 	if (getgmlevel() >= .min_gm_lvl) || (getgroupid() == 4) {
 		mes "Hello "+ strcharinfo(0) +".";

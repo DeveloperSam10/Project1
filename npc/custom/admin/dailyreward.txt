@@ -84,9 +84,9 @@
 OnWhisperGlobal:
 	if (@whispervar0$ == .Wipe$){
 		if (getgmlevel() < .GmLvl) end;
-		query_sql("DELETE FROM `global_reg_value` WHERE `str` = 'LOGINCOUNT'");
-		query_sql("DELETE FROM `global_reg_value` WHERE `str` = '#LOGINCOUNT'");
-		query_sql("DELETE FROM `global_reg_value` WHERE `str` = '#LastDailyReward'");
+		query_sql("DELETE FROM `acc_reg_num_db` WHERE `key` = 'LOGINCOUNT'");
+		query_sql("DELETE FROM `acc_reg_num_db` WHERE `key` = '#LOGINCOUNT'");
+		query_sql("DELETE FROM `acc_reg_num_db` WHERE `key` = '#DailyLog'");
 		set $LOGINCOUNT,0;
 		set .@self, getcharid(3);
 		set .@size, query_sql("select account_id from `char` where online = 1", .@aid);
@@ -94,7 +94,7 @@ OnWhisperGlobal:
 			if(attachrid(.@aid[.@i])){
 				set LOGINCOUNT,0;
 				set #LOGINCOUNT,0;
-				set #LastDailyReward,0;
+				set #DailyLog,0;
 			}	
 		}
 	attachrid(.@self);
@@ -102,12 +102,12 @@ OnWhisperGlobal:
 	}
 OnLoginCmnd:
 	set .@i,gettimetick(2) + 86400; //24 hours.
-	set .@last,#LastDailyReward - gettimetick(2);
+	set .@last,#DailyLog - gettimetick(2);
 	set .@hour, .@last % ( 24 * 3600 ) / 3600;
 	set .@min,  .@last % ( 24 * 3600 ) % 3600 / 60;
 	set .@sec,  .@last % ( 24 * 3600 ) % 3600 % 60;
-	if(#LastDailyReward < gettimetick(2)) {
-		dispbottomcolor "Your login reward is available, please relog to calim your prize~", 0x00FF00;
+	if(#DailyLog < gettimetick(2)) {
+		dispbottomcolor "Your login reward is available, please relog to claim your prize~", 0x00FF00;
 	} 
 	else { 
 		dispbottomcolor "Next VIP awards will be in : "+.@hour+":"+.@min+":"+.@sec+".", 0x00FF00;
@@ -127,7 +127,7 @@ OnPCLoginEvent:
 	if(compare (.@accountType$,"SILVER")) {
 		set .@accountType,1;
 	}
-	set .@last,#LastDailyReward - gettimetick(2);
+	set .@last,#DailyLog - gettimetick(2);
 	set .@hour, .@last % ( 24 * 3600 ) / 3600;
 	set .@min,  .@last % ( 24 * 3600 ) % 3600 / 60;
 	set .@sec,  .@last % ( 24 * 3600 ) % 3600 % 60;
@@ -135,8 +135,8 @@ OnPCLoginEvent:
 		sleep2 1000 + .Rest*60000;
 		set .@i,gettimetick(2) + .MinWait; //24 hours.
 		set .@g,getarraysize(.Rewards);
-		if(#LastDailyReward < gettimetick(2)) {
-			if(.@i < #LastDailyReward + .MaxWait){
+		if(#DailyLog < gettimetick(2)) {
+			if(.@i < #DailyLog + .MaxWait){
 			set #DRewardCon, #DRewardCon + 1;
 			} else {
 			set #DRewardCon, 1;
@@ -159,7 +159,7 @@ OnPCLoginEvent:
 				}
 			}
 			dispbottomcolor "You have collected your daily reward as a "+.@accountType$+" account, for "+#DRewardCon+" day"+((DRewardCon>1)?"s":"")+" in a row.", 0x00FF00;
-			set #LastDailyReward,.@i;
+			set #DailyLog,.@i;
 		} else { 
 			dispbottomcolor "Next VIP awards will be in : "+.@hour+":"+.@min+":"+.@sec+".", 0x00FF00;
 			
@@ -207,7 +207,7 @@ OnInit:
 	//   8: "Points" from Days with ItemID of 0 |16: Exp from Days with ItemID of 0
 	//   32: Gain Buffs Every X Consecutive Days logged in
 	// (a bit value, e.g. 3 = Items & Points from Multi)
-	set .Mode,2;
+	set .Mode,4+32;
 
 	//Consecutive Day Points Multiplier
 	// * If players login longer than the last set

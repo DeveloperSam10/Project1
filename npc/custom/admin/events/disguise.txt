@@ -66,7 +66,7 @@ set $@Wait,0;
 set $@Winner,0;
 set $Points,$Points;
 set $@ResetCounter,0;
-set $Rounds,20;
+set $Rounds,10;
 set $Prize,673;
 set $PrizeAmt,1;
 set $Rule,1;
