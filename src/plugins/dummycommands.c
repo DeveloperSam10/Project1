@@ -67,8 +67,6 @@ HPExport void plugin_init (void) {
 	itemdb = GET_SYMBOL("itemdb");
 	pc = GET_SYMBOL("pc");
 
-	addHookPre("pc->useitem",my_pc_useitem_pre);
-
 	addAtcommand("vip",vip);
 	addAtcommand("loginrewards",loginrewards);
 }
