@@ -41,11 +41,11 @@
 /*************************** CONFIGURATION ***************************/
 // See README.md for a description of these options.
 
-#define COMPACT_OUTPUT
+//#define COMPACT_OUTPUT
 
 //#define RAGEXERE
 
-//#define CLIENTVER 20140101
+#define CLIENTVER 20130807
 
 /************************* END CONFIGURATION *************************/
 
