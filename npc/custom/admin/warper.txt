@@ -281,7 +281,7 @@ D15: setarray @c[2],40,103,203,34,266,168,130,272;
 	Disp("Gefenia",1,1); Pick("gefenia",0);
 D16: setarray @c[0],104,99,115,236,106,132,203,200;
 	Disp("Geffen Dungeon",1,1); Pick("gef_dun",1);
-D17: setarray @c[2],375,304;
+D17: setarray @c[2],370,304;
 	Disp("","Entrance");
 	Pick("","glast_01");
 D18: setarray @c[2],153,53,28,113,68,16;
