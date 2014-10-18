@@ -46,7 +46,6 @@ geffen,59,143,0	script	Meera	4_F_02,{
 	close;
 }
 
-/*
 geffen,156,190,0	script	Orwalk	4_KID01,{
 	mes "[Orwalk]";
 	mes "...Interesting.";
@@ -64,7 +63,6 @@ geffen,156,190,0	script	Orwalk	4_KID01,{
 	mes "Speaking of which, I've also heard of a rumor about a miraculous tree in some land near Comodo. They must be connected, I'm sure of it!";
 	close;
 }
-*/
 
 geffen_in,164,109,0	script	Wizard Stanza	1_M_WIZARD,{
 	mes "[Stanza]";

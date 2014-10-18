@@ -344,7 +344,6 @@ rachel,197,137,3	script	Bard#aru	1_M_BARD,{
 	close;
 }
 
-/*
 ra_temple,148,91,3	script	Follower Akarna	4_F_MASK1,{
 	mes "[Follower Akarna]";
 	mes "Cheshrumnir...";
@@ -407,7 +406,6 @@ ra_temin,230,303,3	script	Freya's Follower#in2	4_M_MASK1,{
 	mes "of all your effots.";
 	close;
 }
-*/
 
 ra_temin,138,64,5	script	Child Follower#in1	4_M_CHILD1,{
 	mes "[Child Follower]";
