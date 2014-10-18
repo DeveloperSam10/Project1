@@ -393,10 +393,10 @@ OnInit:
 	set .eventprize,29000;	// Item Id for SupremusRO Event Box
 
 	/* Prize Settings */
-	set .poringcatcher,10;	// Original Prize Amount for Poring Catcher
-	set .poringrace,10;	// Original Prize Amount for Poring Catcher
+	set .poringcatcher,2;	// Original Prize Amount for Poring Catcher
+	set .poringrace,2;	// Original Prize Amount for Poring Catcher
 	set .disguise,1;	// Original Prize Amount for Disguise
-	set .invasion,50;	// Original Prize Amount for Invasion
+	set .invasion,1;	// Original Prize Amount for Invasion
 	set .dice,10;	// Original Prize Amount for Dice
 	set .race,20;	// Original Prize Amount for Poring Race
 	set .jumper,5;	// Original Prize Amount for Jumper
