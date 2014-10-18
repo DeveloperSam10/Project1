@@ -64,6 +64,7 @@ OnWhisperGlobal:
 							close;
 						}
 						next;
+						set .eventprize,.@prize;
 						mes "The Prize has been changed successfully.";
 						mes "Prize: [^0000FF"+getitemname(.eventprize)+"^000000]";
 						close;
