@@ -995,6 +995,16 @@ Get_3rditem:
 		default: break;
 	}
 	return;
+
+OnInit:
+	setarray .Rebirth[0],99,50;	// Minimum base level, job level to rebirth OR change to third class
+	setarray .JobReq[0],10,40;	// Minimum job level to turn into 1st class, 2nd class
+	set .ThirdClass,0;		// Enable third classes? (1: yes / 0: no)
+	set .SNovice,45;		// Minimum base level to turn into Super Novice
+	set .LastJob,1;			// Enforce linear class changes? (1: yes / 0: no)
+	set .SkillPointCheck,1;		// Force player to use up all skill points? (1: yes / 0: no)
+	set .Platinum,1;		// Get platinum skills automatically? (1: yes / 0: no)
+	set .Item3rd,0;		// Get thirdjob headgears automatically? (1: yes / 0: no)
 }
 
 /* Reset NPC */
