@@ -404,7 +404,7 @@ OnInit:
 	set .mushroom,1;	// Original Prize Amount for Mushroom
 	set .tbox,1;	// Original Prize Amount for Treasure Chest
 	set .maze,10;	// Original Prize Amount for Maze Event
-	set .zombieinvasion,2;	// Original Prize Amount for Zombie Invasion Event
+	set .zombieinvasion,1;	// Original Prize Amount for Zombie Invasion Event
 	set .MVPinvasion,2;	// Original Prize Amount for MVP Invasion Event
 
 	set .AddPrize,0;	//Additional Prize (1:Enabled | 0:Disabled)

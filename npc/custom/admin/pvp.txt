@@ -56,8 +56,8 @@ OnPCKillEvent:
 		set Kill, Kill + 1;
 		dispbottom "Total PvP Kills: " + Kill;
 	}
-	deltimer "Versus::OnMKReset"; 
-	addtimer 18000, "Versus::OnMKReset"; 
+	deltimer "PVP Announcer::OnMKReset"; 
+	addtimer 18000, "PVP Announcer::OnMKReset"; 
 	callsub OnRecordStreak; 
 	callsub OnAnnounce; 
 	callsub OnDeath;
@@ -74,7 +74,7 @@ OnPCLogoutEvent:
 if(getgmlevel() >= .GMLevel){ end; }
 if(Kill){ query_sql("REPLACE INTO `pvp_rank` (`char_id`, `account_id`, `char`, `kill`, `death`, `kdr`, `killingstreak`, `multikill`,  `nemesiskill`, `feedcount`,`killingspree`, `dominating`, `megakill`, `unstoppable`, `wickedsick`, `monsterkill`, `godlike`, `beyondgodlike`, `doublekill`, `triplekill`, `ultrakill`, `rampage`, `ownage`) VALUES ("+getcharid(0)+","+getcharid(3)+", '"+rid2name(getcharid(3))+"', "+Kill+", "+Death+", '"+callfunc("KDR_Calc", Kill, Death)+"', "+KillingStreak+", "+MultiKill+",  "+NemesisKill+", "+FeedCount+", "+KillingSpree+", "+Dominating+", "+MegaKill+", "+Unstoppable+", "+WickedSick+", "+MonsterKill+", "+Godlike+", "+BeyondGodlike+", "+DoubleKill+", "+TripleKill+", "+UltraKill+", "+Rampage+", "+Ownage+")"); }
 callsub OnClearData;
-deltimer "Versus::OnMKReset";
+deltimer "PVP Announcer::OnMKReset";
 end;
 
 OnRecordStreak:

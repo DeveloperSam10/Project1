@@ -17,7 +17,7 @@
 // 1.4.4 Added Quest delay
 //============================================================
 
-prontera,142,227,6	script	Questboard	4_BOARD3,{
+prontera,156,195,4	script	Questboard	4_BOARD3,{
 
 	if(c_run==1){
 		mes "[^FF7700Questboard^000000]";
