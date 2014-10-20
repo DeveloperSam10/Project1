@@ -52,3 +52,36 @@ sleep2 5000;
 atcommand "@kick "+strcharinfo(0)+"";
 end;
 }
+
+-	script	nextlevel	-1,{
+OnInit:
+	bindatcmd "nextlevel",strnpcinfo(3)+"::OnAtcommand",0;
+	end;
+	
+OnAtcommand:
+	if(compare (.@atcmd_parameters$[0],"on")) { 
+		set Nextlevel,1; 
+		dispbottomcolor "Next Level Experience will be automatically shown everytime you kill a monster.",0x00FF00;
+		end;
+		}
+	else if (compare (.@atcmd_parameters$[0],"off")) { 
+		set Nextlevel,0;
+		dispbottomcolor "Next Level Experience will be not be shown everytime you kill a monster.",0x00FF00;
+		end;
+		}
+	if (NextBaseExp > 0 ) dispbottomcolor "["+(NextBaseExp - JobExp)+"] exp needed to level up",0x00FF00;
+	if (NextJobExp > 0) dispbottomcolor "["+(NextJobExp - JobExp)+"] exp needed to job level up",0x00FF00;
+	dispbottomcolor "Usage: '@nextlevel on/off' to display needed experience before level up",0x00FF00;
+	end;
+
+OnNPCKillEvent:
+	if (NextBaseExp > 0 && Nextlevel) {
+	//dispbottom NextBaseExp - BaseExp+" exp needed to level up";
+	announce "["+(NextBaseExp - BaseExp)+"] exp needed to level up",bc_self;
+	}
+	if (NextJobExp > 0 && Nextlevel) {
+	//dispbottom NextJobExp - JobExp+" exp needed to job level up";
+	announce "["+(NextJobExp - JobExp)+"] exp needed to job level up",bc_self;
+	}
+	end;
+}
