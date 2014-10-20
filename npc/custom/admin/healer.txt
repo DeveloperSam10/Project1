@@ -103,3 +103,4 @@ umbala,129,132,4	duplicate(Healer)	Healer#umb	909,7,7
 veins,217,121,4	duplicate(Healer)	Healer#ve	909,7,7
 xmas,143,136,6	duplicate(Healer)	Healer#xmas	909,7,7
 yuno,164,45,4	duplicate(Healer)	Healer#yuno	909,7,7
+malangdo,141,119,4	duplicate(Healer)	Healer#mal2	909,7,7
