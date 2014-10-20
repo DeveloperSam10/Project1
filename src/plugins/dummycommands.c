@@ -59,6 +59,20 @@ ACMD(loginrewards)
 	return true;
 }
 
+/*=========================================
+ * Bank System
+ *-----------------------------------------*/
+ACMD(bank)
+{
+	if (!sd) return false;
+
+	if( sd->npc_id || sd->vender_id || sd->buyer_id || sd->state.trading || sd->state.storage_flag )
+		return false;
+
+	npc->event(sd,"_BankAtCmd::OnAtcommand",0);
+	return true;
+}
+
 HPExport void plugin_init (void) {
 	iMalloc = GET_SYMBOL("iMalloc");
 	atcommand = GET_SYMBOL("atcommand");
@@ -69,4 +83,8 @@ HPExport void plugin_init (void) {
 
 	addAtcommand("vip",vip);
 	addAtcommand("loginrewards",loginrewards);
+
+	/* Bank System */
+	addAtcommand("bank",bank);
+	addAtcommand("bankadmin",bank);
 }

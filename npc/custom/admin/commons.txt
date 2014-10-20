@@ -1,0 +1,194 @@
+//===== rAthena Script ============================================================================================================
+//= Common functions used by some of my scripts
+//===== By: =======================================================================================================================
+//= ~De@dly Silence~
+//===== Current Version: ==========================================================================================================
+//= 1.0
+//===== Compatible With: ==========================================================================================================
+//= rAthena SVN
+//===== Description: ==============================================================================================================
+//= Contains useful functions to support other scripts,
+//= like beatifying displayed numbers by adding
+//= number grouping and such.
+//===== Current Functions: ========================================================================================================
+//= beautifyNumber
+//= getRefineableEquipSlots
+//= printNumber
+//=================================================================================================================================
+//===== Additional Comments: ======================================================================================================
+//= 1.0 Initial Version
+//=================================================================================================================================
+
+//===== Function Comment: =========================================================================================================
+//= Function description: returns any number in a more humanly readable way; e.g. 1000 > 1.000
+//= Function accepts two arguments:
+//= - getarg(0): the number to beautify
+//= - getarg(1): the symbol to sparate number groups
+//=   ("." for values like 100.000)
+//=================================================================================================================================
+function	script	beautifyNumber	{
+	.@number$  = getarg(0);
+	.@limiter$ = getarg(1);
+	.@length   = getstrlen(.@number$);
+	.@numberSeparated$ = "";
+	
+	if ("" != .@number$ &&  3 < .@length) {
+	
+		while (.@length > 3) {
+		
+			.@numberSeparated$ = ("" != .@numberSeparated$) ? substr(.@number$, .@length - 3, .@length - 1) + .@limiter$ + .@numberSeparated$ : substr(.@number$, .@length - 3, .@length - 1);
+			.@length = .@length - 3;
+		}
+		
+		.@numberSeparated$ = substr(.@number$, 0,  .@length - 1) + .@limiter$ + .@numberSeparated$;
+	}
+		
+	return (.@numberSeparated$ != "") ? .@numberSeparated$ : .@number$;
+}
+
+//===== Function Comment: =========================================================================================================
+//= Function description: returns an array with all equipped items
+//=================================================================================================================================
+function	script	getRefineableEquipSlots	{
+	.@idx = 0;
+	deletearray @equipSlots;
+	
+	for (.@i = 1; .@i < 11; .@i += 1) {
+	
+		if (-1  != getequipid(.@i)) {
+			setarray @equipSlots[.@idx], .@i;
+			set .@idx, .@idx + 1;
+		}
+	}
+
+	return @equipSlots;
+}
+
+
+//===== Function Comment: =========================================================================================================
+//= Function description: hashes given string
+//= Function accepts one argument: the string to hash
+//=================================================================================================================================
+function	script	makeHash	{
+
+    .@string$    = getarg(0);
+    .@salt$      = "39aeaa5d1ef9361ff71269a03fca2a70";
+    .@iterations = 2500;
+    
+    // enable free looping for the current loop (prevents "infinity loop" error)
+    freeloop(1);
+    for (.@i = 0; .@i < .@iterations; .@i += 1) {
+        .@string$ = md5(.@salt$ + .@string$ + .@salt$);
+    }
+    freeloop(0);
+    
+    return .@string$;
+}
+
+//===== Function Comment: =========================================================================================================
+//= Function description: returns character name regardless of online status
+//= Function accepts one argumen: the character's id
+//=================================================================================================================================
+function	script	getCharNameByCharId	{
+
+    .@charId  = getarg(0);
+    
+    if (query_sql("SELECT `name` FROM `char` WHERE `char_id` = " + .@charId + " LIMIT 1", @name$)) {
+        return @name$;
+    } else {
+        return "";
+    }
+    
+}
+
+
+//===== Function Comment: =========================================================================================================
+//= Function description: prints the given number in a big format
+//= Function accepts one argument: the number to be printed
+//=================================================================================================================================
+function	script	printNumber	{
+
+	// Only print numbers <10000, as five digit numbers break the layout
+	if (getarg(0) && getarg(0) < 10000) {
+		
+		setd ".@numArr_0$[0]", "^F7F7F7__^0000000000^F7F7F7__";
+		setd ".@numArr_0$[1]", "^F7F7F7_^00000000^F7F7F7__^00000000^F7F7F7_";
+		setd ".@numArr_0$[2]", "^F7F7F7_^00000000^F7F7F7__^00000000^F7F7F7_";
+		setd ".@numArr_0$[3]", "^F7F7F7_^00000000^F7F7F7__^00000000^F7F7F7_";
+		setd ".@numArr_0$[4]", "^F7F7F7__^0000000000^F7F7F7__";
+		
+
+		setd ".@numArr_1$[0]", "^F7F7F7___^00000011^F7F7F7___";
+		setd ".@numArr_1$[1]", "^F7F7F7__^000000111^F7F7F7___";
+		setd ".@numArr_1$[2]", "^F7F7F7___^00000011^F7F7F7___";
+		setd ".@numArr_1$[3]", "^F7F7F7___^00000011^F7F7F7___";
+		setd ".@numArr_1$[4]", "^F7F7F7_^000000111111^F7F7F7_";
+
+
+		setd ".@numArr_2$[0]", "^F7F7F7__^0000002222^F7F7F7__";
+		setd ".@numArr_2$[1]", "^F7F7F7_____^00000022^F7F7F7_";
+		setd ".@numArr_2$[2]", "^F7F7F7__^0000002222^F7F7F7__";
+		setd ".@numArr_2$[3]", "^F7F7F7_^00000022^F7F7F7_____";
+		setd ".@numArr_2$[4]", "^F7F7F7_^000000222222^F7F7F7_";
+
+
+		setd ".@numArr_3$[0]", "^F7F7F7_^000000333333^F7F7F7_";
+		setd ".@numArr_3$[1]", "^F7F7F7____^00000033^F7F7F7__";
+		setd ".@numArr_3$[2]", "^F7F7F7___^000000333^F7F7F7__";
+		setd ".@numArr_3$[3]", "^F7F7F7_____^00000033^F7F7F7_";
+		setd ".@numArr_3$[4]", "^F7F7F7_^00000033333^F7F7F7__";
+
+
+		setd ".@numArr_4$[0]", "^F7F7F7_^00000044^F7F7F7__^00000044^F7F7F7_";
+		setd ".@numArr_4$[1]", "^F7F7F7_^00000044^F7F7F7__^00000044^F7F7F7_";
+		setd ".@numArr_4$[2]", "^F7F7F7_^000000444444^F7F7F7_";
+		setd ".@numArr_4$[3]", "^F7F7F7_____^00000044^F7F7F7_";
+		setd ".@numArr_4$[4]", "^F7F7F7_____^00000044^F7F7F7_";
+
+
+		setd ".@numArr_5$[0]", "^F7F7F7_^000000555555^F7F7F7_";
+		setd ".@numArr_5$[1]", "^F7F7F7_^00000055^F7F7F7_____";
+		setd ".@numArr_5$[2]", "^F7F7F7__^0000005555^F7F7F7__";
+		setd ".@numArr_5$[3]", "^F7F7F7_____^00000055^F7F7F7_";
+		setd ".@numArr_5$[4]", "^F7F7F7_^00000055555^F7F7F7__";
+
+
+		setd ".@numArr_6$[0]", "^F7F7F7___^00000066^F7F7F7___";
+		setd ".@numArr_6$[1]", "^F7F7F7__^00000066^F7F7F7____";
+		setd ".@numArr_6$[2]", "^F7F7F7_^00000066666^F7F7F7__";
+		setd ".@numArr_6$[3]", "^F7F7F7_^00000066^F7F7F7__^00000066^F7F7F7_";
+		setd ".@numArr_6$[4]", "^F7F7F7__^0000006666^F7F7F7__";
+
+
+		setd ".@numArr_7$[0]", "^F7F7F7_^000000777777^F7F7F7_";
+		setd ".@numArr_7$[1]", "^F7F7F7____^00000077^F7F7F7__";
+		setd ".@numArr_7$[2]", "^F7F7F7___^00000077^F7F7F7___";
+		setd ".@numArr_7$[3]", "^F7F7F7__^00000077^F7F7F7____";
+		setd ".@numArr_7$[4]", "^F7F7F7_^00000077^F7F7F7_____";
+
+
+		setd ".@numArr_8$[0]", "^F7F7F7__^0000008888^F7F7F7__";
+		setd ".@numArr_8$[1]", "^F7F7F7_^00000088^F7F7F7__^00000088^F7F7F7_";
+		setd ".@numArr_8$[2]", "^F7F7F7__^0000008888^F7F7F7__";
+		setd ".@numArr_8$[3]", "^F7F7F7_^00000088^F7F7F7__^00000088^F7F7F7_";
+		setd ".@numArr_8$[4]", "^F7F7F7__^0000008888^F7F7F7__";
+
+		setd ".@numArr_9$[0]", "^F7F7F7__^0000009999^F7F7F7__";
+		setd ".@numArr_9$[1]", "^F7F7F7_^00000099^F7F7F7__^00000099^F7F7F7_";
+		setd ".@numArr_9$[2]", "^F7F7F7__^0000009999^F7F7F7__";
+		setd ".@numArr_9$[3]", "^F7F7F7___^00000099^F7F7F7___";
+		setd ".@numArr_9$[4]", "^F7F7F7__^00000099^F7F7F7____";
+		
+		.@number$ = getarg(0) + "";
+		
+		for (set .@i, 0; .@i < getstrlen(.@number$); .@i++) {
+			for (set .@j, 0; .@j <= 4; .@j++) {
+				setd(".@line" + .@j + "$", getd(".@line" + .@j + "$") + getd(".@numArr_" + charat(.@number$, .@i) + "$[" + .@j + "]"));
+			}
+		}
+		for (set .@j, 0; .@j <= 4; .@j++) {
+			mes getd(".@line" + .@j + "$");
+		}
+	}
+	return;
+}
