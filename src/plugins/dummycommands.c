@@ -73,6 +73,34 @@ ACMD(bank)
 	return true;
 }
 
+/*=========================================
+ * Hunting Mission System
+ *-----------------------------------------*/
+ACMD(mission)
+{
+	if (!sd) return false;
+
+	if( sd->npc_id || sd->vender_id || sd->buyer_id || sd->state.trading || sd->state.storage_flag )
+		return false;
+
+	npc->event(sd,"Hunting Missions::OnAtcommand",0);
+	return true;
+}
+
+/*=========================================
+ * Next Level
+ *-----------------------------------------*/
+ACMD(nextlevel)
+{
+	if (!sd) return false;
+
+	if( sd->npc_id || sd->vender_id || sd->buyer_id || sd->state.trading || sd->state.storage_flag )
+		return false;
+
+	npc->event(sd,"nextlevel::OnAtcommand",0);
+	return true;
+}
+
 HPExport void plugin_init (void) {
 	iMalloc = GET_SYMBOL("iMalloc");
 	atcommand = GET_SYMBOL("atcommand");
@@ -87,4 +115,7 @@ HPExport void plugin_init (void) {
 	/* Bank System */
 	addAtcommand("bank",bank);
 	addAtcommand("bankadmin",bank);
+
+	addAtcommand("mission",mission);
+	addAtcommand("nextlevel",nextlevel);
 }
