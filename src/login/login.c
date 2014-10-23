@@ -1067,6 +1067,8 @@ int mmo_auth(struct login_session_data* sd, bool isServer) {
 	sd->group_id = (uint8)acc.group_id;
 	sd->expiration_time = acc.expiration_time;
 
+	memcpy(acc.mac_address, sd->mac_address, sizeof(acc.mac_address));
+
 	// update account data
 	timestamp2string(acc.lastlogin, sizeof(acc.lastlogin), time(NULL), "%Y-%m-%d %H:%M:%S");
 	safestrncpy(acc.last_ip, ip, sizeof(acc.last_ip));
@@ -1393,8 +1395,12 @@ int parse_login(int fd)
 			{
 				char *accname = (char *)RFIFOP(fd, 9);
 				char *token = (char *)RFIFOP(fd, 0x5C);
+				char *mac = {(char *)RFIFOP(fd, 60)};
 				size_t uAccLen = strlen(accname);
+				size_t uMac = 18;
 				size_t uTokenLen = RFIFOREST(fd) - 0x5C;
+				safestrncpy(mac,mac, uMac);
+				safestrncpy(sd->mac_address,mac, uMac);
 
 				version = RFIFOL(fd,4);
 				
