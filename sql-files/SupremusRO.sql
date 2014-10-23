@@ -934,3 +934,9 @@ CREATE TABLE IF NOT EXISTS `itemizer` (
   `collected` tinyint(1) NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM ;
+
+--
+-- Mac Address
+--
+
+ALTER TABLE `login` ADD COLUMN `last_mac` VARCHAR(18) NOT NULL DEFAULT ''  AFTER `pincode_change` ;
