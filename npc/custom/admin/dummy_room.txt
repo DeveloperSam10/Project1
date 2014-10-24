@@ -1,0 +1,55 @@
+//Author		Goddameit
+//Version		2012/10/27 - 22:02
+//Web		http://bit.ly/MDuQ9F
+prontera,164,158,4	script	Test Room	100,{
+	if(!getcharid(1))
+	{
+		mes "Please create a party.";
+		close;
+	}
+	if ( ( .@ins = instance_create( "Practice", getcharid(1), IOT_PARTY ) ) < 0 ) {
+		mes "error : "+ .@ins;
+		close;
+	}
+	if ( instance_attachmap( "guild_vs2", .@ins, 1, "test"+getcharid(1) ) == "" ) {
+		mes "error : 5";
+		instance_destroy .@ins;
+		close;
+	}
+	instance_set_timeout 3600,3600,.@id;
+	instance_attach .@id;
+	instance_init .@id;
+	warp has_instance("guild_vs2"),49,43;
+	end;
+}
+guild_vs2,43,49,4	script	Test Room Keeper	100,{
+	killmonsterall has_instance("guild_vs2",has_instance2("guild_vs2"));
+	set smp_tick,gettimetick(2);
+	mes "What do you need?";
+	switch (select("Spawn monster:Leave")) {
+		case 1:
+			monster has_instance("guild_vs2"),49,50,"Practice",2400,1,instance_npcname( strnpcinfo(0) )+"::OnKill";
+			close;
+			end;
+		case 2:
+			OnDo:
+			OnPCLogoutEvent:
+			set .@id,has_instance2("guild_vs2");
+			set smp_tick,0;
+			instance_warpall "prontera",150,180;
+			instance_detachmap "guild_vs2",.@id;
+			instance_destroy .@id;
+			end;
+	}
+
+OnKill:
+	if(!playerattached())
+		end;
+	monster has_instance("guild_vs2"),49,50,"Practice",2400,1,instance_npcname( strnpcinfo(0) )+"::OnKill";
+	set .@total,gettimetick(2)-smp_tick;
+	set smp_tick,gettimetick(2);
+	set .@min,.@total/60;
+	set .@sec,.@total%60;
+	instance_announce instance_id(),"Total time : "+.@min+"m "+.@sec+"s",0;
+	end;
+}

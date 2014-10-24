@@ -196,7 +196,7 @@ prontera,147,166,5	script	Vending Helper	757,{
 	while ( true ) {
 		.@menu$ = .@currentpage ? "Previous Page:" : ":";
 		.@pageindex = .@currentpage * .slotperpage;
-		for ( .@i = 0; .@i < .slotperpage && .@pageindex + .@i < .count; .@i++ ) {
+		for ( .@i = 0; .@i < .slotperpage && .@pageindex + .@i < .Count; .@i++ ) {
 			if ( !getmapxy( .@map$, .@x, .@y, 1, "#vend_slot"+( .@pageindex + .@i ) ) && getareausers( .map$, .@x, .@y, .@x, .@y ) )
 				.@menu$ = .@menu$ +"Slot No."+( .@pageindex + .@i +1 )+" - ^FF0000[UnAvailable]^000000:";
 			else {
@@ -244,18 +244,18 @@ OnInit:
 		.@j = 0;
 		while ( .@j < .@x_size ) {
 			if ( checkcell( .map$, .@x[.@j], .@y[.@i], cell_chkpass ) ) {
-				movenpc "#vend_slot"+ .count, .@x[.@j], .@y[.@i];
+				movenpc "#vend_slot"+ .Count, .@x[.@j], .@y[.@i];
 				setcell .map$, .@x[.@j], .@y[.@i], .@x[.@j], .@y[.@i], cell_novending, 0;
 				if ( getareausers( .map$, .@x[.@j], .@y[.@i], .@x[.@j], .@y[.@i] ) ) {
-					hideonnpc "#vend_slot"+ .count;
-					donpcevent "#vend_slot"+ .count +"::OnCheckAvailable";
+					hideonnpc "#vend_slot"+ .Count;
+					donpcevent "#vend_slot"+ .Count +"::OnCheckAvailable";
 				}
-				.count++;
+				.Count++;
 			}
 			.@j++;
 		}
 		.@i++;
 	}
-	.maxpage = .count / .slotperpage + ( .count % .slotperpage > 0 ) -1;
+	.maxpage = .Count / .slotperpage + ( .Count % .slotperpage > 0 ) -1;
 	end;
 }

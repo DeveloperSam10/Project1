@@ -85,3 +85,66 @@ OnNPCKillEvent:
 	}
 	end;
 }
+
+-	script	dualclientkicker	-1,{
+OnPCLoadMapEvent:
+	set .@charmap$, strcharinfo(3);
+	if(!compare(.tmp$,.@charmap$)) end;
+	set .@len, query_sql("SELECT DISTINCT `account_id` FROM `char` WHERE `account_id` IN (SELECT `account_id` FROM `login` WHERE `last_mac` = (SELECT `last_mac` FROM `login` WHERE `account_id`="+getcharid(3)+")) AND `online` <> 0;",.@a);
+	//set .@len, query_sql("select account_id from `char` right join login on login.account_id = `char`.account_id where `char`.online = 1 and login.last_mac = '"+ getcharip() +"'",.@a ); //Annieruru Addition.
+	if(.@len-1) {
+		for(set(.@d,0);.@d<.@len;set(.@d,.@d+1)) {
+			getmapxy(.@map$,.@x,.@y,0,rid2name(.@a[.@d]));
+			if(.@charmap$==.@map$&&rid2name(.@a[.@d])!=strcharinfo(0)) {
+				dispbottomcolor "Dual accounts not allowed in WoE, PvP and Event maps.",0x00FF00;
+				warp "prontera",156,191;
+			}
+		}
+	}
+	end;
+	
+OnInit:
+	setarray   .maps$  ,	"aldeg_cas01",
+							"aldeg_cas02",
+							"aldeg_cas03",
+							"aldeg_cas04",
+							"aldeg_cas05",
+							"gefg_cas01",
+							"gefg_cas02",
+							"gefg_cas03",
+							"gefg_cas04",
+							"gefg_cas05",
+							"payg_cas01",
+							"payg_cas02",
+							"payg_cas03",
+							"payg_cas04",
+							"payg_cas05",
+							"prtg_cas01",
+							"prtg_cas02",
+							"prtg_cas03",
+							"prtg_cas04",
+							"prtg_cas05",
+							"schg_cas01",
+							"schg_cas02",
+							"schg_cas03",
+							"schg_cas04",
+							"schg_cas05",
+							"arug_cas01",
+							"arug_cas02",
+							"arug_cas03",
+							"arug_cas04",
+							"arug_cas05",
+							"quiz_01",
+							"force_1-3",
+							"p_track01",
+							"poring_w01",
+							"pvp_room01",
+							"pvp_room02",
+							"pvp_room03",
+							"pvp_room04";
+	set        .lens   ,	getarraysize(.maps$)                                   ;
+	for(set(.a,0);.a<.lens;set(.a,.a+1)) {
+		setmapflag .maps$[.a],	mf_loadevent ;
+		set .tmp$  ,.tmp$+.maps$[.a]+",";
+	}
+}

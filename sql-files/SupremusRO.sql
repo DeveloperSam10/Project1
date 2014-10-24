@@ -936,6 +936,21 @@ CREATE TABLE IF NOT EXISTS `itemizer` (
 ) ENGINE=MyISAM ;
 
 --
+-- Bank
+--
+
+CREATE TABLE `bank` (
+	`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`account_id` INT(10) UNSIGNED NOT NULL,
+	`balance` BIGINT(20) UNSIGNED NOT NULL,
+	`password` VARCHAR(32) NULL DEFAULT NULL,
+	`created_at` TIMESTAMP NULL DEFAULT NULL,
+	`updated_at` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+	PRIMARY KEY (`id`),
+	UNIQUE INDEX `account_id` (`account_id`)
+);
+
+--
 -- Mac Address
 --
 

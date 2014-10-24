@@ -137,16 +137,11 @@ function Chk; function Cm;
 		close;
 	case 5:
 		mes "[Hunting Missions]";
-		mes "Sorry, currently under construction.";
-		close;
-		/*
-		mes "[Hunting Missions]";
 		mes "You have ^0055FF"+#Mission_Points+"^000000 Mission Points.";
 		mes "Use them well!";
 		callshop "mission_shop",1;
 		npcshopattach "mission_shop";
 		end;
-		*/
 	case 6:
 		mes "[Hunting Missions]";
 		mes "The top hunters are:";
@@ -329,7 +324,7 @@ OnInit:
 	setarray .Modifier[0],	// Multipliers for Base Exp, Job Exp, and Zeny rewards.
 		50,50,25;
 	setarray .Shop[0],	// Reward items: <ID>,<point cost> (about 10~20 points per hunt).
-		512,1,513,1,514,1,538,5,539,5,558,10,561,10;
+		13634,20,12108,20,12932,30,12933,30,12934,30,12529,30,12935,80,12936,80,12937,80,12938,80,12939,80,12940,80,12941,80,12942,80,12943,80,12944,80,12945,80,12946,80,16682,100,19521,250,19522,250,19523,250,19524,250,19525,250,19526,250,19527,250,19528,250,19531,250,19537,250,19538,250,19541,250,19542,250,19543,250,19544,250,19545,250,19546,250,19547,250,19548,250,19549,250,19550,250,19551,250,19552,250,19553,250,19554,250,16683,400;
 	set .Blacklist$,	// Blacklisted mob IDs.
 		"1062,1088,1183,1186,1200,1212,1220,1221,1234,1235,"+
 		"1244,1245,1250,1268,1290,1293,1294,1296,1298,1299,"+
