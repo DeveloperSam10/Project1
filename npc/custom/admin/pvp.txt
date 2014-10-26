@@ -47,7 +47,7 @@ OnPCKillEvent:
 			default: break;
 		}
 	}
-	announce strcharinfo(0)+" pawned "+rid2name(killedrid)+"'s head in "+strcharinfo(3)+"!", ((.Broadcast)?bc_map:bc_all), .KColor$;
+	if (strcharinfo(0) != rid2name(killedrid)) announce strcharinfo(0)+" pawned "+rid2name(killedrid)+"'s head in "+strcharinfo(3)+"!", ((.Broadcast)?bc_map:bc_all), .KColor$;
 	if(@ks < 10){ set @ks, @ks + 1; }
 	if(@mk < 6){ set @mk, @mk + 1; }
 	if(!NemesisKilled){ set NemesisKilled, killedrid; }
