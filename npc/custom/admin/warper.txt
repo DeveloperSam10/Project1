@@ -9,6 +9,7 @@
 //===== Description: ========================================= 
 //= A complete - but very condensed - warper script.
 //= Coordinates written largely by Tekno-Kanix and ToastOfDoom.
+//= Changed sprite to 4_M_NFDEADMAN from 859 for Halloween.
 //============================================================
 
 -	script	Warper	-1,{
@@ -378,7 +379,7 @@ D30: setarray @c[0],21,183,19,33,19,63,155,159,201,204;
 	Disp("Payon Dungeon",1,5); Pick("pay_dun",1);
 D31: setarray @c[2],192,9,10,192,100,92,181,11,94,96,192,8;
 	Disp("Pyramids 1:Pyramids 2:Pyramids 3:Pyramids 4:Basement 1:Basement 2"); Pick("moc_pryd");
-D32: setarray @c[2],140,11,32,21,4,149,204,218,150,9;
+D32: setarray @c[2],140,11,32,21,10,149,204,218,150,9;
 	Disp("Rachel Sanctuary",1,5); Pick("ra_san");
 D33: Restrict("RE");
 	setarray @c[2],364,44,101,141;
@@ -650,51 +651,51 @@ end;
 // --------------------------------------------------
 //	Duplicates:
 // --------------------------------------------------
-prontera,152,192,6	duplicate(Warper)	Warper#1	859
-rachel,135,116,4	duplicate(Warper)	Warper#2	859
-alberta,28,240,4	duplicate(Warper)	Warper#3	859
-aldebaran,145,118,4	duplicate(Warper)	Warper#4	859
-amatsu,203,87,4	duplicate(Warper)	Warper#5	859
-ayothaya,209,169,6	duplicate(Warper)	Warper#6	859
-comodo,194,158,4	duplicate(Warper)	Warper#7	859
-einbech,142,246,4	duplicate(Warper)	Warper#8	859
-einbroch,69,202,4	duplicate(Warper)	Warper#9	859
-hugel,101,151,4	duplicate(Warper)	Warper#10	859
-lighthalzen,151,101,6	duplicate(Warper)	Warper#11	859
-geffen,124,72,4	duplicate(Warper)	Warper#12	859
-izlude,132,120,4	duplicate(Warper)	Warper#13	859
-xmas,150,136,4	duplicate(Warper)	Warper#14	859
-morocc,159,97,4	duplicate(Warper)	Warper#15	859
-payon,182,108,4	duplicate(Warper)	Warper#16	859
-yuno,162,47,4	duplicate(Warper)	Warper#17	859
-moc_fild04,207,331,4	duplicate(Warper)	Warper#18	859
-izlu2dun,104,82,4	duplicate(Warper)	Warper#19	859
-mjolnir_02,85,363,4	duplicate(Warper)	Warper#20	859
-prt_fild05,273,215,4	duplicate(Warper)	Warper#21	859
-glast_01,370,308,4	duplicate(Warper)	Warper#22	859
-yuno_fild03,37,135,4	duplicate(Warper)	Warper#23	859
-gef_fild10,71,339,4	duplicate(Warper)	Warper#24	859
-pay_arche,39,135,4	duplicate(Warper)	Warper#25	859
-moc_ruins,64,166,4	duplicate(Warper)	Warper#26	859
-moc_fild19,106,97,4	duplicate(Warper)	Warper#27	859
-alb2trea,73,101,4	duplicate(Warper)	Warper#28	859
-tur_dun01,148,239,4	duplicate(Warper)	Warper#29	859
-gonryun,162,122,4	duplicate(Warper)	Warper#30	859
-louyang,208,103,6	duplicate(Warper)	Warper#31	859
-umbala,132,130,4	duplicate(Warper)	Warper#32	859
-brasilis,201,222,4	duplicate(Warper)	Warper#33	859
-manuk,262,177,4	duplicate(Warper)	Warper#34	859
-splendide,205,153,4	duplicate(Warper)	Warper#35	859
-mid_camp,216,288,4	duplicate(Warper)	Warper#36	859
-dicastes01,194,194,6	duplicate(Warper)	Warper#37	859
-mora,110,100,4	duplicate(Warper)	Warper#38	859
-moscovia,216,196,6	duplicate(Warper)	Warper#39	859
-nameless_n,259,213,4	duplicate(Warper)	Warper#40	859
-niflheim,205,179,4	duplicate(Warper)	Warper#41	859
-thor_camp,249,76,4	duplicate(Warper)	Warper#42	859
-veins,214,123,4	duplicate(Warper)	Warper#43	859
-dewata,194,178,6	duplicate(Warper)	Warper#44	859
-eclage,107,37,4	duplicate(Warper)	Warper#45	859
-malaya,210,205,4	duplicate(Warper)	Warper#46	859
-malangdo,220,188,6	duplicate(Warper)	Warper#47	859
-malangdo,145,119,6	duplicate(Warper)	Warper#48	859
+prontera,152,192,6	duplicate(Warper)	Warper#1	4_M_NFDEADMAN
+rachel,135,116,4	duplicate(Warper)	Warper#2	4_M_NFDEADMAN
+alberta,28,240,4	duplicate(Warper)	Warper#3	4_M_NFDEADMAN
+aldebaran,145,118,4	duplicate(Warper)	Warper#4	4_M_NFDEADMAN
+amatsu,203,87,4	duplicate(Warper)	Warper#5	4_M_NFDEADMAN
+ayothaya,209,169,6	duplicate(Warper)	Warper#6	4_M_NFDEADMAN
+comodo,194,158,4	duplicate(Warper)	Warper#7	4_M_NFDEADMAN
+einbech,142,246,4	duplicate(Warper)	Warper#8	4_M_NFDEADMAN
+einbroch,69,202,4	duplicate(Warper)	Warper#9	4_M_NFDEADMAN
+hugel,101,151,4	duplicate(Warper)	Warper#10	4_M_NFDEADMAN
+lighthalzen,151,101,6	duplicate(Warper)	Warper#11	4_M_NFDEADMAN
+geffen,124,72,4	duplicate(Warper)	Warper#12	4_M_NFDEADMAN
+izlude,132,120,4	duplicate(Warper)	Warper#13	4_M_NFDEADMAN
+xmas,150,136,4	duplicate(Warper)	Warper#14	4_M_NFDEADMAN
+morocc,159,97,4	duplicate(Warper)	Warper#15	4_M_NFDEADMAN
+payon,182,108,4	duplicate(Warper)	Warper#16	4_M_NFDEADMAN
+yuno,162,47,4	duplicate(Warper)	Warper#17	4_M_NFDEADMAN
+moc_fild04,207,331,4	duplicate(Warper)	Warper#18	4_M_NFDEADMAN
+izlu2dun,104,82,4	duplicate(Warper)	Warper#19	4_M_NFDEADMAN
+mjolnir_02,85,363,4	duplicate(Warper)	Warper#20	4_M_NFDEADMAN
+prt_fild05,273,215,4	duplicate(Warper)	Warper#21	4_M_NFDEADMAN
+glast_01,370,308,4	duplicate(Warper)	Warper#22	4_M_NFDEADMAN
+yuno_fild03,37,135,4	duplicate(Warper)	Warper#23	4_M_NFDEADMAN
+gef_fild10,71,339,4	duplicate(Warper)	Warper#24	4_M_NFDEADMAN
+pay_arche,39,135,4	duplicate(Warper)	Warper#25	4_M_NFDEADMAN
+moc_ruins,64,166,4	duplicate(Warper)	Warper#26	4_M_NFDEADMAN
+moc_fild19,106,97,4	duplicate(Warper)	Warper#27	4_M_NFDEADMAN
+alb2trea,73,101,4	duplicate(Warper)	Warper#28	4_M_NFDEADMAN
+tur_dun01,148,239,4	duplicate(Warper)	Warper#29	4_M_NFDEADMAN
+gonryun,162,122,4	duplicate(Warper)	Warper#30	4_M_NFDEADMAN
+louyang,208,103,6	duplicate(Warper)	Warper#31	4_M_NFDEADMAN
+umbala,132,130,4	duplicate(Warper)	Warper#32	4_M_NFDEADMAN
+brasilis,201,222,4	duplicate(Warper)	Warper#33	4_M_NFDEADMAN
+manuk,262,177,4	duplicate(Warper)	Warper#34	4_M_NFDEADMAN
+splendide,205,153,4	duplicate(Warper)	Warper#35	4_M_NFDEADMAN
+mid_camp,216,288,4	duplicate(Warper)	Warper#36	4_M_NFDEADMAN
+dicastes01,194,194,6	duplicate(Warper)	Warper#37	4_M_NFDEADMAN
+mora,110,100,4	duplicate(Warper)	Warper#38	4_M_NFDEADMAN
+moscovia,216,196,6	duplicate(Warper)	Warper#39	4_M_NFDEADMAN
+nameless_n,259,213,4	duplicate(Warper)	Warper#40	4_M_NFDEADMAN
+niflheim,205,179,4	duplicate(Warper)	Warper#41	4_M_NFDEADMAN
+thor_camp,249,76,4	duplicate(Warper)	Warper#42	4_M_NFDEADMAN
+veins,214,123,4	duplicate(Warper)	Warper#43	4_M_NFDEADMAN
+dewata,194,178,6	duplicate(Warper)	Warper#44	4_M_NFDEADMAN
+eclage,107,37,4	duplicate(Warper)	Warper#45	4_M_NFDEADMAN
+malaya,210,205,4	duplicate(Warper)	Warper#46	4_M_NFDEADMAN
+malangdo,220,188,6	duplicate(Warper)	Warper#47	4_M_NFDEADMAN
+malangdo,145,119,6	duplicate(Warper)	Warper#48	4_M_NFDEADMAN

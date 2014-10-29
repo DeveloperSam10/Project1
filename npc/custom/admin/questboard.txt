@@ -17,7 +17,8 @@
 // 1.4.4 Added Quest delay
 //============================================================
 
-prontera,156,195,4	script	Questboard	4_BOARD3,{
+/*prontera,156,195,4	script	Questboard	4_BOARD3,{*/
+prontera,155,193,4	script	Questboard	4_BOARD3,{	//Halloween
 
 	if(c_run==1){
 		mes "[^FF7700Questboard^000000]";

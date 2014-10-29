@@ -781,7 +781,8 @@ end;
 */
 
 /* Kafra NPC */
-prontera,159,192,4	script	Kafra Employee::kaf_prontera6	4_F_KAFRA6,{
+//prontera,159,192,4	script	Kafra Employee::kaf_prontera6	4_F_KAFRA6,{
+prontera,159,192,4	script	Kafra Employee::kaf_prontera6	4_F_NFDEADKAFRA,{	// Halloween
 	mes "[Kafra Employee]";
 	mes "Welcome to the";
 	mes "Kafra Corporation.";
@@ -811,7 +812,8 @@ prontera,159,192,4	script	Kafra Employee::kaf_prontera6	4_F_KAFRA6,{
 }
 
 /* Job Changer */
-prontera,150,189,6	script	Job Changer#custom	459,{
+//prontera,150,189,6	script	Job Changer#custom	459,{
+prontera,150,189,6	script	Job Changer#custom	4_M_NFDEADSWDMAN,{	// Halloween
 function Job_Menu; function A_An;
 
 	mes "[Job Master]";
@@ -1008,7 +1010,8 @@ OnInit:
 }
 
 /* Reset NPC */
-prontera,148,186,5	script	Reset Girl#custom	4_F_TELEPORTER,{
+//prontera,148,186,5	script	Reset Girl#custom	4_F_TELEPORTER,{
+prontera,148,186,5	script	Reset Girl#custom	4_F_NFDEADMGCIAN,{	// Halloween
 	set .@ResetStat,(5000*BaseLevel)/2;	// Zeny for stat reset
 	set .@ResetSkill,(7000*JobLevel)/2;	// Zeny for skill reset
 	set .@ResetBoth,(9000*BaseLevel)/2;	// Zeny for resetting both together
@@ -1230,7 +1233,8 @@ prontera,171,182,1	script	Card Remover#eAcustom	1_F_ORIENT_04,{
 }
 
 /* Build Manager */
-prontera,163,186,4	script	Buid Manager#custom	88,{
+//prontera,163,186,4	script	Buid Manager#custom	88,{
+prontera,163,186,4	script	Buid Manager#custom	4_M_NFDEADMAN2,{	// Halloween
 	function Get_Menu; function Save_Build; function Load_Build;
 
 	set .@BuildCount,4;	// Number of builds to use
@@ -1323,4 +1327,33 @@ prontera,140,182,8	script	Universal Rental NPC	4_F_JOB_BLACKSMITH,{
 			close; }
 		specialeffect2 276;
 		close;
+}
+
+prontera,0,0,0,0	monster	Dullahan	1504,5,1800000,1200000,0,"Halloween_event::OnInvasionMonsters"
+prontera,0,0,0,0	monster	Gibbet	1503,10,1200000,600000,0,"Halloween_event::OnInvasionMonsters"
+prontera,0,0,0,0	monster	Heirozoist	1510,10,1200000,600000,0,"Halloween_event::OnInvasionMonsters"
+prontera,0,0,0,0	monster	Quve	1508,20,300000,150000,0,"Halloween_event::OnInvasionMonsters"
+prontera,0,0,0,0	monster	Lude	1509,20,300000,150000,0,"Halloween_event::OnInvasionMonsters"
+prontera,0,0,0,0	monster	Zombie	1015,30,0,0,0,"Halloween_event::OnInvasionMonsters"
+
+/* Halloween Event */
+-	script	Halloween_event	-1,{
+OnInit:
+setmapflag "prontera",	mf_nomobloot;
+killmonster "prontera","Halloween_event::OnInvasionMonsters";
+end;
+
+OnInvasionMonsters:
+OnNPCKillEvent:
+	if (getmonsterinfo(killedrid,MOB_RACE) == RC_Demon) ||
+	(getmonsterinfo(killedrid,MOB_ELEMENT) == Ele_Ghost) ||
+	(getmonsterinfo(killedrid,MOB_ELEMENT) == Ele_Undead)
+	{
+		if (rand(1,10) >= 7) {
+			getitem rand(29006,29009),1;
+		}
+	}
+	end;
+
+end;
 }

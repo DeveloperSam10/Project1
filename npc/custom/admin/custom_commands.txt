@@ -148,3 +148,22 @@ OnInit:
 		set .tmp$  ,.tmp$+.maps$[.a]+",";
 	}
 }
+
+-	script	showmac	-1,{
+OnAtcommand:
+	set .@name$, implode(.@atcmd_parameters$," ");
+	if (getcharid(3,.@name$) != NULL) {
+		query_sql("SELECT `last_mac` FROM `login` WHERE `account_id`=" + escape_sql(getcharid(3,.@name$)), .@mac$);
+		dispbottom .@name$ + " Mac is "+ .@mac$ +".";
+		end;
+	}
+	else {
+		dispbottom "No account can be found with the character name of "+.@name$+".";
+		end;
+	}
+	end;
+	
+OnInit:
+	bindatcmd "showmac",strnpcinfo(3)+"::OnAtcommand",99;
+	end;
+}

@@ -18,14 +18,17 @@
 #include "../common/HPMi.h"
 #include "../common/malloc.h"
 #include "../common/mmo.h"
+#include "../common/timer.h"
 #include "../map/atcommand.h"
 #include "../map/battle.h"
 #include "../map/clif.h"
+#include "../map/elemental.h"
 #include "../map/intif.h"
 #include "../map/itemdb.h"
 #include "../map/mob.h"
 #include "../map/npc.h"
 #include "../map/pc.h"
+#include "../map/pet.h"
 #include "../common/HPMDataCheck.h" /* should always be the last file included! (if you don't make it last, it'll intentionally break compile time) */
 
 HPExport struct hplugin_info pinfo = {
@@ -257,6 +260,216 @@ ACMD(recall) {
 	return true;
 }
 
+struct godelay_data_struct {
+	unsigned int warpgodelay_tick;
+};
+
+struct godelay_data_struct *get_godelay_variable(struct map_session_data *sd) {
+	struct godelay_data_struct *data;
+	
+	// Let's check if we already inserted the field
+	if ( !(data = getFromMSD(sd,0)) ) {
+		
+		CREATE(data,struct godelay_data_struct, 1);
+		
+		addToMSD(sd, data,0, true);
+	}
+
+	return data;
+}
+
+bool pc_authok_pre(struct map_session_data *sd, int login_id2, time_t expiration_time, int group_id, struct mmo_charstatus *st, bool changing_mapservers) {
+	int64 tick = timer->gettick();
+	struct godelay_data_struct *data = get_godelay_variable(sd);
+
+
+	data->warpgodelay_tick = tick;
+	return true;
+}
+
+int go_delay = 1;
+void go_delay_setting(const char *val) {
+	go_delay = atoi(val) * 1000;
+	ShowDebug("Received 'go_delay:%s'\n",val);
+	/* do anything with the var e.g. config_switch(val) */
+}
+
+/*==========================================
+ * Invoked when a player has received damage
+ *------------------------------------------*/
+void my_pc_damage_pre(struct map_session_data *sd,struct block_list *src,unsigned int hp, unsigned int sp)
+{
+	struct godelay_data_struct *data = get_godelay_variable(sd);
+	int64 tick = timer->gettick();
+
+	data->warpgodelay_tick = tick+go_delay; //This is the timer
+	return;
+	hookStop();
+}
+
+int unit_skilluse_id2_pre(struct block_list *src, int target_id, uint16 skill_id, uint16 skill_lv, int casttime, int castcancel) {
+	struct map_session_data *sd = NULL;
+	struct godelay_data_struct *data = get_godelay_variable(sd);
+	int64 tick = timer->gettick();
+
+	if (sd) data->warpgodelay_tick= tick+go_delay ;//The delay when they use skill
+	hookStop();
+}
+
+/**
+ * retrieves the help string associated with a given command.
+ */
+static inline const char* atcommand_help_string(AtCommandInfo *info) {
+	return info->help;
+}
+
+/*==========================================
+ * @go [city_number or city_name] - Updated by Harbin
+ * Added 5 secs delay when hit by monsters and skill use
+ *------------------------------------------*/
+ACMD(go) {
+	struct godelay_data_struct *my = get_godelay_variable(sd);
+	int64 tick = timer->gettick();
+	int i;
+	int town = INT_MAX; // Initialized to INT_MAX instead of -1 to avoid conflicts with those who map [-3:-1] to @memo locations.
+	char map_name[MAP_NAME_LENGTH];
+	
+	const struct {
+		char map[MAP_NAME_LENGTH];
+		int x, y;
+		int min_match; ///< Minimum string length to match
+	} data[] = {
+		{ MAP_PRONTERA,    156, 191, 3 }, //  0 = Prontera
+		{ MAP_MORROC,      156,  93, 4 }, //  1 = Morroc
+		{ MAP_GEFFEN,      119,  59, 3 }, //  2 = Geffen
+		{ MAP_PAYON,       162, 233, 3 }, //  3 = Payon
+		{ MAP_ALBERTA,     192, 147, 3 }, //  4 = Alberta
+#ifdef RENEWAL
+		{ MAP_IZLUDE,      128, 146, 3 }, //  5 = Izlude (Renewal)
+#else
+		{ MAP_IZLUDE,      128, 114, 3 }, //  5 = Izlude
+#endif
+		{ MAP_ALDEBARAN,   140, 131, 3 }, //  6 = Aldebaran
+		{ MAP_LUTIE,       147, 134, 3 }, //  7 = Lutie
+		{ MAP_COMODO,      209, 143, 3 }, //  8 = Comodo
+		{ MAP_YUNO,        157,  51, 3 }, //  9 = Juno
+		{ MAP_AMATSU,      198,  84, 3 }, // 10 = Amatsu
+		{ MAP_GONRYUN,     160, 120, 3 }, // 11 = Kunlun
+		{ MAP_UMBALA,       89, 157, 3 }, // 12 = Umbala
+		{ MAP_NIFLHEIM,     21, 153, 3 }, // 13 = Niflheim
+		{ MAP_LOUYANG,     217,  40, 3 }, // 14 = Luoyang
+		{ MAP_NOVICE,       53, 111, 3 }, // 15 = Training Grounds
+		{ MAP_JAIL,         23,  61, 3 }, // 16 = Prison
+		{ MAP_JAWAII,      249, 127, 3 }, // 17 = Jawaii
+		{ MAP_AYOTHAYA,    151, 117, 3 }, // 18 = Ayothaya
+		{ MAP_EINBROCH,     64, 200, 5 }, // 19 = Einbroch
+		{ MAP_LIGHTHALZEN, 158,  92, 3 }, // 20 = Lighthalzen
+		{ MAP_EINBECH,      70,  95, 5 }, // 21 = Einbech
+		{ MAP_HUGEL,        96, 145, 3 }, // 22 = Hugel
+		{ MAP_RACHEL,      130, 110, 3 }, // 23 = Rachel
+		{ MAP_VEINS,       216, 123, 3 }, // 24 = Veins
+		{ MAP_MOSCOVIA,    223, 184, 3 }, // 25 = Moscovia
+		{ MAP_MIDCAMP,     180, 240, 3 }, // 26 = Midgard Camp
+		{ MAP_MANUK,       282, 138, 3 }, // 27 = Manuk
+		{ MAP_SPLENDIDE,   197, 176, 3 }, // 28 = Splendide
+		{ MAP_BRASILIS,    182, 239, 3 }, // 29 = Brasilis
+		{ MAP_DICASTES,    198, 187, 3 }, // 30 = El Dicastes
+		{ MAP_MORA,         44, 151, 4 }, // 31 = Mora
+		{ MAP_DEWATA,      200, 180, 3 }, // 32 = Dewata
+		{ MAP_MALANGDO,    140, 114, 5 }, // 33 = Malangdo Island
+		{ MAP_MALAYA,      242, 211, 5 }, // 34 = Malaya Port
+		{ MAP_ECLAGE,      110,  39, 3 }, // 35 = Eclage
+	};
+			
+	memset(map_name, '\0', sizeof(map_name));
+	memset(custom_atcmd_output, '\0', sizeof(custom_atcmd_output));
+	
+	if (!message || !*message || sscanf(message, "%11s", map_name) < 1) {
+		// no value matched so send the list of locations
+		const char* text;
+		
+		// attempt to find the text help string
+		text = atcommand_help_string( info );
+		
+		clif->message(fd, msg_txt(38)); // Invalid location number, or name.
+		
+		if( text ) {// send the text to the client
+			clif->messageln( fd, text );
+		}
+		
+		return false;
+	}
+
+	// Numeric entry
+	if (ISDIGIT(*message) || (message[0] == '-' && ISDIGIT(message[1]))) {
+		town = atoi(message);
+	}
+
+	if (town < 0 || town >= ARRAYLENGTH(data)) {
+		map_name[MAP_NAME_LENGTH-1] = '\0';
+
+		// Match maps on the list
+		for (i = 0; i < ARRAYLENGTH(data); i++) {
+			if (strncmpi(map_name, data[i].map, data[i].min_match) == 0) {
+				town = i;
+				break;
+			}
+		}
+	}
+
+	if (town < 0 || town >= ARRAYLENGTH(data)) {
+		// Alternate spellings
+		if (strncmpi(map_name, "morroc", 4) == 0) { // Correct town name for 'morocc'
+			town = 1;
+		} else if (strncmpi(map_name, "lutie", 3) == 0) { // Correct town name for 'xmas'
+			town = 7;
+		} else if (strncmpi(map_name, "juno", 3) == 0) { // Correct town name for 'yuno'
+			town = 9;
+		} else if (strncmpi(map_name, "kunlun", 3) == 0) { // Original town name for 'gonryun'
+			town = 11;
+		} else if (strncmpi(map_name, "luoyang", 3) == 0) { // Original town name for 'louyang'
+			town = 14;
+		} else if (strncmpi(map_name, "startpoint", 3) == 0 // Easy to remember alternatives to 'new_1-1'
+		        || strncmpi(map_name, "beginning", 3) == 0) {
+			town = 15;
+		} else if (strncmpi(map_name, "prison", 3) == 0 // Easy to remember alternatives to 'sec_pri'
+		        || strncmpi(map_name, "jail", 3) == 0) {
+			town = 16;
+		} else if (strncmpi(map_name, "rael", 3) == 0) { // Original town name for 'rachel'
+			town = 23;
+		}
+	}
+
+	if(DIFF_TICK(my->warpgodelay_tick,tick)>0) {
+		sprintf(custom_atcmd_output, "You need to wait %.02f seconds to use @go command", (DIFF_TICK(my->warpgodelay_tick,tick)) / (double)1000.0);
+		clif->message(fd,custom_atcmd_output);
+		return 0;
+	}
+
+	if (town >= 0 && town < ARRAYLENGTH(data)) {
+		int16 m = map->mapname2mapid(data[town].map);
+		if (m >= 0 && map->list[m].flag.nowarpto && !pc_has_permission(sd, PC_PERM_WARP_ANYWHERE)) {
+			clif->message(fd, msg_txt(247));
+			return false;
+		}
+		if (sd->bl.m >= 0 && map->list[sd->bl.m].flag.nowarp && !pc_has_permission(sd, PC_PERM_WARP_ANYWHERE)) {
+			clif->message(fd, msg_txt(248));
+			return false;
+		}
+		if (pc->setpos(sd, mapindex->name2id(data[town].map), data[town].x, data[town].y, CLR_TELEPORT) == 0) {
+			clif->message(fd, msg_txt(0)); // Warped.
+		} else {
+			clif->message(fd, msg_txt(1)); // Map not found.
+			return false;
+		}
+	} else {
+		clif->message(fd, msg_txt(38)); // Invalid location number or name.
+		return false;
+	}
+	
+	return true;
+}
+
 HPExport void plugin_init (void) {
 	iMalloc = GET_SYMBOL("iMalloc");
 	atcommand = GET_SYMBOL("atcommand");
@@ -268,6 +481,10 @@ HPExport void plugin_init (void) {
 	mapindex = GET_SYMBOL("mapindex");
 	mob = GET_SYMBOL("mob");
 	pc = GET_SYMBOL("pc");
+	pet = GET_SYMBOL("pet");
+	elemental = GET_SYMBOL("elemental");
+	skill = GET_SYMBOL("skill");
+	timer = GET_SYMBOL("timer");
 
 	addAtcommand("vip",vip);
 	addAtcommand("loginrewards",loginrewards);
@@ -284,4 +501,16 @@ HPExport void plugin_init (void) {
 	addAtcommand("monsterbig",monster);
 
 	addAtcommand("recall",recall);
+
+	addHookPre("pc->authok",pc_authok_pre);
+	addHookPre("pc->damage",my_pc_damage_pre);
+
+	addAtcommand("go",go);
+}
+
+HPExport void server_preinit (void) {
+	/* makes map server listen to mysetting:value in any "battleconf" file (including imported or custom ones) */
+	/* value is not limited to numbers, its passed to our plugins handler (parse_my_setting) as const char *,
+	 * and thus can be manipulated at will */
+	addBattleConf("go_delay",go_delay_setting);
 }

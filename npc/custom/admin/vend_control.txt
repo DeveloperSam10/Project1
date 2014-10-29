@@ -227,8 +227,10 @@ prontera,147,166,5	script	Vending Helper	757,{
 OnInit:
 //	======================= Configuration HERE =============================
 	.map$ = "prontera"; // map
-	setarray .@x, 145,142,139,115,118,121; // x coordinates
-	setarray .@y, 174,172,170,168,166,164,162,160,152,150,142,140,108,106,104,102,100,98,96,94,92,90,88,86,84,82,80;// y coordinates
+	//setarray .@x, 145,142,139,115,118,121; // x coordinates
+	setarray .@x, 145,143,141,139,137,135,133,131,129,166,168,170,172,174,176,178,180; // x coordinates halloween
+	setarray .@y, 174,172,170,168,166,164,162,160,158,156,154,152,150,148,146,144,142,140,138;// y coordinates halloween
+	//setarray .@y, 174,172,170,168,166,164,162,160,152,150,142,140,108,106,104,102,100,98,96,94,92,90,88,86,84,82,80;// y coordinates
 	.slotperpage = 20; // display how many slots per page (prevent making the menu too long)
 
 //	too many people said this script causes vendor cannot vend at all on the map, ( coordinates has set too near )
