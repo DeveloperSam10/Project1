@@ -1335,6 +1335,7 @@ prontera,0,0,0,0	monster	Heirozoist	1510,10,1200000,600000,0,"Halloween_event::O
 prontera,0,0,0,0	monster	Quve	1508,20,300000,150000,0,"Halloween_event::OnInvasionMonsters"
 prontera,0,0,0,0	monster	Lude	1509,20,300000,150000,0,"Halloween_event::OnInvasionMonsters"
 prontera,0,0,0,0	monster	Zombie	1015,30,0,0,0,"Halloween_event::OnInvasionMonsters"
+prontera,0,0,0,0	monster	Zombie Prisoner	1197,10,0,0,0,"Halloween_event::OnInvasionMonsters"
 
 /* Halloween Event */
 -	script	Halloween_event	-1,{
@@ -1349,7 +1350,7 @@ OnNPCKillEvent:
 	(getmonsterinfo(killedrid,MOB_ELEMENT) == Ele_Ghost) ||
 	(getmonsterinfo(killedrid,MOB_ELEMENT) == Ele_Undead)
 	{
-		if (rand(1,10) >= 7) {
+		if (rand(1,10) > 8) {
 			getitem rand(29006,29009),1;
 		}
 	}
