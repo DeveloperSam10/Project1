@@ -1,4 +1,4 @@
-﻿Build started 10/29/2014 2:28:05 AM.
+﻿Build started 11/1/2014 4:37:38 AM.
      1>Project "D:\Hercules\dummycommands\dummycommands.vcxproj" on node 2 (rebuild target(s)).
      1>InitializeBuildStatus:
          Creating "dummycommands\\dummycommands.unsuccessfulbuild" because "AlwaysCreate" was specified.
@@ -66,4 +66,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:06.93
+Time Elapsed 00:00:04.52
