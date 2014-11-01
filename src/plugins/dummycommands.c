@@ -484,6 +484,8 @@ HPExport void plugin_init (void) {
 	pet = GET_SYMBOL("pet");
 	elemental = GET_SYMBOL("elemental");
 	skill = GET_SYMBOL("skill");
+	status = GET_SYMBOL("status");
+	battle = GET_SYMBOL("battle");
 	timer = GET_SYMBOL("timer");
 
 	addAtcommand("vip",vip);
