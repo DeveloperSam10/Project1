@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{7ED92B9F-95E8-49B8-9D4F-C4C9BFDE0B22}</ProjectGuid>
+    <ProjectGuid>{AECE5205-114D-4C6D-922D-72CCBD4F8631}</ProjectGuid>
     <RootNamespace>plugin-HPMHooking_map</RootNamespace>
     <Keyword>Win32Proj</Keyword>
     <ProjectName>plugin-HPMHooking_map</ProjectName>

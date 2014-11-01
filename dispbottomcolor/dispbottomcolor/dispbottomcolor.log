@@ -1,5 +1,5 @@
-﻿Build started 11/1/2014 4:37:38 AM.
-     1>Project "D:\Hercules\dispbottomcolor\dispbottomcolor.vcxproj" on node 3 (rebuild target(s)).
+﻿Build started 11/1/2014 9:45:59 AM.
+     1>Project "D:\Hercules\dispbottomcolor\dispbottomcolor.vcxproj" on node 2 (rebuild target(s)).
      1>InitializeBuildStatus:
          Creating "dispbottomcolor\\dispbottomcolor.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
@@ -18,4 +18,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:04.59
+Time Elapsed 00:00:02.28
