@@ -207,7 +207,7 @@ OnInit:
 	//   8: "Points" from Days with ItemID of 0 |16: Exp from Days with ItemID of 0
 	//   32: Gain Buffs Every X Consecutive Days logged in
 	// (a bit value, e.g. 3 = Items & Points from Multi)
-	set .Mode,4+32;
+	set .Mode,1+4+32;
 
 	//Consecutive Day Points Multiplier
 	// * If players login longer than the last set
