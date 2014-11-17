@@ -470,6 +470,35 @@ ACMD(go) {
 	return true;
 }
 
+/*==========================================
+ *
+ *------------------------------------------*/
+ACMD(load) {
+	int16 m;
+	struct godelay_data_struct *my = get_godelay_variable(sd);
+	int64 tick = timer->gettick();
+		
+	m = map->mapindex2mapid(sd->status.save_point.map);
+	if(DIFF_TICK(my->warpgodelay_tick,tick)>0) {
+		sprintf(custom_atcmd_output, "You need to wait %.02f seconds to use @go command", (DIFF_TICK(my->warpgodelay_tick,tick)) / (double)1000.0);
+		clif->message(fd,custom_atcmd_output);
+		return 0;
+	}
+	if (m >= 0 && map->list[m].flag.nowarpto && !pc_has_permission(sd, PC_PERM_WARP_ANYWHERE)) {
+		clif->message(fd, msg_txt(249)); // You are not authorized to warp to your save map.
+		return false;
+	}
+	if (sd->bl.m >= 0 && map->list[sd->bl.m].flag.nowarp && !pc_has_permission(sd, PC_PERM_WARP_ANYWHERE)) {
+		clif->message(fd, msg_txt(248)); // You are not authorized to warp from your current map.
+		return false;
+	}
+	
+	pc->setpos(sd, sd->status.save_point.map, sd->status.save_point.x, sd->status.save_point.y, CLR_OUTSIGHT);
+	clif->message(fd, msg_txt(7)); // Warping to save point..
+	
+	return true;
+}
+
 HPExport void plugin_init (void) {
 	iMalloc = GET_SYMBOL("iMalloc");
 	atcommand = GET_SYMBOL("atcommand");
@@ -484,6 +513,8 @@ HPExport void plugin_init (void) {
 	pet = GET_SYMBOL("pet");
 	elemental = GET_SYMBOL("elemental");
 	skill = GET_SYMBOL("skill");
+	status = GET_SYMBOL("status");
+	battle = GET_SYMBOL("battle");
 	timer = GET_SYMBOL("timer");
 
 	addAtcommand("vip",vip);
@@ -506,6 +537,7 @@ HPExport void plugin_init (void) {
 	addHookPre("pc->damage",my_pc_damage_pre);
 
 	addAtcommand("go",go);
+	addAtcommand("load",load);
 }
 
 HPExport void server_preinit (void) {
