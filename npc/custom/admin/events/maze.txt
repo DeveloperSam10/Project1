@@ -22,7 +22,7 @@ prontera,155,94,0	script	mazeevent	45,2,2,{
 
 	// Remove Peco / Cart
 	setcart 0;
-	setriding 0;
+	setmount 0;
 
 
 	// Remove Any Speed Buffs

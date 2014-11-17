@@ -60,7 +60,7 @@ else {
 			mes "to the Training Grounds.";
 			close2;
 			warp "new_1-2",100,70;
-			save "new_1-2",100,70;
+			savepoint "new_1-2",100,70;
 			end;
 		case 2:
 			mes "[SupremusRO Receptionist]";
@@ -76,7 +76,7 @@ else {
 			set nov_3_acolyte,0;
 			set nov_3_merchant,0;
 			warp "prontera",156,191;
-			save "prontera",156,191;
+			savepoint "prontera",156,191;
 			announce "Please welcome "+strcharinfo(0)+"  to our server!",bc_all,0x0099FF;
 			end;
 		case 3:

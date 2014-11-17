@@ -792,7 +792,7 @@ prontera,159,192,4	script	Kafra Employee::kaf_prontera6	4_F_NFDEADKAFRA,{	// Hal
 	next;
 	switch(select("Save:Use Storage:Cancel")) {
 		case 1:
-			save "prontera",155,183;
+			savepoint "prontera",155,183;
 			mes "[Kafra Employee]";
 			mes "You're save point was now changed to prontera..";
 			close;
@@ -821,8 +821,8 @@ function Job_Menu; function A_An;
 		mes "No more jobs are available.";
 		close;
 	}
-	if (checkfalcon() || checkcart() || checkriding() || ismounting()) {
-		mes "Please remove your "+((checkfalcon())?"falcon":"")+((checkcart())?"cart":"")+((checkriding())?"Peco":"")+((ismounting())?"mount":"")+" before proceeding.";
+	if (checkfalcon() || checkcart() || checkmount() || hascashmount()) {
+		mes "Please remove your "+((checkfalcon())?"falcon":"")+((checkcart())?"cart":"")+((checkmount() || hascashmount())?"mount":"") +" before proceeding.";
 		close;
 	}
 	if (.SkillPointCheck && SkillPoint) {
@@ -1303,30 +1303,46 @@ prontera,163,186,4	script	Buid Manager#custom	4_M_NFDEADMAN2,{	// Halloween
 
 /* Rental NPC */
 prontera,140,182,8	script	Universal Rental NPC	4_F_JOB_BLACKSMITH,{
-	if (ismounting()) {
+	if (hascashmount()) {
 		message strcharinfo(0),"You must first remove your mount.";
-		close; }
-		else if ((eaclass()&EAJ_THIRDMASK==EAJ_RANGER) && !countitem(6124)) {
-			if (!checkfalcon() && getskilllv("HT_FALCON") && !checkwug()) {
-				if(select(" ~ Falcon: ~ Warg")==1) setfalcon;
-				else getitem 6124,1; }
-			else getitem 6124,1; }
-		else if ((eaclass()&EAJ_THIRDMASK==EAJ_MECHANIC) && !checkcart() && getskilllv("MC_PUSHCART")) {
-			if (!checkmadogear() && getskilllv("NC_MADOLICENCE")) {
-				if(select(" ~ Cart: ~ Mado")==1) setcart;
-				else setmadogear; }
-			else setcart; }
-		else if (!checkcart() && getskilllv("MC_PUSHCART")) setcart;
-		else if (!checkfalcon() && getskilllv("HT_FALCON") && !checkwug()) setfalcon;
-		else if (!checkriding() && getskilllv("KN_RIDING")) {
-			if (eaclass()&EAJ_THIRDMASK==EAJ_RUNE_KNIGHT) setdragon;
-			else setriding; }
-		else if (!checkmadogear() && getskilllv("NC_MADOLICENCE")) setmadogear;
-		else {
-			message strcharinfo(0),"You do not meet requirements to rent.";
-			close; }
-		specialeffect2 276;
-		close;
+		end;
+	} else if ((eaclass()&EAJ_THIRDMASK) == EAJ_RANGER && !countitem(Wolf's_Flute)) {
+		if (!checkfalcon() && getskilllv(HT_FALCON) && !checkwug()) {
+			if (select(" ~ Falcon: ~ Warg") == 1)
+				setfalcon;
+			else
+				getitem Wolf's_Flute, 1;
+			specialeffect2 EF_TEIHIT3;
+			close;
+		} else {
+			getitem Wolf's_Flute,1;
+		}
+	} else if ((eaclass()&EAJ_THIRDMASK) == EAJ_MECHANIC && !checkcart() && getskilllv(MC_PUSHCART)) {
+		if (!checkmount() != MOUNT_MADO && getskilllv(NC_MADOLICENCE)) {
+			if (select(" ~ Cart: ~ Mado") == 1) {
+				setcart;
+			} else {
+				setmount(MOUNT_MADO);
+			}
+			specialeffect2 EF_TEIHIT3;
+			close;
+		} else {
+			setcart;
+		}
+	} else if (!checkcart() && getskilllv(MC_PUSHCART)) {
+		setcart;
+	} else if (!checkfalcon() && getskilllv(HT_FALCON) && !checkwug()) {
+		setfalcon;
+	} else if (checkmount() != MOUNT_PECO && getskilllv(KN_RIDING)) {
+		setmount; // Peco or Dragon
+	} else if (checkmount() != MOUNT_MADO && getskilllv(NC_MADOLICENCE)) {
+		setmount(MOUNT_MADO);
+	} else {
+		message strcharinfo(0),"You do not meet requirements to rent.";
+		end;
+	}
+	specialeffect2 EF_TEIHIT3;
+	end;
 }
 
 prontera,0,0,0,0	monster	Dullahan	1504,5,1800000,1200000,0,"Halloween_event::OnInvasionMonsters"

@@ -53,7 +53,7 @@ BHEAP_STRUCT_DECL(node_heap, struct path_node*);
 
 /// Estimates the cost from (x0,y0) to (x1,y1).
 /// This is inadmissible (overestimating) heuristic used by game client.
-#define heuristic(x0, y0, x1, y1)	(MOVE_COST * (abs((x1) - (x0)) + abs((y1) - (y0)))) // Manhattan distance
+#define heuristic(x0, y0, x1, y1) (MOVE_COST * (abs((x1) - (x0)) + abs((y1) - (y0)))) // Manhattan distance
 /// @}
 
 // Translates dx,dy into walking direction
@@ -248,12 +248,8 @@ bool path_search(struct walkpath_data *wpd, int16 m, int16 x0, int16 y0, int16 x
 		return false;
 	md = &map->list[m];
 
-#ifdef CELL_NOSTACK
 	//Do not check starting cell as that would get you stuck.
-	if (x0 < 0 || x0 >= md->xs || y0 < 0 || y0 >= md->ys)
-#else
 	if (x0 < 0 || x0 >= md->xs || y0 < 0 || y0 >= md->ys /*|| md->getcellp(md,x0,y0,cell)*/)
-#endif
 		return false;
 
 	// Check destination cell
@@ -439,7 +435,7 @@ unsigned int distance(int dx, int dy)
 		min = dy;
 		max = dx;
 	}
-   // coefficients equivalent to ( 123/128 * max ) and ( 51/128 * min )
+	// coefficients equivalent to ( 123/128 * max ) and ( 51/128 * min )
 	return ((( max << 8 ) + ( max << 3 ) - ( max << 4 ) - ( max << 1 ) +
 		( min << 7 ) - ( min << 5 ) + ( min << 3 ) - ( min << 1 )) >> 8 );
 #else
